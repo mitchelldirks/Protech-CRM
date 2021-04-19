@@ -1,7 +1,7 @@
 <?php 
 $aksi 	= "module/".$_GET['module']."/action.php";
 if ($_SESSION['level']!='admin') {
-	$row 	= mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$_SESSION['NIP']."'"));
+	$row 	= mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$_SESSION['id_user']."'"));
 }else{
 	$row 	= mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$_GET['id']."'"));
 }
@@ -34,15 +34,12 @@ if ($_SESSION['level']!='admin') {
 				</div>
 				<div class="col-md-6 col-xs-12 form-group">
 					<label class="text-dark">Jabatan</label>
-					<select class="form-control" name="jab" <?php echo $_SESSION['level']=='admin' ? "":"disabled"; ?>>
-						<?php 
-						$jab=mysqli_query($conn,"SELECT * from jabatan order by nama_jabatan");
-						foreach ($jab as $j) {
-							$active = $j['id']==$row['jabatan'] ? "selected":"";
-							echo '<option value="'.ucwords($j['id']).'" '.$active.'>'.ucwords($j['nama_jabatan']).'</option>';
-						}
-						?>
-					</select>
+					<?php 
+					$jab=mysqli_query($conn,"SELECT * from jabatan where id = $row[jabatan] order by nama_jabatan");
+					$j=mysqli_fetch_array($jab);
+					?>
+					<input type="text" readonly class="form-control" value="<?php echo ucwords($j['nama_jabatan']); ?>">
+					<input type="hidden" class="form-control" name="jab" value="<?php echo ($j['id']); ?>">
 				</div>
 				<div class="col-md-12 col-xs-12 form-group">
 					<button type="submit" class="btn btn-lg btn-primary">Simpan</button>	

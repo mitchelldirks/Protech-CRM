@@ -26,7 +26,7 @@ if (isset($_GET['logout']) || !isset($_SESSION['id_user'])) {
               <div class="col-6">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
-                  <li class="breadcrumb-item"> <?php echo isset($_GET['module']) ? '<a href="?module='.$_GET['module'].'">'.ucwords($_GET['module']).'</a>' : "Dashboard" ?></li>
+                  <li class="breadcrumb-item"> <?php echo isset($_GET['module']) ? '<a class="text-muted" href="?module='.$_GET['module'].'">'.ucwords($_GET['module']).'</a>' : "Dashboard" ?></li>
                   <?php if (isset($_GET['act'])): ?>
                     <li class="breadcrumb-item active"><?php echo ucwords($_GET['act']) ?></li>
                   <?php endif ?>

@@ -25,7 +25,7 @@
 		<span class="float-right">
 			<?php $count_done=mysqli_num_rows(mysqli_query($conn,"SELECT * from project where tracking < ".count($tracking))); ?>
 			<?php if ($count_done > 0): ?>
-				<a class="btn btn-link mr-2 mb-4 mt-2 text-muted" href="?module=<?php echo $_GET['module'] ?>&act=history">
+				<a class="btn btn-link mr-2 mb-4 mt-2 text-muted" href="?module=<?php echo $_GET['module'] ?>">
 					<?php echo ucwords($_GET['module']) ?> tersedia (<?php echo $count_done; ?>)
 				</a>
 			<?php endif ?>
