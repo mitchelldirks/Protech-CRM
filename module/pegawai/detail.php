@@ -1,5 +1,5 @@
 <?php 
-$detail  = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where NIP = '".$_GET['id']."'"));
+$detail  = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$_GET['id']."'"));
 $jabatan  = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM jabatan where id = '".$detail['jabatan']."'"));
 ?>
 <div class="col-md-4 col-lg-4 col-xl-4 box-col-6 col-xs-12 col-sm-6">

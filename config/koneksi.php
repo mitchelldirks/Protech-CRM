@@ -1,7 +1,7 @@
 <?php 
 date_default_timezone_set("Asia/Jakarta");
-$conn = new mysqli("localhost","root","","absensi");
-error_reporting(0);
+$conn = new mysqli("localhost","root","","crm");
+// error_reporting(0);
 session_start();
 function dateIndonesian($date){
 	$array_hari = array(1=>'Senin','Selasa','Rabu','Kamis','Jumat', 'Sabtu','Minggu');
@@ -28,6 +28,11 @@ function bulan($bln)
 	elseif ($bln==10) {$string = "Oktober";}
 	elseif ($bln==11) {$string = "November";}
 	elseif ($bln==12) {$string = "Desember";}
+	return $string;
+}
+function usernameInitial($text)
+{
+	$string = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '.', $text)));
 	return $string;
 }
 ?>

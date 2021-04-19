@@ -5,11 +5,6 @@
 			<div class="row">
 
 				<div class="col-md-6 col-xs-12 form-group">
-					<label class="text-dark">NIP</label>
-					<input type="text" class="form-control" name="NIP">
-				</div>
-
-				<div class="col-md-6 col-xs-12 form-group">
 					<label class="text-dark">Nama</label>
 					<input type="text" class="form-control" name="nama_pegawai">
 				</div>
@@ -45,12 +40,6 @@
 						?>
 					</select>
 				</div>
-
-				<div class="col-md-6 col-xs-12 form-group">
-					<label class="text-dark">Foto</label>
-					<input type="file" class="form-control" name="images">
-				</div>
-
 				<div class="col-md-12 col-xs-12 form-group">
 					<button type="submit" class="btn btn-lg btn-primary">Simpan</button>	
 				</div>

@@ -6,7 +6,7 @@
 <meta name="author" content="pixelstrap">
 <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
 <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
-<title><?php echo $page = isset($_GET['module']) ? ucwords($_GET['module']) : 'Dashboard'; ?> | CV. Rajawali Graphics Art</title>
+<title><?php echo $page = isset($_GET['module']) ? ucwords($_GET['module']) : 'Dashboard'; ?> | Protech Infomedia</title>
 <!-- Google font-->
 <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap" rel="stylesheet">

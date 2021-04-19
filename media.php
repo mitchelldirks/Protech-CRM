@@ -58,7 +58,7 @@ if (isset($_GET['logout']) || !isset($_SESSION['id_user'])) {
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12 footer-copyright text-center">
-              <p class="mb-0">Copyright <?php date('Y') ?> © CV.Rajawali Graphics Art  </p>
+              <p class="mb-0">Copyright <?php date('Y') ?> © Protech Infomedia  </p>
             </div>
           </div>
         </div>

@@ -12,7 +12,7 @@
   <meta name="author" content="pixelstrap">
   <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
   <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
-  <title>Login | CV.Rajawali Graphics Art</title>
+  <title>Login | Protech Infomedia</title>
   <!-- Google font-->
   <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap" rel="stylesheet">
@@ -49,10 +49,10 @@
               <div class="col-sm-12">
                 <div class="card">
                   <div class="card-header">
-                    <h5>Login</h5>
-                    <span>CV.Rajawali Graphics Art</span>
+                    <span><img src="assets/images/logo/protech.png" style="max-width: 300px"></span>
                   </div>
                   <div class="card-body">
+                    <h5>Login</h5>
                     <?php 
                     if (isset($_SESSION['flash'])): ?>
                       <div class="<?php echo $_SESSION['flash']['class']; ?> mt-3 mb-3"> 
@@ -88,7 +88,7 @@
                           </div>
                           <div class="form-group">
 
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary btn-block">Submit</button>
                           </div>
                         </form>
                       </div>
