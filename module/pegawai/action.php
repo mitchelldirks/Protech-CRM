@@ -1,6 +1,5 @@
 <?php 
 include '../../config/koneksi.php';
-// include '../../config/upload.php';
 $user   = $_SESSION['id_user'];
 $now    = date('Y-m-d H:i:s');
 $table  = 'pegawai';

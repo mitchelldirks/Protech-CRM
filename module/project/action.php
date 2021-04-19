@@ -20,8 +20,8 @@ if($act == 'create'){
 }else if($act == 'edit'){
     foreach($_POST as $key => $value) {
         $before    = mysqli_fetch_array(mysqli_query($conn,"SELECT $key FROM project where id = '".$_POST['id']."'"));
+        $assignee = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$user."'"));
         if ($value!= $before[$key]) {
-            $assignee = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$user."'"));
             switch ($key) {
                 case 'deskripsi':
                 break;
@@ -31,15 +31,12 @@ if($act == 'create'){
                 $text = "<strong>".ucwords($assignee['nama_pegawai'])."</strong> mengubah ".ucwords($key)." dari <i>".$assigneeb['nama_pegawai']."</i> menjadi <i>".$assigneea['nama_pegawai']."</i>";
                 break;
                 case 'tracking':
-                $tracking     = array(1=>'back log','analisa desain sistem','pengerjaan','testing','deploy','finish');
                 $text = "<strong>".ucwords($assignee['nama_pegawai'])."</strong> mengubah ".ucwords($key)." dari <i>".$tracking[$before[$key]]."</i> menjadi <i>".$tracking[$_POST[$key]]."</i>";
                 break;
                 case 'project_case':
-                $project_case = array(1=>'Build','Bug','Feature','Doc & Adm');
                 $text = "<strong>".ucwords($assignee['nama_pegawai'])."</strong> mengubah ".ucwords($key)." dari <i>".$project_case[$before[$key]]."</i> menjadi <i>".$project_case[$_POST[$key]]."</i>";
                 break;
                 case 'priority':
-                $priority     = array(1=>'low','normal','high','urgent');
                 $text = "<strong>".ucwords($assignee['nama_pegawai'])."</strong> mengubah ".ucwords($key)." dari <i>".$priority[$before[$key]]."</i> menjadi <i>".$priority[$_POST[$key]]."</i>";
                 break;
                 case 'kategori':

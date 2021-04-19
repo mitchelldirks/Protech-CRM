@@ -56,7 +56,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text" id="nominal">Rp.</span>
 						</div>
-						<input type="text" class="form-control" name="nominal" aria-label="nominal" aria-describedby="nominal">
+						<input type="number" class="form-control" name="nominal" aria-label="nominal" aria-describedby="nominal">
 					</div>
 				</div>
 				<div class="col-md-6 col-xs-12 form-group">
