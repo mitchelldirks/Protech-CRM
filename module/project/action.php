@@ -19,19 +19,26 @@ if($act == 'create'){
     header('Location: ../../media.php?module='.$module);
 }else if($act == 'edit'){
     foreach($_POST as $key => $value) {
-        $before    = mysqli_fetch_array(mysqli_query($conn,"SELECT $key FROM project where id = '".$_GET['id']."'"));
-        if ($_POST[$key]!= $before[$key]) {
-            $assignee = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$_POST['assignee']."'"));
-            $text="<strong>".ucwords($assignee['nama_pegawai'])."</strong> changed ".ucwords($key)." from ".$before[$key]." to ".$_POST[$key];
-            mysqli_query($conn,"INSERT INTO project_log (project_id,field,data_before,data_after,text,created_by,created_at) values ('".$_POST['id']."','$key','".$before[$key]."','".$_POST[$key]."','$text','$user','$now')");
+        $before    = mysqli_fetch_array(mysqli_query($conn,"SELECT $key FROM project where id = '".$_POST['id']."'"));
+        if ($value!= $before[$key]) {
+            $assignee = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$user."'"));
+            if ($key == 'assignee') {
+                $assigneea = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$before[$key]."'"));
+                $assigneeb = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$_POST[$key]."'"));
+                $text = 
+                "<strong>".ucwords($assignee['nama_pegawai'])."</strong> changed ".ucwords($key)." from <i>".$assigneeb['nama_pegawai']."</i> to <i>".$assigneea['nama_pegawai']."</i>";
+            }else{
+                $text = "<strong>".ucwords($assignee['nama_pegawai'])."</strong> changed ".ucwords($key)." from <i>".$before[$key]."</i> to <i>".$_POST[$key]."</i>";
+            }
+            $sql="INSERT INTO project_log (project_id,field,data_before,data_after,text,created_by,created_at) values ('".$_POST['id']."','$key','".$before[$key]."','".$value."','$text','$user','$now')";
+            mysqli_query($conn,$sql);
         }
     }
-
     $sql="UPDATE ".$table." SET 
     nama_project    = '".$_POST['nama_project']."', 
     deskripsi       = '".$_POST['deskripsi']."',
-    kategori        ='".$_POST['kategori']."', 
-    project_case    ='".$_POST['project_case']."', 
+    kategori        = '".$_POST['kategori']."', 
+    project_case    = '".$_POST['project_case']."', 
     tracking        = '".$_POST['tracking']."', 
     assignee        = '".$_POST['assignee']."', 
     nominal         = '".$_POST['nominal']."', 
@@ -42,7 +49,7 @@ if($act == 'create'){
     updated_at      = '$now'
     WHERE id = '".$_POST['id']."'";
     $query = mysqli_query($conn, $sql);
-    $_SESSION['flash']['class']='alert alert-warning';
+    $_SESSION['flash']['class']='alert alert-success';
     $_SESSION['flash']['label']='Pengubahan '.$_GET['module'].' Berhasil';
     $_SESSION['flash']['icon']='fa fa-edit';
     header('Location: ../../media.php?module='.$module);

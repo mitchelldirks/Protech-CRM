@@ -25,7 +25,7 @@ if ($data['is_active']==0) {
 			$_SESSION['logged'] = null;
 		}
 		$_SESSION['last']= $data['last_activity'];
-		$_SESSION['id_user'] = $data['id_user'];
+		$_SESSION['id_user'] = $data['id_pegawai'];
 		$_SESSION['name'] = $data['nama'];
 		$_SESSION['username'] = $data['username'];
 		if (!empty($_POST["checkbox"])) {

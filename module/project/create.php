@@ -7,7 +7,7 @@
 					<label class="text-dark">Project</label>
 					<input type="text" class="form-control" name="nama_project">
 				</div>
-				<div class="col-md-3 col-xs-12 form-group">
+				<div class="col-md-6 col-xs-12 form-group">
 					<?php $data = mysqli_query($conn,"SELECT * FROM kategori order by nama_kategori") ?>
 					<label class="text-dark">Kategori</label>
 					<select class="form-control custom-select" name="kategori">
@@ -16,7 +16,7 @@
 						<?php endforeach ?>
 					</select>
 				</div>
-				<div class="col-md-3 col-xs-12 form-group">
+				<div class="col-md-6 col-xs-12 form-group">
 					<?php $data = array(1=>'Build','Bug','Feature','Doc & Adm') ?>
 					<label class="text-dark">Case</label>
 					<select class="form-control custom-select" name="project_case">
@@ -25,7 +25,7 @@
 						<?php endforeach ?>
 					</select>
 				</div>
-				<div class="col-md-3 col-xs-12 form-group">
+				<div class="col-md-6 col-xs-12 form-group">
 					<?php $data = array(1=>'low','normal','high','urgent') ?>
 					<label class="text-dark">Priority</label>
 					<select class="form-control custom-select" name="priority">
@@ -34,7 +34,17 @@
 						<?php endforeach ?>
 					</select>
 				</div>
-				<div class="col-md-3 col-xs-12 form-group">
+				<div class="col-md-6 col-xs-12 form-group">
+					<?php $data = array(1=>'back log','analisa desain sistem','pembangunan','testing','deploy','finish') ?>
+					<label class="text-dark">Tracker</label>
+					<select class="form-control custom-select" name="tracking">
+						<?php foreach ($data as $id => $label): ?>
+							<option value="<?php echo $id ?>" <?php echo $label=='back log'?"selected":"" ?>><?php echo ucwords($label) ?></option>
+						<?php endforeach ?>
+					</select>
+				</div>
+
+				<div class="col-md-6 col-xs-12 form-group">
 					<?php $data = mysqli_query($conn,"SELECT * FROM pegawai where is_active=1 and jabatan != 0 order by nama_pegawai") ?>
 					<label class="text-dark">Assignee</label>
 					<select class="form-control custom-select" name="assignee">
@@ -43,7 +53,7 @@
 						<?php endforeach ?>
 					</select>
 				</div>
-				<div class="col-md-4 col-xs-12 form-group">
+				<div class="col-md-6 col-xs-12 form-group">
 					<label class="text-dark">Nominal</label>
 					<div class="input-group mb-3">
 						<div class="input-group-prepend">
@@ -52,11 +62,11 @@
 						<input type="text" class="form-control" name="nominal" aria-label="nominal" aria-describedby="nominal">
 					</div>
 				</div>
-				<div class="col-md-4 col-xs-12 form-group">
+				<div class="col-md-6 col-xs-12 form-group">
 					<label class="text-dark">Start Date</label>
 					<input type="date" class="form-control" name="start_date" value="<?php echo date('Y-m-d') ?>" min="<?php echo date('Y-m-d') ?>">
 				</div>
-				<div class="col-md-4 col-xs-12 form-group">
+				<div class="col-md-6 col-xs-12 form-group">
 					<label class="text-dark">End Date</label>
 					<input type="date" class="form-control" name="due_date" value="<?php echo date('Y-m-');echo date('d')+1 ?>" min="<?php echo date('Y-m-d') ?>">
 				</div>

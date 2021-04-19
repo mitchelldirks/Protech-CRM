@@ -33,7 +33,7 @@ if($act == 'create'){
     updated_at      = '$now'
     WHERE id = '".$_POST['id']."'";
     $query = mysqli_query($conn, $sql);
-    $_SESSION['flash']['class']='alert alert-warning';
+    $_SESSION['flash']['class']='alert alert-success';
     $_SESSION['flash']['label']='Pengubahan '.$_GET['module'].' Berhasil';
     $_SESSION['flash']['icon']='fa fa-edit';
     if ($_SESSION['level']!='admin') {

@@ -12,17 +12,14 @@ $jabatan  = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM jabatan where i
       <h6><?php echo ucwords($jabatan['nama_jabatan']) ?></h6>
     </div>
     <div class="card-footer row">
-      <div class="col-4 col-sm-4">
-        <h6>Bulan</h6>
-        <h3 class="counter">9564</h3>
+      <div class="col-6 col-sm-6">
+        <h6>Commit</h6>
+        <h3 class="counter"><?php echo mysqli_num_rows(mysqli_query($conn,"SELECT * from project_log where created_by = '".$detail['id']."' group by created_at")) ?></h3>
       </div>
-      <div class="col-4 col-sm-4">
-        <h6>Tahun</h6>
-        <h3><span class="counter">49</span>K</h3>
-      </div>
-      <div class="col-4 col-sm-4">
-        <h6>Total</h6>
-        <h3><span class="counter">96</span>M</h3>
+      <div class="col-6 col-sm-6">
+        <h6>Project</h6>
+        <h3 class="counter"><?php echo mysqli_num_rows(mysqli_query($conn,"SELECT * from project_log where created_by = '".$detail['id']."' group by project_id")) ?></h3>
+
       </div>
     </div>
   </div>
@@ -31,7 +28,7 @@ $jabatan  = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM jabatan where i
   <div class="card custom-card ">
     <div class="row">
 
-     
+
 
       <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
         <label class="text-dark">Telpon</label>

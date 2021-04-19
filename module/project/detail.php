@@ -1,103 +1,79 @@
 <?php 
-$detail  = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$_GET['id']."'"));
-$jabatan  = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM jabatan where id = '".$detail['jabatan']."'"));
+$aksi="module/".$_GET['module']."/action.php";
+$detail       = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM project where id = '".$_GET['id']."'"));
+$assignee     = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$detail['assignee']."'"));
+$kategori     = mysqli_fetch_array(mysqli_query($conn,"SELECT nama_kategori FROM kategori where id = '".$detail['kategori']."'"));
+$project_case = array(1=>'Build','Bug','Feature','Doc & Adm');
+$tracking     = array(1=>'back log','analisa desain sistem','pembangunan','testing','deploy','finish');
+$priority     = array(1=>'low','normal','high','urgent');
+$initial      = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$detail['created_by']."'"));
 ?>
-<div class="col-md-4 col-lg-4 col-xl-4 box-col-6 col-xs-12 col-sm-6">
-  <div class="card custom-card">
-    <!-- <div class="card-header"><img class="img-fluid" src="assets/images/user-card/1.jpg" alt=""></div> -->
-    <div class="card-profile"><img class="rounded-circle" src="assets/images/pegawai/<?php echo $detail['img'] ?>" alt=""></div>
-
-    <div class="text-center profile-details">
-      <h4><?php echo ucwords($detail['nama_pegawai']) ?></h4>
-      <h6><?php echo ucwords($jabatan['nama_jabatan']) ?></h6>
-    </div>
-    <div class="card-footer row">
-      <div class="col-4 col-sm-4">
-        <h6>Bulan</h6>
-        <h3 class="counter">9564</h3>
-      </div>
-      <div class="col-4 col-sm-4">
-        <h6>Tahun</h6>
-        <h3><span class="counter">49</span>K</h3>
-      </div>
-      <div class="col-4 col-sm-4">
-        <h6>Total</h6>
-        <h3><span class="counter">96</span>M</h3>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="col-md-8 col-lg-8 col-xl-8 col-xs-12 col-sm-6 box-col-6">
-  <div class="card custom-card ">
+<div class="card custom-card ">
+  <div class="col-md-12 ">
+    <span class="float-right">
+      <a class="btn btn-primary btn-xs" href="?module=<?php echo $_GET['module'] ?>&act=edit&id=<?php echo $detail['id']; ?>"><i data-feather="edit"></i></a>
+      <a class="btn btn-danger btn-xs" onclick="return confirm('Hapus data <?php echo $detail['nama_project'] ?>?')" href="<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=delete&id=<?php echo $detail['id']; ?>"><i data-feather="trash"></i></a>
+    </span>
     <div class="row">
-
-     
-
-      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
-        <label class="text-dark">Telpon</label>
-        <input class="form-control-plaintext bg-transparent border-bottom" style="border-bottom: 1px solid lightblue"  readonly type="text"  name="tel" value="<?php echo $detail['tel']; ?>">
+      <div class="col-md-12 col-xs-12 form-group">
+        <h2 style="color: #7669f8"><?php echo $detail['nama_project'] ?></h2>
+        <p>Dibuat tambahkan oleh <a class="text-dark" href="?module=pegawai&act=detail&id=<?php echo $detail['created_by']; ?>"><strong><?php echo $initial['nama_pegawai'] ?></strong></a>. Terakhir disunting <strong><?php echo dateIndonesian($detail['updated_at']) ?></strong></p>
+        <span class="form-control-plaintext bg-transparent border-bottom"></span>
       </div>
-
-      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
-        <label class="text-dark">Email</label>
-        <input class="form-control-plaintext bg-transparent border-bottom" style="border-bottom: 1px solid lightblue"  readonly type="email"  name="email" value="<?php echo $detail['email']; ?>">
+      <div class="col-md-6 col-xs-12 form-group">
+        <label class="text-dark">Kategori</label>
+        <span class="form-control-plaintext bg-transparent border-bottom"><?php echo ucwords($kategori['nama_kategori']) ?></span>
       </div>
+      <div class="col-md-6 col-xs-12 form-group">
+        <label class="text-dark">Case</label>
+        <span class="form-control-plaintext bg-transparent border-bottom"><?php echo ucwords($project_case[$detail['project_case']]) ?></span>
 
-      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
-        <label class="text-dark">Tempat Lahir</label>
-        <input class="form-control-plaintext bg-transparent border-bottom" style="border-bottom: 1px solid lightblue"  readonly type="text"  name="pob" value="<?php echo $detail['tempatlahir']; ?>">
-      </div>
 
-      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 form-group">
-        <label class="text-dark">Tanggal Lahir</label>
-        <input class="form-control-plaintext bg-transparent border-bottom" style="border-bottom: 1px solid lightblue"  readonly type="date"  name="dob" value="<?php echo $detail['tanggallahir']; ?>">
+      </select>
+    </div>
+    <div class="col-md-6 col-xs-12 form-group">
+      <label class="text-dark">Priority</label>
+      <span class="form-control-plaintext bg-transparent border-bottom"><?php echo ucwords($priority[$detail['priority']]) ?></span>
+
+    </div>
+    <div class="col-md-6 col-xs-12 form-group">
+      <label class="text-dark">Tracker</label>
+
+      <span class="form-control-plaintext bg-transparent border-bottom"><?php echo ucwords(isset($tracking[$detail['tracking']]) ? $tracking[$detail['tracking']] : "Hold") ?></span>
+    </div>
+    <div class="col-md-6 col-xs-12 form-group">
+      <label class="text-dark">Assignee</label>
+      <span class="form-control-plaintext bg-transparent border-bottom"><?php echo ucwords($assignee['nama_pegawai']) ?></span>
+    </div>
+    <div class="col-md-6 col-xs-12 form-group">
+      <label class="text-dark">Nominal</label>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="nominal">Rp.</span>
+        </div>
+        <span class="form-control-plaintext bg-transparent border-bottom" style="padding-left: 10px;"><?php echo ucwords($detail['nominal']) ?></span>
+
       </div>
+    </div>
+    <div class="col-md-6 col-xs-12 form-group">
+      <label class="text-dark">Start Date</label>
+      <span class="form-control-plaintext bg-transparent border-bottom"><?php echo dateIndonesian($detail['start_date']) ?></span>
+
+
+    </div>
+    <div class="col-md-6 col-xs-12 form-group">
+      <label class="text-dark">End Date</label>
+      <span class="form-control-plaintext bg-transparent border-bottom"><?php echo dateIndonesian($detail['due_date']) ?></span>
+
+    </div>
+    <div class="col-md-12 col-xs-12 form-group">
+      <label class="text-dark">Deskripsi</label>
+      <?php echo $detail['deskripsi'] ?>
     </div>
   </div>
 </div>
-<div class="col-md-12 col-lg-12 col-xl-12 col-xs-12 col-sm-12 box-col-12">
-  <div class="card custom-card ">
-    <div class="table-responsive">
-     <table class="table table-hover table-striped" id="basic-1">
-      <thead>
-        <td>#</td>
-        <td>Pegawai</td>
-        <td>Tanggal</td>
-        <td>Masuk</td>
-        <td>Keluar</td>
-        <td>Izin</td>
-      </thead>
-      <tbody>
-        <?php $query=mysqli_query($conn,"SELECT * from absensi where NIP = '".$_GET['id']."' order by tanggal desc,keluar,masuk"); ?>
-        <?php $n=1; 
-        foreach ($query as $row): 
-          $pegawai=mysqli_fetch_array(mysqli_query($conn,"SELECT * from pegawai where NIP='$row[NIP]'"));
-          ?>
-          <tr>
-            <td><?php echo $n++; ?></td>
-            <td>
-              <a href="?module=pegawai&act=detail&id=<?php echo $row['NIP']; ?>">
-
-                <small class="text-muted"><?php echo $row['NIP'] ?> | </small>
-                <?php echo $pegawai['nama_pegawai'] ?>
-              </a>
-            </td>
-            <td>
-              <?php echo date_format(date_create($row['tanggal']),"d F Y"); ?>
-            </td>
-            <td>
-              <?php echo $row['masuk']!=null ? date_format(date_create($row['masuk']),"H:i"): ""; ?>
-            </td>
-            <td>
-              <?php echo $row['keluar']!=null ? date_format(date_create($row['keluar']),"H:i"):""; ?>
-            </td>
-            <td>
-              <?php echo strlen($row['izin'])>0 ? $row['izin'] : "-"; ?>
-            </td>
-          </tr>
-        <?php endforeach ?>
-      </tbody>
-    </table>
-  </div>
 </div>
+<div class="col-lg-12 mt-2 mb-5">
+
+  asd
 </div>
