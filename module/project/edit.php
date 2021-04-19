@@ -1,6 +1,6 @@
 <?php 
 $aksi 	= "module/".$_GET['module']."/action.php";
-$row 	= mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM kategori where id = '".$_GET['id']."'"));
+$row 	= mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM project where id = '".$_GET['id']."'"));
 ?>
 
 <div class="col-xl-12 col-lg-12 col-md-12 col-12 layout-spacing card">
@@ -12,7 +12,7 @@ $row 	= mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM kategori where id =
 
 				<div class="col-md-12 col-xs-12 form-group">
 					<label class="text-dark">Nama</label>
-					<input type="text" class="form-control" name="nama_kategori" value="<?php echo $row['nama_kategori']; ?>">
+					<input type="text" class="form-control" name="nama_project" value="<?php echo $row['nama_project']; ?>">
 				</div>
 
 

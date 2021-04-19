@@ -7,8 +7,8 @@ $table  = 'pegawai';
 $module = $_GET['module'];
 $act    = $_GET['act'];
 if ($act!=null) {
-    $data = isset($_GET['id']) ? $_GET['id'] : isset($_POST['id']) ? $_POST['id'] : "entry";
-    mysqli_query($conn,"INSERT INTO log (action,module,data,info,created_by,created_at) values ('$act','$module',)");
+    $data = isset($_GET['id']) ? $_GET['id'] : isset($_POST['id']) ? $_POST['id'] : "new entry";
+    mysqli_query($conn,"INSERT INTO log (action,module,data,info,created_by,created_at) values ('".ucwords($act)."','".ucwords($module)."','".ucwords($data)."','".ucwords($module." ".$act." ".$data)."','$user','$now')");
 }
 if($act == 'create'){
     $sql="INSERT INTO ".$table." (nama_pegawai, tel, email, jabatan, tempatlahir, tanggallahir,created_by,created_at,updated_by,updated_at)

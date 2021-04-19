@@ -2,7 +2,7 @@
 include '../../config/koneksi.php';
 $user   = $_SESSION['id_user'];
 $now    = date('Y-m-d H:i:s');
-$table  = 'kategori';
+$table  = 'project';
 $module = $_GET['module'];
 $act    = $_GET['act'];
 if ($act!=null) {
@@ -10,8 +10,8 @@ if ($act!=null) {
     mysqli_query($conn,"INSERT INTO log (action,module,data,info,created_by,created_at) values ('".ucwords($act)."','".ucwords($module)."','".ucwords($data)."','".ucwords($module." ".$act." ".$data)."','$user','$now')");
 }
 if($act == 'create'){
-    $sql="INSERT INTO ".$table." (nama_kategori,deskripsi,created_by,created_at,updated_by,updated_at)
-    VALUES ('".$_POST['nama_kategori']."', '".$_POST['deskripsi']."','$user','$now','$user','$now')";
+    $sql="INSERT INTO ".$table." (nama_project,deskripsi,created_by,created_at,updated_by,updated_at)
+    VALUES ('".$_POST['nama_project']."', '".$_POST['deskripsi']."','$user','$now','$user','$now')";
     $query = mysqli_query($conn,$sql);
     $_SESSION['flash']['class']='alert alert-success';
     $_SESSION['flash']['label']='Penambahan '.$_GET['module'].' Berhasil';
@@ -19,7 +19,7 @@ if($act == 'create'){
     header('Location: ../../media.php?module='.$module);
 }else if($act == 'edit'){
     $sql="UPDATE ".$table." SET 
-    nama_kategori    = '".$_POST['nama_kategori']."', 
+    nama_project    = '".$_POST['nama_project']."', 
     deskripsi        = '".$_POST['deskripsi']."',
     updated_by      = '$user',
     updated_at      = '$now'

@@ -5,6 +5,10 @@ $now    = date('Y-m-d H:i:s');
 $table  = 'jabatan';
 $module = $_GET['module'];
 $act    = $_GET['act'];
+if ($act!=null) {
+    $data = isset($_GET['id']) ? $_GET['id'] : isset($_POST['id']) ? $_POST['id'] : "new entry";
+    mysqli_query($conn,"INSERT INTO log (action,module,data,info,created_by,created_at) values ('".ucwords($act)."','".ucwords($module)."','".ucwords($data)."','".ucwords($module." ".$act." ".$data)."','$user','$now')");
+}
 if($act == 'create'){
     $sql="INSERT INTO ".$table." (nama_jabatan,job_desc,created_by,created_at,updated_by,updated_at)
     VALUES ('".$_POST['nama_jabatan']."', '".$_POST['job_desc']."','$user','$now','$user','$now')";

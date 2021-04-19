@@ -7,11 +7,11 @@
 
 				<div class="col-md-12 col-xs-12 form-group">
 					<label class="text-dark">Nama</label>
-					<input type="text" class="form-control" name="nama_jabatan">
+					<input type="text" class="form-control" name="nama_kategori">
 				</div>
 				<div class="col-md-12 col-xs-12 form-group">
-					<label class="text-dark">Job Description</label>
-					<textarea class="form-control" name="job_desc"></textarea>
+					<label class="text-dark">Deskripsi</label>
+					<textarea class="form-control" name="deskripsi"></textarea>
 				</div>
 
 				<div class="col-md-12 col-xs-12 form-group">
