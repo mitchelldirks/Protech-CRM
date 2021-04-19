@@ -1,11 +1,11 @@
 <div class="sidebar-wrapper">
   <div class="logo-wrapper">
     <a href="?">
-      <span class="text-dark" style="">
-        <strong>CRM</strong>
-        
-      </span>
+      
       <img src="assets/images/logo/protech.png" style="max-width: 100px;margin-bottom: -12px;margin-top: -12px">
+      <span class="text-dark pull-right" style="">
+        <strong>CRM</strong>
+      </span>
     </a>
     <!-- <div class="back-btn"><i class="fa fa-angle-left"></i></div> -->
     <!-- <div class="toggle-sidebar"> -->

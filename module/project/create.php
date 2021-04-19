@@ -36,7 +36,7 @@
 				</div>
 				<div class="col-md-3 col-xs-12 form-group">
 					<?php $data = mysqli_query($conn,"SELECT * FROM pegawai where is_active=1 and jabatan != 0 order by nama_pegawai") ?>
-					<label class="text-dark">Kategori</label>
+					<label class="text-dark">Assignee</label>
 					<select class="form-control custom-select" name="assignee">
 						<?php foreach ($data as $row): ?>
 							<option value="<?php echo $row['id'] ?>"><?php echo ucwords($row['nama_pegawai']) ?></option>
@@ -54,11 +54,11 @@
 				</div>
 				<div class="col-md-4 col-xs-12 form-group">
 					<label class="text-dark">Start Date</label>
-					<input type="date" class="form-control" name="nominal" value="<?php echo date('Y-m-d') ?>" min="<?php echo date('Y-m-d') ?>">
+					<input type="date" class="form-control" name="start_date" value="<?php echo date('Y-m-d') ?>" min="<?php echo date('Y-m-d') ?>">
 				</div>
 				<div class="col-md-4 col-xs-12 form-group">
 					<label class="text-dark">End Date</label>
-					<input type="date" class="form-control" name="nominal" value="<?php echo date('Y-m-');echo date('d')+1 ?>" min="<?php echo date('Y-m-d') ?>">
+					<input type="date" class="form-control" name="due_date" value="<?php echo date('Y-m-');echo date('d')+1 ?>" min="<?php echo date('Y-m-d') ?>">
 				</div>
 				<div class="col-md-12 col-xs-12 form-group">
 					<label class="text-dark">Deskripsi</label>

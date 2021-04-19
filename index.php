@@ -1,7 +1,5 @@
 <?php session_start(); ?>
 <!DOCTYPE html>
-
-
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,34 +10,22 @@
   <meta name="author" content="pixelstrap">
   <link rel="icon" href="assets/images/favicon.png" type="image/x-icon">
   <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
-  <title>Login | Protech Infomedia</title>
-  <!-- Google font-->
+  <title>Login | Protech CRM</title>
   <link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,700,700i&amp;display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="assets/css/fontawesome.css">
   <link rel="stylesheet" type="text/css" href="http://dny.web.id/skripsi/sinta/portal/vendor/font-awesome-4.7/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="http://dny.web.id/skripsi/sinta/portal/vendor/font-awesome-5/css/fontawesome-all.min.css">
-  <!-- ico-font-->
   <link rel="stylesheet" type="text/css" href="assets/css/vendors/icofont.css">
-  <!-- Themify icon-->
   <link rel="stylesheet" type="text/css" href="assets/css/vendors/themify.css">
-  <!-- Flag icon-->
   <link rel="stylesheet" type="text/css" href="assets/css/vendors/flag-icon.css">
-  <!-- Feather icon-->
   <link rel="stylesheet" type="text/css" href="assets/css/vendors/feather-icon.css">
-  <!-- Plugins css start-->
-  <!-- Plugins css Ends-->
-  <!-- Bootstrap css-->
   <link rel="stylesheet" type="text/css" href="assets/css/vendors/bootstrap.css">
-  <!-- App css-->
   <link rel="stylesheet" type="text/css" href="assets/css/style.css">
   <link id="color" rel="stylesheet" href="assets/css/color-1.css" media="screen">
-  <!-- Responsive css-->
   <link rel="stylesheet" type="text/css" href="assets/css/responsive.css">
 </head>
 <body style="background: url('assets/images/login/work.gif');">
-
-  <!-- Page Body Start-->
   <div class="page-body-wrapper sidebar-icon" >
     <div class="page-body">
       <div class="container-fluid">
@@ -69,25 +55,21 @@
                           <?php 
                           elseif (isset($_COOKIE['username'])): ?>
                             value="<?php echo $_COOKIE['username'] ?>"
-
                             <?php endif ?>>
                           </div>
                           <div class="form-group">
                             <label >Password</label>
                             <input class="form-control" name="password" type="password" placeholder="Password" <?php if (isset($_COOKIE['password'])): ?>
                             value="<?php echo $_COOKIE['password'] ?>"
-
                             <?php endif ?>>
                           </div>
                           <div class="form-group">
-
                             <div class="checkbox p-0">
                               <input id="dafault-checkbox" name="checkbox" type="checkbox">
                               <label class="mb-0" for="dafault-checkbox">Remember me</label>
                             </div>
                           </div>
                           <div class="form-group">
-
                             <button type="submit" class="btn btn-primary btn-block">Submit</button>
                           </div>
                         </form>

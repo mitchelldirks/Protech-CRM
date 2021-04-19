@@ -11,3 +11,6 @@
 <!-- <script src="assets/js/theme-customizer/customizer.js"></script> -->
 <script src="assets/js/datatable/datatables/jquery.dataTables.min.js"></script>
 <script src="assets/js/datatable/datatables/datatable.custom.js"></script>
+<script type="text/javascript">
+  $('input:visible:first').focus();
+</script>

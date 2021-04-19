@@ -3,7 +3,6 @@ include('config/koneksi.php');
 $user = $_POST['username'];
 $pass = sha1(md5($_POST['password']));
 $sql = "SELECT * from user where password='$pass' and username='$user'";
-// print_r($sql);exit;
 $query = mysqli_query($conn, $sql);
 $data = mysqli_fetch_assoc($query);
 if ($data['is_active']==0) {
@@ -11,10 +10,8 @@ if ($data['is_active']==0) {
 	$_SESSION['flash']['label']='Akun anda tidak aktif';
 	$_SESSION['flash']['iconn']='fa fa-ban';
 	$_SESSION['flash']['username']=$_POST['username'];
-
 	header('location: index.php');
 }else{
-
 	$row = mysqli_num_rows($query);
 	if ($row > 0) {
 		if (strtolower($user)=='admin') {
@@ -31,22 +28,17 @@ if ($data['is_active']==0) {
 		$_SESSION['id_user'] = $data['id_user'];
 		$_SESSION['name'] = $data['nama'];
 		$_SESSION['username'] = $data['username'];
-	// print_r($_SESSION);exit;
-
 		if (!empty($_POST["checkbox"])) {
 			setcookie("username", $_POST['username']);
 			setcookie("password", $_POST['password']);
 		}
 		header('location: media.php');
-
-
 	}
 	else {
 		$_SESSION['flash']['class']='alert alert-danger';
 		$_SESSION['flash']['label']='Username atau password salah';
 		$_SESSION['flash']['iconn']='fa fa-ban';
 		$_SESSION['flash']['username']=$_POST['username'];
-
 		header('location: index.php');
 	}
 }
