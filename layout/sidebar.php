@@ -1,7 +1,6 @@
 <div class="sidebar-wrapper">
   <div class="logo-wrapper">
     <a href="?">
-
       <img src="assets/images/logo/protech.png" style="max-width: 100px;margin-bottom: -12px;margin-top: -12px">
       <span class="text-dark pull-right" style="">
         <strong>CRM</strong>
@@ -10,10 +9,8 @@
     <!-- <div class="back-btn"><i class="fa fa-angle-left"></i></div> -->
     <!-- <div class="toggle-sidebar"> -->
       <!-- <i class="status_toggle middle sidebar-toggle" data-feather="grid"> </i> -->
-
       <!-- </div> -->
     </div>
-    <!-- <div class="logo-icon-wrapper"><a href="?">RGA</a></div> -->
     <nav class="sidebar-main">
       <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
       <div id="sidebar-menu">
@@ -27,21 +24,13 @@
               <span>Dashboard</span>
             </a>
           </li>
-
           <?php if ($_SESSION['level']=='admin'): ?>
-
             <li class="sidebar-list">
               <a class="sidebar-link sidebar-title link-nav" href="?module=project">
                 <i data-feather="copy"> </i>
                 <span>Project</span>
               </a>
             </li>
-            <!-- <li class="sidebar-list">
-              <a class="sidebar-link sidebar-title link-nav" href="?module=assessment&act=recap">
-                <i data-feather="calendar"> </i>
-                <span>Recap</span>
-              </a>
-            </li> -->
             <li class="sidebar-main-title">
               <div>
                 <h6>Master</h6>
@@ -84,7 +73,6 @@
                   <i data-feather="copy"> </i>
                   <?php $query=mysqli_query($conn,"SELECT * from project where assignee = '".$_SESSION['id_user']."' and  start_date <= '".date('Y-m-d')."' and due_date >= '".date('Y-m-d')."' and tracking < ".count($tracking)." ORDER BY updated_at desc");  ?>
                   <?php if (mysqli_num_rows($query)>0): ?>
-
                     <span class="badge badge-primary text-light text-right float-right ">
                       <?php echo mysqli_num_rows($query) ?>
                     </span>
@@ -92,12 +80,6 @@
                   <span>My Project</span>
                 </a>
               </li>
-              <!-- <li class="sidebar-list">
-                <a class="sidebar-link sidebar-title link-nav" href="?module=project&act=history">
-                  <i data-feather="copy"> </i>
-                  <span>History</span>
-                </a>
-              </li> -->
             <?php endif ?>
           </ul>
         </div>

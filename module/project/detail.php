@@ -24,7 +24,7 @@ $initial      = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai whe
     <div class="row">
       <div class="col-md-12 col-xs-12 form-group">
         <h2 style="color: #7669f8"><?php echo $detail['nama_project'] ?></h2>
-        <p>Dibuat tambahkan oleh <a class="text-dark" href="?module=pegawai&act=detail&id=<?php echo $detail['created_by']; ?>"><strong><?php echo $initial['nama_pegawai'] ?></strong></a>. Terakhir disunting <strong><?php echo dateIndonesian($detail['updated_at']) ?></strong></p>
+        <p>Dibuat oleh <a class="text-dark" href="?module=pegawai&act=detail&id=<?php echo $detail['created_by']; ?>"><strong><?php echo $initial['nama_pegawai'] ?></strong></a>. Terakhir disunting <strong><?php echo dateIndonesian($detail['updated_at']) ?></strong></p>
         <span class="form-control-plaintext bg-transparent border-bottom"></span>
       </div>
       <div class="col-md-6 col-xs-12 form-group">
