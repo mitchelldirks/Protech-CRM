@@ -17,28 +17,25 @@
 					</select>
 				</div>
 				<div class="col-md-6 col-xs-12 form-group">
-					<?php $data = array(1=>'Build','Bug','Feature','Doc & Adm') ?>
 					<label class="text-dark">Case</label>
 					<select class="form-control custom-select" name="project_case">
-						<?php foreach ($data as $id => $label): ?>
+						<?php foreach ($project_case as $id => $label): ?>
 							<option value="<?php echo $id ?>"><?php echo ucwords($label) ?></option>
 						<?php endforeach ?>
 					</select>
 				</div>
 				<div class="col-md-6 col-xs-12 form-group">
-					<?php $data = array(1=>'low','normal','high','urgent') ?>
 					<label class="text-dark">Priority</label>
 					<select class="form-control custom-select" name="priority">
-						<?php foreach ($data as $id => $label): ?>
+						<?php foreach ($priority as $id => $label): ?>
 							<option value="<?php echo $id ?>" <?php echo $label=='normal'?"selected":"" ?>><?php echo ucwords($label) ?></option>
 						<?php endforeach ?>
 					</select>
 				</div>
 				<div class="col-md-6 col-xs-12 form-group">
-					<?php $data = array(1=>'back log','analisa desain sistem','pembangunan','testing','deploy','finish') ?>
 					<label class="text-dark">Tracker</label>
 					<select class="form-control custom-select" name="tracking">
-						<?php foreach ($data as $id => $label): ?>
+						<?php foreach ($tracking as $id => $label): ?>
 							<option value="<?php echo $id ?>" <?php echo $label=='back log'?"selected":"" ?>><?php echo ucwords($label) ?></option>
 						<?php endforeach ?>
 					</select>
@@ -64,11 +61,13 @@
 				</div>
 				<div class="col-md-6 col-xs-12 form-group">
 					<label class="text-dark">Start Date</label>
-					<input type="date" class="form-control" name="start_date" value="<?php echo date('Y-m-d') ?>" min="<?php echo date('Y-m-d') ?>">
+					<input type="date" class="form-control" name="start_date">
+					<!-- <input type="date" class="form-control" name="start_date" value="<?php echo date('Y-m-d') ?>" min="<?php echo date('Y-m-d') ?>"> -->
 				</div>
 				<div class="col-md-6 col-xs-12 form-group">
 					<label class="text-dark">End Date</label>
-					<input type="date" class="form-control" name="due_date" value="<?php echo date('Y-m-');echo date('d')+1 ?>" min="<?php echo date('Y-m-d') ?>">
+					<!-- <input type="date" class="form-control" name="due_date" value="<?php echo date('Y-m-');echo date('d')+1 ?>" min="<?php echo date('Y-m-d') ?>"> -->
+					<input type="date" class="form-control" name="due_date">
 				</div>
 				<div class="col-md-12 col-xs-12 form-group">
 					<label class="text-dark">Deskripsi</label>

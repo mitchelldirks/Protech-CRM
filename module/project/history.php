@@ -23,10 +23,10 @@
 			<a class="btn btn-primary ml-2 mb-4 mt-2" href="?module=<?php echo $_GET['module'] ?>&act=create">Tambah <?php echo $_GET['module'] ?></a>
 		</span>
 		<span class="float-right">
-			<?php $count_done=mysqli_num_rows(mysqli_query($conn,"SELECT * from project where tracking = ".count($tracking))); ?>
+			<?php $count_done=mysqli_num_rows(mysqli_query($conn,"SELECT * from project where tracking < ".count($tracking))); ?>
 			<?php if ($count_done > 0): ?>
 				<a class="btn btn-link mr-2 mb-4 mt-2 text-muted" href="?module=<?php echo $_GET['module'] ?>&act=history">
-					<?php echo ucwords($_GET['module']) ?> selesai (<?php echo $count_done; ?>)
+					<?php echo ucwords($_GET['module']) ?> tersedia (<?php echo $count_done; ?>)
 				</a>
 			<?php endif ?>
 		</span>
@@ -47,9 +47,9 @@
 				<tbody>
 					<?php 
 					if ($_SESSION['level']=='admin') {
-						$query=mysqli_query($conn,"SELECT * from project where tracking < ".count($tracking)." ORDER BY updated_at desc");
+						$query=mysqli_query($conn,"SELECT * from project where tracking = ".count($tracking)." ORDER BY updated_at desc");
 					}else{
-						$query=mysqli_query($conn,"SELECT * from project where assignee = '".$_SESSION['id_user']."' and  start_date <= '".date('Y-m-d')."' and due_date >= '".date('Y-m-d')."' and tracking < ".count($tracking)." ORDER BY updated_at desc");
+						$query=mysqli_query($conn,"SELECT * from project where assignee = '".$_SESSION['id_user']."' and  start_date <= '".date('Y-m-d')."' and due_date >= '".date('Y-m-d')."' and tracking = ".count($tracking)." ORDER BY updated_at desc");
 					}
 					$no = 0;
 					foreach($query as $row){

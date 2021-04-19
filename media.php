@@ -7,7 +7,6 @@ if (isset($_GET['logout']) || !isset($_SESSION['id_user'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <?php include 'layout/head.php'; ?>
 </head>
@@ -27,9 +26,8 @@ if (isset($_GET['logout']) || !isset($_SESSION['id_user'])) {
               <div class="col-6">
                 <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
-                  <li class="breadcrumb-item"> <?php echo isset($_GET['module']) ? ucwords($_GET['module']) : "Dashboard" ?></li>
+                  <li class="breadcrumb-item"> <?php echo isset($_GET['module']) ? '<a href="?module='.$_GET['module'].'">'.ucwords($_GET['module']).'</a>' : "Dashboard" ?></li>
                   <?php if (isset($_GET['act'])): ?>
-
                     <li class="breadcrumb-item active"><?php echo ucwords($_GET['act']) ?></li>
                   <?php endif ?>
                 </ol>
@@ -48,7 +46,6 @@ if (isset($_GET['logout']) || !isset($_SESSION['id_user'])) {
             }
             include 'module/'.$page.$act;
             ?>
-
           </div>
         </div>
         <!-- Container-fluid Ends-->
@@ -58,7 +55,7 @@ if (isset($_GET['logout']) || !isset($_SESSION['id_user'])) {
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-12 footer-copyright text-center">
-              <p class="mb-0">Copyright © <?php date('Y') ?> Protech Infomedia  </p>
+              <p class="mb-0">Copyright © <?php echo date('Y') ?> Protech Infomedia  </p>
             </div>
           </div>
         </div>

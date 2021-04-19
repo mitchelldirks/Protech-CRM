@@ -22,13 +22,34 @@ if($act == 'create'){
         $before    = mysqli_fetch_array(mysqli_query($conn,"SELECT $key FROM project where id = '".$_POST['id']."'"));
         if ($value!= $before[$key]) {
             $assignee = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$user."'"));
-            if ($key == 'assignee') {
+            switch ($key) {
+                case 'deskripsi':
+                break;
+                case 'assignee':
                 $assigneea = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$before[$key]."'"));
                 $assigneeb = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$_POST[$key]."'"));
-                $text = 
-                "<strong>".ucwords($assignee['nama_pegawai'])."</strong> changed ".ucwords($key)." from <i>".$assigneeb['nama_pegawai']."</i> to <i>".$assigneea['nama_pegawai']."</i>";
-            }else{
-                $text = "<strong>".ucwords($assignee['nama_pegawai'])."</strong> changed ".ucwords($key)." from <i>".$before[$key]."</i> to <i>".$_POST[$key]."</i>";
+                $text = "<strong>".ucwords($assignee['nama_pegawai'])."</strong> mengubah ".ucwords($key)." dari <i>".$assigneeb['nama_pegawai']."</i> menjadi <i>".$assigneea['nama_pegawai']."</i>";
+                break;
+                case 'tracking':
+                $tracking     = array(1=>'back log','analisa desain sistem','pengerjaan','testing','deploy','finish');
+                $text = "<strong>".ucwords($assignee['nama_pegawai'])."</strong> mengubah ".ucwords($key)." dari <i>".$tracking[$before[$key]]."</i> menjadi <i>".$tracking[$_POST[$key]]."</i>";
+                break;
+                case 'project_case':
+                $project_case = array(1=>'Build','Bug','Feature','Doc & Adm');
+                $text = "<strong>".ucwords($assignee['nama_pegawai'])."</strong> mengubah ".ucwords($key)." dari <i>".$project_case[$before[$key]]."</i> menjadi <i>".$project_case[$_POST[$key]]."</i>";
+                break;
+                case 'priority':
+                $priority     = array(1=>'low','normal','high','urgent');
+                $text = "<strong>".ucwords($assignee['nama_pegawai'])."</strong> mengubah ".ucwords($key)." dari <i>".$priority[$before[$key]]."</i> menjadi <i>".$priority[$_POST[$key]]."</i>";
+                break;
+                case 'kategori':
+                $kategoria     = mysqli_fetch_array(mysqli_query($conn,"SELECT nama_kategori FROM kategori where id = '".$before[$key]."'"));
+                $kategorib     = mysqli_fetch_array(mysqli_query($conn,"SELECT nama_kategori FROM kategori where id = '".$_POST[$key]."'"));
+                $text = "<strong>".ucwords($assignee['nama_pegawai'])."</strong> mengubah ".ucwords($key)." dari <i>".$kategoria['nama_kategori']."</i> menjadi <i>".$kategorib['nama_kategori']."</i>";
+                break;
+                default:
+                $text = "<strong>".ucwords($assignee['nama_pegawai'])."</strong> mengubah ".ucwords($key)." dari <i>".$before[$key]."</i> menjadi <i>".$_POST[$key]."</i>";
+                break;
             }
             $sql="INSERT INTO project_log (project_id,field,data_before,data_after,text,created_by,created_at) values ('".$_POST['id']."','$key','".$before[$key]."','".$value."','$text','$user','$now')";
             mysqli_query($conn,$sql);
@@ -52,7 +73,7 @@ if($act == 'create'){
     $_SESSION['flash']['class']='alert alert-success';
     $_SESSION['flash']['label']='Pengubahan '.$_GET['module'].' Berhasil';
     $_SESSION['flash']['icon']='fa fa-edit';
-    header('Location: ../../media.php?module='.$module);
+    header('Location: ../../media.php?module='.$module."&act=detail&id=".$_POST['id']);
 }else if($act == 'delete'){
     $sql="UPDATE ".$table." SET 
     id_delete = '1'

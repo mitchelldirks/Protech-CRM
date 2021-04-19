@@ -12,6 +12,10 @@
 <!-- <link rel="stylesheet" type="text/css" href="assets/css/fontawesome.css">
 <link rel="stylesheet" type="text/css" href="http://dny.web.id/skripsi/sinta/portal/vendor/font-awesome-5/css/fontawesome-all.min.css">
 <link rel="stylesheet" type="text/css" href="http://dny.web.id/skripsi/sinta/portal/vendor/font-awesome-4.7/css/font-awesome.min.css"> -->
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/uikit@3.4.2/dist/css/uikit.min.css">
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.4.2/dist/js/uikit.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.4.2/dist/js/uikit-icons.min.js"></script>
 <!-- ico-font-->
 <link rel="stylesheet" type="text/css" href="assets/css/vendors/icofont.css">
 <!-- Themify icon-->
