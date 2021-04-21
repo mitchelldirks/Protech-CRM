@@ -48,8 +48,8 @@
                     <?php endif ?>
                     <form class="theme-form" action="auth.php" method="POST">
                       <div class="form-group">
-                        <label class="col-form-label pt-0">NIP</label>
-                        <input class="form-control" name="username" type="text" placeholder="Masukan Nomor Pegawai" <?php 
+                        <label class="col-form-label pt-0">Username</label>
+                        <input class="form-control" name="username" type="text" placeholder="Username" <?php 
                         if (isset($_SESSION['flash'])): ?>
                           value="<?php echo $_SESSION['flash']['username'] ?>"
                           <?php 
@@ -59,8 +59,7 @@
                           </div>
                           <div class="form-group">
                             <label >Password</label>
-                            <input class="form-control" name="password" type="password" placeholder="Password" <?php if (isset($_COOKIE['password'])): ?>
-                            value="<?php echo $_COOKIE['password'] ?>"
+                            <input class="form-control" name="password" type="password" placeholder="Password" <?php if (isset($_COOKIE['password'])): ?> value="<?php echo $_COOKIE['password'] ?>"
                             <?php endif ?>>
                           </div>
                           <div class="form-group">

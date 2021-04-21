@@ -163,6 +163,7 @@ $initial      = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai whe
           foreach ($payment as $p): ?>
             <li class="list-group-item d-flex justify-content-between align-items-center">
               <h6>Rp. <?php echo number_format($p['nominal']) ?></h6>
+              <strong><?php echo $p['subject'] ?></strong>
               <p><?php echo $p['description'] ?></p>
               <span class="badge badge-primary badge-pill"><?php echo dateIndonesian($p['payment_date']) ?></span>
             </li>
@@ -218,7 +219,6 @@ $initial      = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai whe
           </div>
           <div class="form-group">
             <button type="submit" class="btn btn-block btn-primary"><i class="fa fa-save"></i> Save</button>
-            <button type="button" class="btn btn-block btn-link text-muted" data-dismiss="modal">Close</button>
           </div>
         </form>
       </div>
