@@ -1,4 +1,15 @@
 <?php 
+function UploadProfile($fupload_name){
+	$vdir_upload = "../../images/profile/";
+	$vfile_upload = $vdir_upload . $fupload_name;
+	move_uploaded_file($_FILES["images"]["tmp_name"], $vfile_upload);
+}
+
+function UploadDirectory($fupload_name,$directory){
+	$vdir_upload = "../../assets/images/".$directory."/";
+	$vfile_upload = $vdir_upload . $fupload_name;
+	move_uploaded_file($_FILES["images"]["tmp_name"], $vfile_upload);
+}
 function dateIndonesian($date){
 	$array_hari = array(1=>'Senin','Selasa','Rabu','Kamis','Jumat', 'Sabtu','Minggu');
 	$array_bulan = array(1=>'Januari','Februari','Maret', 'April', 'Mei', 'Juni','Juli','Agustus','September','Oktober', 'November','Desember');
