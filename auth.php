@@ -14,9 +14,12 @@ if ($data['is_active']==0) {
 }else{
 	$row = mysqli_num_rows($query);
 	if ($row > 0) {
+		$_SESSION['id_user'] = $data['id_pegawai'];
 		if (strtolower($user)=='admin') {
 			$_SESSION['logged'] = 'admin';
 			$_SESSION['level'] = 'admin';
+			$_SESSION['id_user'] = 0;
+
 		}elseif ($data['level'] > 0) {
 			$logged=mysqli_fetch_assoc(mysqli_query($conn,"SELECT * from jabatan where id='".$data['level']."'"));
 			$_SESSION['logged'] = $logged['nama_jabatan'];
@@ -25,7 +28,6 @@ if ($data['is_active']==0) {
 			$_SESSION['logged'] = null;
 		}
 		$_SESSION['last']= $data['last_activity'];
-		$_SESSION['id_user'] = $data['id_pegawai'];
 		$_SESSION['name'] = $data['nama'];
 		$_SESSION['username'] = $data['username'];
 		if (!empty($_POST["checkbox"])) {

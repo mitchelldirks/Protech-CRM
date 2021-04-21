@@ -71,6 +71,14 @@ if($act == 'create'){
     $_SESSION['flash']['label']='Pengubahan '.$_GET['module'].' Berhasil';
     $_SESSION['flash']['icon']='fa fa-edit';
     header('Location: ../../media.php?module='.$module."&act=detail&id=".$_POST['id']);
+}else if($act == 'payment'){
+    $sql="INSERT INTO project_payment (project_id,nominal,subject,description,payment_date,created_by) values ('".$_POST['project_id']."','".$_POST['nominal']."','".$_POST['subject']."','".$_POST['description']."','".$_POST['payment_date']."','$user')";
+    $query = mysqli_query($conn, $sql);
+    $_SESSION['flash']['class']='alert alert-success';
+    $_SESSION['flash']['label']='Penambahan '.$_GET['module'].' Project Berhasil';
+    $_SESSION['flash']['icon']='fa fa-edit';
+    header('Location: ../../media.php?module='.$module."&act=detail&id=".$_POST['project_id']);
+
 }else if($act == 'delete'){
     $sql="UPDATE ".$table." SET 
     id_delete = '1'

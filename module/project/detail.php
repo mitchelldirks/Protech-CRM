@@ -48,7 +48,7 @@ $initial      = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai whe
       <label class="text-dark">Assignee</label>
       <span class="form-control-plaintext bg-transparent border-bottom"><?php echo ucwords($assignee['nama_pegawai']) ?></span>
     </div>
-    <div class="col-md-6 col-xs-12 form-group">
+    <div class="col-md-5 col-xs-10 form-group">
       <label class="text-dark">Nominal</label>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -56,6 +56,12 @@ $initial      = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai whe
         </div>
         <span class="form-control-plaintext bg-transparent border-bottom" style="padding-left: 10px;"><?php echo ucwords($detail['nominal']) ?></span>
       </div>
+    </div>
+    <div class="col-md-1 col-xs-2 form-group">
+      <label>&nbsp;</label>
+      <button type="button" class="btn btn-link" data-toggle="modal" data-target="#detail-nominal">
+        Detail
+      </button>
     </div>
     <div class="col-md-6 col-xs-12 form-group">
       <label class="text-dark">Start Date</label>
@@ -104,8 +110,8 @@ $initial      = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai whe
     }
   </style>
   <?php 
-  $logs=mysqli_query($conn,"SELECT * from project_log where project_id = '$_GET[id]' group by created_at order by created_at desc");
-  // print_r(mysqli_fetch_array($logs));exit;
+  $sql="SELECT * from project_log where project_id = '".$_GET["id"]."' group by created_at order by created_at desc";
+  $logs=mysqli_query($conn,$sql);
   ?>
   <div class="uk-container uk-padding">
     <div class="uk-timeline">
@@ -136,6 +142,86 @@ $initial      = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai whe
           </div>
         </div>
       <?php endforeach ?>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="detail-nominal" tabindex="-1" role="dialog" aria-labelledby="detail-nominalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detail-nominalLabel">Payment Timeline</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group  list-group-flush">
+          <?php 
+          $payment=mysqli_query($conn,"SELECT * from project_payment where project_id = '$_GET[id]' order by payment_date desc");
+          foreach ($payment as $p): ?>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <h6>Rp. <?php echo number_format($p['nominal']) ?></h6>
+              <p><?php echo $p['description'] ?></p>
+              <span class="badge badge-primary badge-pill"><?php echo dateIndonesian($p['payment_date']) ?></span>
+            </li>
+          <?php endforeach ?>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-link text-muted" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addDetail">
+          Add Payment
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="addDetail" tabindex="-1" role="dialog" aria-labelledby="addDetailLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addDetailLabel">Add Payment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=payment" enctype="multipart/form-data">
+          <input type="hidden" name="project_id" value="<?php echo $_GET['id'] ?>">
+          <div class="form-group">
+            <label>Nominal</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="nominal">Rp.</span>
+              </div>
+              <input type="number" class="form-control" name="nominal" required aria-label="nominal" aria-describedby="nominal">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Payment Date</label>
+            <input type="date" name="payment_date" class="form-control" required value="<?php echo date('Y-m-d') ?>">
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <input type="text" name="subject" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-block btn-primary"><i class="fa fa-save"></i> Save</button>
+            <button type="button" class="btn btn-block btn-link text-muted" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

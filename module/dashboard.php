@@ -97,7 +97,7 @@
           <tr>
             <td><?php echo $no; ?></td>
             <td>
-              <a class="crm-detail" href="?module=<?php echo $_GET['module'] ?>&act=detail&id=<?php echo $row['id']; ?>">
+              <a class="crm-detail" href="?module=project&act=detail&id=<?php echo $row['id']; ?>">
                 #CRM-<?php echo $row['id']; ?>
               </a>
             </td>
@@ -105,7 +105,7 @@
             <td><?php echo ucwords(@$tracking[$row['tracking']]); ?></td>
             <td><?php echo ucwords(@$priority[$row['priority']]); ?></td>
             <td>
-              <a class="crm-detail" href="?module=<?php echo $_GET['module'] ?>&act=detail&id=<?php echo $row['id']; ?>">
+              <a class="crm-detail" href="?module=project&act=detail&id=<?php echo $row['id']; ?>">
                 <?php echo $row['nama_project']; ?>
               </a>
             </td>
@@ -120,3 +120,4 @@
       </tbody>
     </table>
   </div>
+</div>
