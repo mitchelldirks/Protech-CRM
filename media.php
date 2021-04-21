@@ -1,5 +1,7 @@
 <?php 
 include "config/koneksi.php";
+include 'config/function.php';
+include 'config/variable.php';//mandatory for this project
 if (isset($_GET['logout']) || !isset($_SESSION['id_user'])) {
   session_destroy();
   header('location:index.php');
