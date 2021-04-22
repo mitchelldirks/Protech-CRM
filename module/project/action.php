@@ -1,5 +1,6 @@
 <?php 
 include '../../config/koneksi.php';
+include '../../config/function.php';
 $user   = $_SESSION['id_user'];
 $now    = date('Y-m-d H:i:s');
 $table  = 'project';

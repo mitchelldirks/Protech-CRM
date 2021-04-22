@@ -58,8 +58,8 @@
             <?php else: ?>
               <li class="sidebar-main-title">
                 <div>
-                  <h6>Absensi</h6>
-                  <p>Profil & Assessment.</p>
+                  <h6>Task</h6>
+                  <p>Profil & Project.</p>
                 </div>
               </li>
               <li class="sidebar-list">
@@ -71,7 +71,7 @@
               <li class="sidebar-list">
                 <a class="sidebar-link sidebar-title link-nav" href="?module=project">
                   <i data-feather="copy"> </i>
-                  <?php $query=mysqli_query($conn,"SELECT * from project where assignee = '".$_SESSION['id_user']."' and  start_date <= '".date('Y-m-d')."' and due_date >= '".date('Y-m-d')."' and tracking < ".count($tracking)." ORDER BY updated_at desc");  ?>
+                  <?php $query=mysqli_query($conn,"SELECT * from project where assignee = '".$_SESSION['id_user']."' and tracking < ".count($tracking)." ORDER BY updated_at desc");  ?>
                   <?php if (mysqli_num_rows($query)>0): ?>
                     <span class="badge badge-primary text-light text-right float-right ">
                       <?php echo mysqli_num_rows($query) ?>
@@ -81,6 +81,12 @@
                 </a>
               </li>
             <?php endif ?>
+            <li class="sidebar-list ">
+              <a class="sidebar-link sidebar-title link-nav bg-danger text-white text-light" href="?logout">
+                <i class="text-white text-light" data-feather="home"> </i>
+                <span class="text-white text-light">Logout</span>
+              </a>
+            </li>
           </ul>
         </div>
         <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
