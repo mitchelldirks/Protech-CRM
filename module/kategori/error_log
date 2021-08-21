@@ -1,0 +1,2 @@
+[22-Apr-2021 11:18:23 Asia/Jakarta] PHP Deprecated:  Unparenthesized `a ? b : c ? d : e` is deprecated. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)` in /home/dtek9578/public_html/crm/module/kategori/action.php on line 9
+[17-May-2021 13:46:27 Asia/Jakarta] PHP Deprecated:  Unparenthesized `a ? b : c ? d : e` is deprecated. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)` in /home/dtek9578/public_html/crm/module/kategori/action.php on line 9

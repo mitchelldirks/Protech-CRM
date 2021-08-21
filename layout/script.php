@@ -9,8 +9,12 @@
 <script src="assets/js/tooltip-init.js"></script>
 <script src="assets/js/script.js"></script>
 <!-- <script src="assets/js/theme-customizer/customizer.js"></script> -->
+<?php if (strtolower($_GET['module'])=='kanban' or strtolower($_GET['act'])=='kanban'): ?>
+<script src="assets/js/jkanban/jkanban.js"></script>
+<script src="assets/js/jkanban/pt-kanban.js"></script>
+<?php endif ?>
 <script src="assets/js/datatable/datatables/jquery.dataTables.min.js"></script>
 <script src="assets/js/datatable/datatables/datatable.custom.js"></script>
 <script type="text/javascript">
-  $('input:visible:first').focus();
+	$('input:visible:first').focus();
 </script>

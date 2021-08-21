@@ -1,5 +1,10 @@
 <?php 
 include '../../config/koneksi.php';
+<<<<<<< HEAD
+include '../../config/variable.php';
+=======
+>>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
+include '../../config/function.php';
 $user   = $_SESSION['id_user'];
 $now    = date('Y-m-d H:i:s');
 $table  = 'project';
@@ -28,7 +33,7 @@ if($act == 'create'){
                 case 'assignee':
                 $assigneea = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$before[$key]."'"));
                 $assigneeb = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$_POST[$key]."'"));
-                $text = "<strong>".ucwords($assignee['nama_pegawai'])."</strong> mengubah ".ucwords($key)." dari <i>".$assigneeb['nama_pegawai']."</i> menjadi <i>".$assigneea['nama_pegawai']."</i>";
+                $text = "<strong>".ucwords($assignee['nama_pegawai'])."</strong> mengubah ".ucwords($key)." dari <i>".$assigneea['nama_pegawai']."</i> menjadi <i>".$assigneeb['nama_pegawai']."</i>";
                 break;
                 case 'tracking':
                 $text = "<strong>".ucwords($assignee['nama_pegawai'])."</strong> mengubah ".ucwords($key)." dari <i>".$tracking[$before[$key]]."</i> menjadi <i>".$tracking[$_POST[$key]]."</i>";
@@ -78,11 +83,11 @@ if($act == 'create'){
     $_SESSION['flash']['label']='Penambahan '.$_GET['module'].' Project Berhasil';
     $_SESSION['flash']['icon']='fa fa-edit';
     header('Location: ../../media.php?module='.$module."&act=detail&id=".$_POST['project_id']);
-
 }else if($act == 'delete'){
     $sql="UPDATE ".$table." SET 
-    id_delete = '1'
+    is_delete = '1'
     WHERE id = '".$_GET['id']."'";
+    // echo $sql;exit;
     $query = mysqli_query($conn, $sql);
     $_SESSION['flash']['class']='alert alert-danger';
     $_SESSION['flash']['label']='Penghapusan '.$_GET['module'].' Berhasil';
