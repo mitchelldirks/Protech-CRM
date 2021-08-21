@@ -47,18 +47,18 @@
 				<tbody>
 					<?php 
 					if ($_SESSION['level']=='admin') {
-						$query=mysqli_query($conn,"SELECT * from project where tracking < ".count($tracking)." ORDER BY updated_at desc");
+						$query=mysqli_query($conn,"SELECT * from project where tracking < ".count($tracking)." and is_delete = 0 ORDER BY updated_at desc");
 					}else{
-						$query=mysqli_query($conn,"SELECT * from project where assignee = '".$_SESSION['id_user']."' and  start_date <= '".date('Y-m-d')."' and due_date >= '".date('Y-m-d')."' and tracking < ".count($tracking)." ORDER BY updated_at desc");
+						// $query=mysqli_query($conn,"SELECT * from project where assignee = '".$_SESSION['id_user']."' and  start_date <= '".date('Y-m-d')."' and due_date >= '".date('Y-m-d')."' and tracking < ".count($tracking)." ORDER BY updated_at desc");
+						$query=mysqli_query($conn,"SELECT * from project where assignee = '".$_SESSION['id_user']."' and tracking < ".count($tracking)." and is_delete = 0 ORDER BY updated_at desc");
 					}
-					$no = 0;
+					$no = 1;
 					foreach($query as $row){
 						$assignee 		= mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$row['assignee']."'"));
 						$kategori=mysqli_fetch_array(mysqli_query($conn,"SELECT nama_kategori FROM kategori where id = '".$row['kategori']."'"));
-						$no++;
 						?>
 						<tr>
-							<td><?php echo $no; ?></td>
+							<td><?php echo $no++; ?></td>
 							<td>
 								<a class="crm-detail" href="?module=<?php echo $_GET['module'] ?>&act=detail&id=<?php echo $row['id']; ?>">
 									#CRM-<?php echo $row['id']; ?>

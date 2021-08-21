@@ -5,7 +5,7 @@ $pass = sha1(md5($_POST['password']));
 $sql = "SELECT * from user where password='$pass' and username='$user'";
 $query = mysqli_query($conn, $sql);
 $data = mysqli_fetch_assoc($query);
-if ($data['is_active']==0) {
+if (isset($data['is_active']) && $data['is_active']==0) {
 	$_SESSION['flash']['class']='alert alert-danger';
 	$_SESSION['flash']['label']='Akun anda tidak aktif';
 	$_SESSION['flash']['iconn']='fa fa-ban';
@@ -15,11 +15,10 @@ if ($data['is_active']==0) {
 	$row = mysqli_num_rows($query);
 	if ($row > 0) {
 		$_SESSION['id_user'] = $data['id_pegawai'];
-		if (strtolower($user)=='admin') {
+		if (strtolower($data['level'])=='admin') {
 			$_SESSION['logged'] = 'admin';
 			$_SESSION['level'] = 'admin';
-			$_SESSION['id_user'] = 0;
-
+			$_SESSION['id_user'] = $data['id_pegawai'] > 0 ? $data['id_pegawai'] : 0;
 		}elseif ($data['level'] > 0) {
 			$logged=mysqli_fetch_assoc(mysqli_query($conn,"SELECT * from jabatan where id='".$data['level']."'"));
 			$_SESSION['logged'] = $logged['nama_jabatan'];
@@ -34,7 +33,11 @@ if ($data['is_active']==0) {
 			setcookie("username", $_POST['username']);
 			setcookie("password", $_POST['password']);
 		}
-		header('location: media.php');
+		if (strlen($_POST['redirect']) > 0) {
+			header('location: '.$_POST['redirect']);
+		}else{
+			header('location: media.php');
+		}
 	}
 	else {
 		$_SESSION['flash']['class']='alert alert-danger';

@@ -4,7 +4,7 @@ include 'config/function.php';
 include 'config/variable.php';//mandatory for this project
 if (isset($_GET['logout']) || !isset($_SESSION['id_user'])) {
   session_destroy();
-  header('location:index.php');
+  header('location:index.php?r='.rawurlencode(str_replace('/crm/', '', $_SERVER['REQUEST_URI'])));
 }
 ?>
 <!DOCTYPE html>

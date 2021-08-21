@@ -40,7 +40,7 @@
             <div class="media-body">
               <div class="right-chart-content">
                 <h4><?php 
-                echo mysqli_num_rows(mysqli_query($conn,"SELECT * from project where start_date <= '".date('Y-m-d')."' and due_date >= '".date('Y-m-d')."' and tracking < ".count($tracking))); ?></h4><span>Active </span>
+                echo mysqli_num_rows(mysqli_query($conn,"SELECT * from project where tracking < ".count($tracking)." and tracking > 1")); ?></h4><span>Progress </span>
               </div>
             </div>
           </div>
@@ -85,9 +85,9 @@
       <tbody>
         <?php 
         if ($_SESSION['level']=='admin') {
-          $query=mysqli_query($conn,"SELECT * from project where start_date <= '".date('Y-m-d')."' and due_date >= '".date('Y-m-d')."' and tracking < ".count($tracking)." ORDER BY updated_at desc");
+          $query=mysqli_query($conn,"SELECT * from project where tracking < ".count($tracking)." ORDER BY updated_at desc");
         }else{
-          $query=mysqli_query($conn,"SELECT * from project where assignee = '".$_SESSION['id_user']."' and  start_date <= '".date('Y-m-d')."' and due_date >= '".date('Y-m-d')."' and tracking < ".count($tracking)." ORDER BY updated_at desc");
+          $query=mysqli_query($conn,"SELECT * from project where assignee = '".$_SESSION['id_user']."' and tracking < ".count($tracking)." ORDER BY updated_at desc");
         }
         $no=1; 
         foreach ($query as $row): 
@@ -95,7 +95,7 @@
           $kategori=mysqli_fetch_array(mysqli_query($conn,"SELECT nama_kategori FROM kategori where id = '".$row['kategori']."'"));
           ?>
           <tr>
-            <td><?php echo $no; ?></td>
+            <td><?php echo $no++; ?></td>
             <td>
               <a class="crm-detail" href="?module=project&act=detail&id=<?php echo $row['id']; ?>">
                 #CRM-<?php echo $row['id']; ?>

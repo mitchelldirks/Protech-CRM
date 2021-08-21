@@ -11,7 +11,6 @@ if ($_SESSION['level']!='admin') {
 		<form method="POST" action="<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=<?php echo $_GET['act'] ?>" enctype="multipart/form-data">
 			<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
 			<div class="row">
-				
 				<div class="col-md-6 col-xs-12 form-group">
 					<label class="text-dark">Nama</label>
 					<input type="text" class="form-control" name="nama_pegawai" value="<?php echo $row['nama_pegawai']; ?>">
@@ -41,6 +40,19 @@ if ($_SESSION['level']!='admin') {
 					<input type="text" readonly class="form-control" value="<?php echo ucwords($j['nama_jabatan']); ?>">
 					<input type="hidden" class="form-control" name="jab" value="<?php echo ($j['id']); ?>">
 				</div>
+				<?php 
+				if ($_SESSION['level']!='admin') {
+					?>
+					<div class="col-md-6 col-xs-12 form-group">
+						<label class="text-dark">New Password</label>
+						<input type="password" id="password" class="form-control" name="password">
+					</div>
+					<div class="col-md-6 col-xs-12 form-group">
+						<label class="text-dark">Confirm Password</label>
+						<input type="password" id="Cpassword" class="form-control" name="Cpassword">
+						<span id='message'></span>
+					</div>
+				<?php } ?>
 				<div class="col-md-12 col-xs-12 form-group">
 					<button type="submit" class="btn btn-lg btn-primary">Simpan</button>	
 				</div>
@@ -48,3 +60,13 @@ if ($_SESSION['level']!='admin') {
 		</form>
 	</div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+	$('#password, #Cpassword').on('keyup', function () {
+		if ($('#password').val() == $('#Cpassword').val()) { 
+			$('#message').html('Password Match').css('color', 'green');
+		} else {
+			$('#message').html('Password Not Match').css('color', 'red');
+		}
+	});
+</script>

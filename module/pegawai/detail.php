@@ -16,8 +16,8 @@ $jabatan  = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM jabatan where i
         <h3 class="counter"><?php echo mysqli_num_rows(mysqli_query($conn,"SELECT * from project_log where created_by = '".$detail['id']."' group by created_at")) ?></h3>
       </div>
       <div class="col-6 col-sm-6">
-        <h6>Project</h6>
-        <h3 class="counter"><?php echo mysqli_num_rows(mysqli_query($conn,"SELECT * from project_log where created_by = '".$detail['id']."' group by project_id")) ?></h3>
+        <h6>Active</h6>
+        <h3 class="counter"><?php echo mysqli_num_rows(mysqli_query($conn,"SELECT * from project where assignee = '".$detail['id']."' ORDER BY updated_at desc")) ?></h3>
       </div>
     </div>
   </div>
@@ -63,11 +63,7 @@ $jabatan  = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM jabatan where i
       </thead>
       <tbody>
         <?php 
-        if ($_SESSION['level']=='admin') {
-          $query=mysqli_query($conn,"SELECT * from project ORDER BY updated_at desc");
-        }else{
-          $query=mysqli_query($conn,"SELECT * from project where assignee = '".$_SESSION['id_user']."' and  start_date <= '".date('Y-m-d')."' and due_date >= '".date('Y-m-d')."' ORDER BY updated_at desc");
-        }
+        $query=mysqli_query($conn,"SELECT * from project where assignee = '".$_GET['id']."' ORDER BY updated_at desc");
         $no = 0;
         foreach($query as $row){
           $assignee     = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$row['assignee']."'"));
