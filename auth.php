@@ -5,12 +5,8 @@ $pass = sha1(md5($_POST['password']));
 $sql = "SELECT * from user where password='$pass' and username='$user'";
 $query = mysqli_query($conn, $sql);
 $data = mysqli_fetch_assoc($query);
-<<<<<<< HEAD
-if (isset($data['is_active']) && $data['is_active']==0) {
-=======
 $row = mysqli_num_rows($query);
 if ($data['is_active']=="0" && $row > 0) {
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
 	$_SESSION['flash']['class']='alert alert-danger';
 	$_SESSION['flash']['label']='Akun anda tidak aktif';
 	$_SESSION['flash']['iconn']='fa fa-ban';
