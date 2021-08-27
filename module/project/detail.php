@@ -55,7 +55,6 @@ $initial      = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai whe
           <span class="input-group-text" id="nominal">Rp.</span>
         </div>
         <span class="form-control-plaintext bg-transparent border-bottom" style="padding-left: 10px;"><?php echo ucwords($detail['nominal']) ?></span>
-<<<<<<< HEAD
         <div class="input-group-append">
           <?php 
           $sum=0;
@@ -70,22 +69,6 @@ $initial      = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai whe
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#detail-nominal">
             Detail
           </button>
-=======
-         <div class="input-group-append">
-            <?php 
-            $sum=0;
-            $pay=mysqli_query($conn,"SELECT * from project_payment where project_id = '$_GET[id]'");
-            foreach ($pay as $p) {
-              $sum+=$p['nominal'];
-            }
-             ?>
-          <span class="input-group-text bg-transparent" title="Rp. <?php echo number_format($sum) ?>">
-            <?php echo round($sum/$detail['nominal']*100); ?>%
-          </span>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#detail-nominal">
-              Detail
-            </button>
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
         </div>
       </div>
     </div>

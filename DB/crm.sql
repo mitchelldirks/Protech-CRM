@@ -1,5 +1,4 @@
 -- phpMyAdmin SQL Dump
-<<<<<<< HEAD
 -- version 4.9.7
 -- https://www.phpmyadmin.net/
 --
@@ -7,16 +6,6 @@
 -- Waktu pembuatan: 20 Agu 2021 pada 15.18
 -- Versi server: 10.3.30-MariaDB-cll-lve
 -- Versi PHP: 7.3.28
-=======
--- version 4.9.5
--- https://www.phpmyadmin.net/
---
--- Host: localhost:3306
--- Generation Time: Apr 22, 2021 at 10:18 AM
--- Server version: 10.3.28-MariaDB-cll-lve
--- PHP Version: 7.3.27
-
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -46,13 +35,8 @@ CREATE TABLE `jabatan` (
 --
 INSERT INTO `jabatan` (`id`, `nama_jabatan`, `job_desc`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
 (11, 'Developer', 'Developer', 0, 0, '2021-04-22 08:07:54', '2021-04-22 08:07:54'),
-<<<<<<< HEAD
 (12, 'Project Manager Intern', 'PM Intern', 0, 0, '2021-04-22 08:10:35', '2021-04-22 08:10:35'),
 (13, 'Outsource', 'Kerja doang dibayar kaga\r\n', 21, 21, '2021-06-21 11:27:39', '2021-06-21 11:27:39');
-=======
-(12, 'Project Manager Intern', 'PM Intern', 0, 0, '2021-04-22 08:10:35', '2021-04-22 08:10:35');
-
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
 -- --------------------------------------------------------
 --
 -- Struktur dari tabel `kategori`
@@ -192,7 +176,6 @@ INSERT INTO `log` (`id`, `action`, `module`, `data`, `info`, `created_by`, `crea
 (100, 'Create', 'Pegawai', 0, 'Pegawai Create New Entry', 0, '2021-04-22 08:34:39'),
 (101, 'Create', 'Project', 0, 'Project Create New Entry', 21, '2021-04-22 09:39:23'),
 (102, 'Create', 'Project', 0, 'Project Create New Entry', 21, '2021-04-22 09:41:30'),
-<<<<<<< HEAD
 (103, 'Create', 'Project', 0, 'Project Create New Entry', 21, '2021-04-22 09:51:09'),
 (104, 'Create', 'Kategori', 0, 'Kategori Create New Entry', 0, '2021-04-22 11:18:23'),
 (105, 'Edit', 'Project', 9, 'Project Edit 9', 21, '2021-04-22 14:49:18'),
@@ -360,10 +343,6 @@ INSERT INTO `log` (`id`, `action`, `module`, `data`, `info`, `created_by`, `crea
 (267, 'Payment', 'Project', 0, 'Project Payment New Entry', 21, '2021-08-17 19:07:37'),
 (268, 'Payment', 'Project', 0, 'Project Payment New Entry', 21, '2021-08-18 12:47:08'),
 (269, 'Payment', 'Project', 0, 'Project Payment New Entry', 21, '2021-08-19 09:03:31');
-=======
-(103, 'Create', 'Project', 0, 'Project Create New Entry', 21, '2021-04-22 09:51:09');
-
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
 -- --------------------------------------------------------
 --
 -- Struktur dari tabel `pegawai`
@@ -392,15 +371,10 @@ INSERT INTO `pegawai` (`id`, `nama_pegawai`, `tempatlahir`, `tanggallahir`, `tel
 (15, 'Jamal Bahri', 'Bojong Gede', '1989-11-06', '089891029922', 'jamal@mailinator.com', '', NULL, 2, 0, 1, 15, '2021-04-19 09:49:04', '2021-04-22 08:12:10'),
 (20, 'Denis Ahmad', 'Bekasi', '1998-11-06', '089653496918', 'denis@dtech.web.id', '', NULL, 11, 1, 0, 0, '2021-04-22 08:31:01', '2021-04-22 08:31:01'),
 (21, 'Mitchell Marcel', 'Bekasi', '1998-03-16', '08980780853', 'mitchell@dtech.web.id', '', NULL, 11, 1, 0, 0, '2021-04-22 08:32:43', '2021-04-22 08:32:43'),
-<<<<<<< HEAD
 (22, 'Siti Maspupah', 'Jakarta', '2021-01-01', '087824529024', 'sitimaspupah@dtech.web.id', '', NULL, 12, 1, 0, 0, '2021-04-22 08:34:39', '2021-04-22 08:34:39'),
 (23, 'Nurul Azmi', '', '1997-11-23', '087875176688', 'nurul.azmi@dtech.web.id', '', NULL, 11, 1, 21, 21, '2021-05-10 15:03:28', '2021-05-26 16:31:25'),
 (24, 'Choirul Satryo Utomo', 'Jakarta', '2021-06-21', '082114854303', 'tomo@dtech.web.id', '', NULL, 11, 1, 21, 21, '2021-06-21 11:29:40', '2021-06-21 11:29:40'),
 (25, 'Rachma Adzima Maulida', 'Bekasi', '2001-04-23', '085817922089', 'rachmadzima4@gmail.com', '', NULL, 11, 1, 21, 25, '2021-08-04 18:30:05', '2021-08-04 19:27:53');
-=======
-(22, 'Siti Maspupah', 'Jakarta', '2021-01-01', '087824529024', 'sitimaspupah@dtech.web.id', '', NULL, 12, 1, 0, 0, '2021-04-22 08:34:39', '2021-04-22 08:34:39');
-
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
 -- --------------------------------------------------------
 --
 -- Struktur dari tabel `project`
@@ -428,7 +402,6 @@ CREATE TABLE `project` (
 --
 INSERT INTO `project` (`id`, `nama_project`, `deskripsi`, `kategori`, `project_case`, `tracking`, `assignee`, `nominal`, `start_date`, `due_date`, `priority`, `is_delete`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
 (1, 'Coolant Redeem Voucher', '<p>Bikin voucher apa tau tuh</p>\r\n', 1, '1', 3, 9, '5000000', '2021-04-19', '2021-05-07', '2', 0, 1, '2021-04-19 15:16:34', 0, '2021-04-21 15:01:25'),
-<<<<<<< HEAD
 (3, 'Skripsi Devi Teknik Informatika', '<p>Rancangan Sistem Informasi Pendukung Keputusan Promosi Jabatan dengan menggunakan Metode Multi Attribute Utility Theory ( Maut ) pada PT Marga Nusantara Jaya Berbasis Website<br />\r\n<br />\r\nMAUT, dasar teorinya&nbsp;<br />\r\nmengukur nilai kinerja, kompetensi &nbsp;jelaskan dan dihitung atau di dropdown, penialian rekan sejawat.<br />\r\ninput data pegawai.&nbsp;<br />\r\npegawai juga bs input data historis pendidikan.<br />\r\ndibndingkan MAUT dan Fuzzy SAW<br />\r\nKriterianya<br />\r\n1. Nilai kinerja<br />\r\n2. Pendidikan<br />\r\n3. Golongan<br />\r\n4. Masa kerja<br />\r\n5. Kehadiran<br />\r\n6. Kompetensi<br />\r\nKriteria 1 dan 6 ada angketnya ada beberapa pertanyaan</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Revisi aplikasi Devi Rahmayanti</p>\r\n\r\n<p>Revisi Pak Bagus&nbsp;</p>\r\n\r\n<p>- validasi bobot pada kriteria 100% jika diinput total lebih dari 100 tidak diperbolehkan sistem&nbsp;<br />\r\n- hasil uji coba disesuaikan dengan kesimpulan&nbsp;<br />\r\n- periode perhitungan , periode promosi jabatan sebelumnya<br />\r\n- history perhitungan&nbsp;<br />\r\n- notif : hasil rekomendasi muncul pada setiap user (agar langsung diubah jabatan sesuai rekomendasi)&nbsp;</p>\r\n\r\n<p>Revisi Pak Herianto&nbsp;<br />\r\n-pada apk ada perbandingan kecepatan antara metode MAUT dan FuzzySaw &nbsp;ketika di klik pada perhitungan metodenya lebih cepat apa<br />\r\n- akurasi penilaian , sebelum tabel normalilsasi dan bobot nya ada cara hitungnya , hasil akhir penilaian perangkingan di perjelas boleh pakai diagram persen<br />\r\n- penilaian rekan sejawat dan bawahan&nbsp;<br />\r\n- ada tampilan acuan penilaian sebelumnya dari perusahaan, bandingkan dengan perhitungan metode lebih akurat apa&nbsp;</p>\r\n\r\n<p>Revisi Pak Andi&nbsp;<br />\r\n- bobot disamakan menggunakan persen ketika edit<br />\r\n- aplikasi pakai bahasa indonesia semua crudnya dll</p>\r\n', 2, '1', 5, 21, '2950000', '2021-05-01', '2021-10-31', '2', 0, 0, '2021-04-22 07:53:31', 21, '2021-08-04 18:54:15'),
 (4, 'Skripsi Ernanda Teknik Informatika', '<p>Perancangan Sistem Informasi Pendukung Keputusan Pemilihan Siswa Terbaik TKJ pada SMK Taman Siswa Jakarta berbasis Web menggunakan Metode SAW dan Fuzzy</p>\r\n\r\n<p>Revisi aplikasi Ernanda Amalia Arumi</p>\r\n\r\n<p>PAK AJI SETIAWAN<br />\r\n- Menambahkan login siswa untuk mengetahui rangking yang di dapat&nbsp;<br />\r\n- Menambahkan menu siswa dan nilai yang sudah ada<br />\r\n- Penilaian siswa, menambahkan semester genap dan ganjil&nbsp;<br />\r\n- detail perhitungan metode saw untuk perangkingan sedangkan fuzzy bukan perangkingan di pisahkan dengan metode saw<br />\r\n- Menampilkan nilai siswa, mata pelajaran,kelas dan nilai raport = siswa berprestasi<br />\r\nOh iya bang kemaren yang penilaian kriteria itu bisa subjektif karena bisa aja guru ga suka sama murid menjelekan di kriteria itu bang enaknya di ganti apa ya bang?<br />\r\nBu Timor<br />\r\n- Metode fuzzy dipisahkan saja dari metode saw atau jangan sama dari perangkingan bisa di jelekan di penilaian sikap<br />\r\n- tidak ada perangkingan<br />\r\n- menambahkan actor login guru bidang studi mata pelajaran ada lalu diambil nilainya</p>\r\n\r\n<p>Pak Bagus<br />\r\nLaporan disamakan perhitungan dengan aplikasi</p>\r\n', 2, '1', 3, 21, '2950000', '2021-04-22', '2021-10-31', '2', 0, 0, '2021-04-22 07:57:46', 21, '2021-08-04 18:53:46'),
 (5, 'Skripsi Mega Teknik Informatika', '<p>Perancangan Sistem Informasi Pengambilan Keputusan Estimasi Biaya Pengiriman Barang Berbasis Web menggunakan Metode Havershine dan Location Based Service ( LBS ) pada PT Doksa Artha Gemilang</p>\r\n\r\n<p>(Ganti metode jadi UCS dan Ant Colony, Lanjut)&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Revisi aplikasi Mega Pangastuti</p>\r\n\r\n<p>Pak Andi Susilo<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp;&bull;&nbsp;&nbsp; &nbsp;Bahasa pada tampilan aplikasi disesuaikan kembali (disamakan pakai bahasa inggris atau bahasa indonesia).<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp;&bull;&nbsp;&nbsp; &nbsp;Pada fitur transaksi ditambahkan jumlah input jenis bendanya.</p>\r\n\r\n<p>Pak Aji Setiawan<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp;&bull;&nbsp;&nbsp; &nbsp;Metode haversine disamakan lagi total jaraknya dengan maps, lakukan komparasi dengan maps<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp;&bull;&nbsp;&nbsp; &nbsp;Validasi pemilihan supir</p>\r\n\r\n<p>Bu Timor Setyaningsih<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp;&bull;&nbsp;&nbsp; &nbsp;Pada metode knn ditambahkan lagi fungsi penggunaannya. Dalam satu pengiriman bisa mengirim ke 2 titik tujuan yang berbeda tetapi tetap dalam jalur yang sama sesuai dengan titik tujuan awal. Misal : pengiriman awal dari Jakarta &ndash; bandung, didalam mobil masih muat lebih barang lagi untuk memaksimalkan pengiriman, maka akan ditambahkan lagi satu titik yang searah dengan titik awal, misal daerah bogor atau lain sebagainya.<br />\r\n&nbsp; &nbsp; &nbsp; &nbsp;&bull;&nbsp;&nbsp; &nbsp;Pada laporan aplikasi ditambahkan tampilan bagan diagram batang. Contoh : pengiriman jalur Jakarta &ndash; bandung menghasilkan berapa banyak total biayanya? Dan juga jalur pengiriman lainnya.<br />\r\n&nbsp;</p>\r\n', 2, '1', 5, 20, '2950000', '2021-05-01', '2021-10-31', '2', 0, 0, '2021-04-22 08:00:00', 21, '2021-08-04 18:52:59'),
@@ -458,23 +431,6 @@ INSERT INTO `project` (`id`, `nama_project`, `deskripsi`, `kategori`, `project_c
 (29, 'Sistem Borang Prodi', 'Metode RSA untuk enkripsi keamanan dokumen\r\n', 3, '1', 1, 21, '', '2021-07-28', '2021-08-11', '3', 0, 21, '2021-07-28 20:47:23', 21, '2021-07-28 20:47:23'),
 (30, 'CRM ToDo', '<p>&nbsp;</p>\r\n\r\n<h2>Unique Case</h2>\r\n\r\n<table cellspacing=\"0\" style=\"border-collapse:collapse\">\r\n <tbody>\r\n   <tr>\r\n      <td style=\"background-color:black; border-bottom:1px solid black; border-left:1px solid black; border-right:none; border-top:1px solid black; vertical-align:top; width:56px\">\r\n      <p><strong>No</strong></p>\r\n      </td>\r\n     <td style=\"background-color:black; border-bottom:1px solid black; border-left:none; border-right:none; border-top:1px solid black; vertical-align:top; width:132px\">\r\n      <p><strong>Title</strong></p>\r\n     </td>\r\n     <td style=\"background-color:black; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:1px solid black; vertical-align:top; width:412px\">\r\n     <p><strong>Description</strong></p>\r\n     </td>\r\n   </tr>\r\n   <tr>\r\n      <td style=\"border-bottom:1px solid #666666; border-left:1px solid #666666; border-right:1px solid #666666; border-top:none; vertical-align:top; width:56px\">\r\n      <p><strong>1</strong></p>\r\n     </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:132px\">\r\n      <p>Child Todo</p>\r\n     </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:412px\">\r\n      <p>Dapat check masing-masing apa bila child todo telah selesai</p>\r\n\r\n      <p>&nbsp;</p>\r\n     </td>\r\n   </tr>\r\n   <tr>\r\n      <td style=\"border-bottom:1px solid #666666; border-left:1px solid #666666; border-right:1px solid #666666; border-top:none; vertical-align:top; width:56px\">\r\n      <p><strong>2</strong></p>\r\n     </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:132px\">\r\n      <p>Todo status</p>\r\n      </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:412px\">\r\n      <p>Status Condition</p>\r\n\r\n     <ol>\r\n        <li>Hold (apabila belum ada assignee)</li>\r\n        <li>Ongoing (assignee dan due date aktif)</li>\r\n        <li>Done (Todo Child telah selesai semua)</li>\r\n        <li>Expired (Due date terlewat namun masih ada child yang belum selesai)</li>\r\n     </ol>\r\n\r\n     <p>&nbsp;</p>\r\n     </td>\r\n   </tr>\r\n </tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Note: jika ada case tambahan, dapat dibicarakan selanjutnya.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2>Potential Upcoming Case:</h2>\r\n\r\n<table cellspacing=\"0\" style=\"border-collapse:collapse\">\r\n <tbody>\r\n   <tr>\r\n      <td style=\"background-color:black; border-bottom:1px solid black; border-left:1px solid black; border-right:none; border-top:1px solid black; vertical-align:top; width:56px\">\r\n      <p><strong>No</strong></p>\r\n      </td>\r\n     <td style=\"background-color:black; border-bottom:1px solid black; border-left:none; border-right:none; border-top:1px solid black; vertical-align:top; width:132px\">\r\n      <p><strong>Title</strong></p>\r\n     </td>\r\n     <td style=\"background-color:black; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:1px solid black; vertical-align:top; width:412px\">\r\n     <p><strong>Description</strong></p>\r\n     </td>\r\n   </tr>\r\n   <tr>\r\n      <td style=\"border-bottom:1px solid #666666; border-left:1px solid #666666; border-right:1px solid #666666; border-top:none; vertical-align:top; width:56px\">\r\n      <p><strong>1</strong></p>\r\n     </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:132px\">\r\n      <p>Automated Todo</p>\r\n     </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:412px\">\r\n      <p>Automasi todo dengan project, misal ada penambahan project baru, maka langsung tertambah pada todo</p>\r\n\r\n     <p>&nbsp;</p>\r\n     </td>\r\n   </tr>\r\n   <tr>\r\n      <td style=\"border-bottom:1px solid #666666; border-left:1px solid #666666; border-right:1px solid #666666; border-top:none; vertical-align:top; width:56px\">\r\n      <p><strong>2</strong></p>\r\n     </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:132px\">\r\n      <p>Privilege Access</p>\r\n     </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:412px\">\r\n      <p>Tiap assignee hanya dapat mengakses miliknya sendiri</p>\r\n     </td>\r\n   </tr>\r\n   <tr>\r\n      <td style=\"border-bottom:1px solid #666666; border-left:1px solid #666666; border-right:1px solid #666666; border-top:none; vertical-align:top; width:56px\">\r\n      <p><strong>3</strong></p>\r\n     </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:132px\">\r\n      <p>Client Access</p>\r\n      </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:412px\">\r\n      <p>Client dapat request, misal ada penambahan, revisi, dll</p>\r\n      </td>\r\n   </tr>\r\n   <tr>\r\n      <td style=\"border-bottom:1px solid #666666; border-left:1px solid #666666; border-right:1px solid #666666; border-top:none; vertical-align:top; width:56px\">\r\n      <p><strong>&hellip;</strong></p>\r\n      </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:132px\">\r\n      <p>&hellip;</p>\r\n     </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:412px\">\r\n      <p>&hellip;.</p>\r\n      </td>\r\n   </tr>\r\n </tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n', 3, '1', 1, 25, '', '2021-08-09', '2021-08-23', '3', 0, 21, '2021-08-03 12:23:29', 21, '2021-08-04 18:42:57'),
 (31, 'Skripsi Adi Teknik Informatika', '<p>List Revisi nya :<br />\r\n1. Aplkasi saya belum ada peran user/aktor pengguna program. Nah ini saya sudah tambahkan kedalam aplikasi saya.&nbsp;<br />\r\n2. Dalam proses pembelian motor perlu seleksi dari alternatif dulu. Motor apa yang dibandingkan. Perlu dipilih motor mana yg akan dibeli pelanggan, nah ini perlu syarat2 di Kriteria tadi. Ini yg belum saya buat.&nbsp;<br />\r\n3. Perlu ada data history dari data pelanggan yg akan beli setelah no.2 di proses. Ini saya belum ada.&nbsp;<br />\r\n4. Perlu tambah data kriteria lainnya. (Diaplikasi saya cuma 4 kriteria)<br />\r\nKira2 itu sih revisinya, lainnya teori aja yg perlu penjelasan, seperti :<br />\r\n1. Dasar pembuatan Bobot/Nilai Kriteria ?<br />\r\n2. Perlu otomatis keluar data motor langsung.&nbsp;<br />\r\n3. Apa maksud Cost dan Benefit dari metode yg dipakai.</p>\r\n', 2, '3', 3, 21, '1000000', '2021-08-04', '2021-08-11', '2', 0, 21, '2021-08-06 14:58:57', 21, '2021-08-06 14:58:57');
-=======
-(3, 'Skripsi Devi Teknik Informatika', '<p>Rancangan Sistem Informasi Pendukung Keputusan Promosi Jabatan dengan menggunakan Metode Multi Attribute Utility Theory ( Maut ) pada PT Marga Nusantara Jaya Berbasis Website</p>\r\n', 2, '1', 1, 15, '2950000', '2021-05-01', '2021-10-31', '2', 0, 0, '2021-04-22 07:53:31', 0, '2021-04-22 07:53:31'),
-(4, 'Skripsi Ernanda Teknik Informatika', '<p>Perancangan Sistem Informasi Pendukung Keputusan Pemilihan Siswa Terbaik TKJ pada SMK Taman Siswa Jakarta berbasis Web menggunakan Metode SAW dan Fuzzy</p>\r\n', 2, '1', 1, 15, '2950000', '2021-04-22', '2021-10-31', '2', 0, 0, '2021-04-22 07:57:46', 0, '2021-04-22 07:57:46'),
-(5, 'Skripsi Mega Teknik Informatika', '<p>Perancangan Sistem Informasi Pengambilan Keputusan Estimasi Biaya Pengiriman Barang Berbasis Web menggunakan Metode Havershine dan Location Based Service ( LBS ) pada PT Doksa Artha Gemilang</p>\r\n', 2, '1', 1, 15, '2950000', '2021-05-01', '2021-10-31', '2', 0, 0, '2021-04-22 08:00:00', 0, '2021-04-22 08:00:00'),
-(6, 'Skripsi Maruli Teknik Informatika', '<p>Perancangan Sistem Informasi Berbasis Web untuk Penilaian Siswa Menggunakan Metode Algorithma K-Nearest Neighbor Classification ( K-Nn ) ( Studi Kasus SMK Negeri 31 Jakarta Pusat )</p>', 2, '1', 1, 15, '3200000', '2021-05-01', '2021-10-31', '2', 0, 0, '2021-04-22 08:02:49', 0, '2021-04-22 08:09:14'),
-(7, 'Skripsi Agus Teknik Informatika', '<p>Perancangan Sistem Pemilihan Supplier Alat Laboratorium Berbasis Web dengan Metode Integrasi AHP dan Topsis di PT Anugrah Niaga Mandiri</p>\r\n', 2, '1', 1, 15, '3200000', '2021-05-01', '2021-10-31', '2', 0, 0, '2021-04-22 08:06:29', 0, '2021-04-22 08:11:36'),
-(8, 'Skripsi Vira Teknik Informatika', '<p>Perancangan Sistem Informasi Penjualan Spare Part Motor Berbasis Web dengan Menggunakan Metode Time Series</p>\r\n', 2, '1', 1, 15, '2800000', '2021-05-01', '2021-10-31', '2', 0, 0, '2021-04-22 08:11:00', 0, '2021-04-22 08:11:38'),
-(9, 'Skripsi Indah Teknik Informatika', '<p>Penerapan Metode Collaborative Filtering dan Algoritma Asosiasi di Datamining untuk Sistem Rekomendasi Berita pada Website Berita di DPRD Kota Bekasi</p>\r\n', 2, '1', 1, 15, '3200000', '2021-05-01', '2021-10-31', '2', 0, 0, '2021-04-22 08:14:22', 0, '2021-04-22 08:14:22'),
-(10, 'Skripsi Nazelika Teknik Informatika', '<p>Perbandingan Model Regresi Linier ada Datamining Dengan Exponential Smooth untuk Estimasi Harga pada PT Givro Multi Teknik Perkasa</p>\r\n', 2, '1', 1, 15, '3200000', '2021-05-01', '2021-10-31', '2', 0, 0, '2021-04-22 08:16:42', 0, '2021-04-22 08:19:01'),
-(11, 'Skripsi Ray Teknik Informatika', '<p>Rancang Bangun Aplikasi Sistem Pendukung Keputusan Seleksi Calon Ketua Komite Sekolah Menggunakan Metode Profile Matching ( Studi Kasus Yayasan Addawiyah Al Khair )</p>\r\n', 2, '1', 1, 15, '3200000', '2021-05-01', '2021-10-31', '2', 0, 0, '2021-04-22 08:18:33', 0, '2021-04-22 08:19:03'),
-(12, 'Skripsi Zai Teknik Informatika', '<p>Sistem Pendukung Keputusan untuk Menentukan Material Packaging menggunakan Metode KNN dan SMART ( Studi Kasus PT DNP Indonesia )</p>\r\n', 2, '1', 1, 15, '3200000', '2021-05-01', '2021-10-31', '2', 0, 0, '2021-04-22 08:21:44', 0, '2021-04-22 08:24:52'),
-(13, 'Skripsi Wulandari Sistem Informasi', '<p>Rancang Bangun Aplikasi Pemesanan E-Tiket Wisata pada The Heritage Palace Kartasura Berbasis QR Code dengan Menggunakan Metode Moving Average</p>\r\n', 2, '1', 1, 15, '3000000', '2021-05-01', '2021-10-31', '2', 0, 0, '2021-04-22 08:24:19', 0, '2021-04-22 08:25:31'),
-(14, 'Skripsi Pramita Teknik Informatika', '', 2, '1', 1, 21, '0', '2021-05-01', '2021-06-07', '2', 0, 21, '2021-04-22 09:39:23', 21, '2021-04-22 09:40:30'),
-(15, 'Skripsi Elin Teknik Informatika', '', 2, '1', 1, 21, '', '2021-05-01', '2021-05-31', '2', 0, 21, '2021-04-22 09:41:30', 21, '2021-04-22 09:41:30'),
-(16, 'KP Siti Maspupah Teknik Informatika', '<p>CRM Project</p>\r\n', 2, '4', 1, 22, '0', '2021-04-19', '2021-04-30', '2', 0, 21, '2021-04-22 09:51:09', 21, '2021-04-22 09:51:09');
-
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
 -- --------------------------------------------------------
 --
 -- Struktur dari tabel `project_log`
@@ -504,7 +460,6 @@ INSERT INTO `project_log` (`id`, `project_id`, `field`, `data_before`, `data_aft
 (9, 1, 'deskripsi', '<p>Bikin voucher</p>\r\n', '<p>Bikin voucher apa tau tuh</p>\r\n', '<strong></strong> mengubah Deskripsi dari <i><p>Bikin voucher</p>\r\n</i> menjadi <i><p>Bikin voucher apa tau tuh</p>\r\n</i>', 0, '2021-04-19 19:43:02'),
 (10, 1, 'priority', '3', '2', '<strong></strong> mengubah Priority dari <i>high</i> menjadi <i>normal</i>', 0, '2021-04-19 19:46:23'),
 (11, 1, 'assignee', '14', '9', '<strong></strong> mengubah Assignee dari <i>Colonel Sanders</i> menjadi <i>Ardisa Valencia</i>', 0, '2021-04-19 19:46:23'),
-<<<<<<< HEAD
 (21, 1, 'due_date', '2021-04-20', '2021-05-07', '<strong></strong> mengubah Due_date dari <i>2021-04-20</i> menjadi <i>2021-05-07</i>', 0, '2021-04-21 15:01:25'),
 (22, 9, 'assignee', '15', '9', '<strong>Mitchell Marcel</strong> mengubah Assignee dari <i>Colonel Sanders</i> menjadi <i>Jamal Bahri</i>', 21, '2021-04-22 14:49:18'),
 (23, 9, 'deskripsi', '<p>Penerapan Metode Collaborative Filtering dan Algoritma Asosiasi di Datamining untuk Sistem Rekomendasi Berita pada Website Berita di DPRD Kota Bekasi</p>\r\n', '<p>Penerapan Metode Collaborative Filtering dan Algoritma Asosiasi di Datamining untuk Sistem Rekomendasi Berita pada Website Berita di DPRD Kota Bekasi</p>\r\n\r\n<p>(Sidang Ulang)</p>\r\n', '<strong>Mitchell Marcel</strong> mengubah Assignee dari <i>Colonel Sanders</i> menjadi <i>Jamal Bahri</i>', 21, '2021-04-22 14:49:18'),
@@ -639,16 +594,6 @@ INSERT INTO `project_log` (`id`, `project_id`, `field`, `data_before`, `data_aft
 --
 -- Struktur dari tabel `project_payment`
 --
-=======
-(21, 1, 'due_date', '2021-04-20', '2021-05-07', '<strong></strong> mengubah Due_date dari <i>2021-04-20</i> menjadi <i>2021-05-07</i>', 0, '2021-04-21 15:01:25');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `project_payment`
---
-
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
 CREATE TABLE `project_payment` (
   `id` int(1) NOT NULL,
   `project_id` int(1) DEFAULT NULL,
@@ -659,17 +604,9 @@ CREATE TABLE `project_payment` (
   `created_by` int(1) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-<<<<<<< HEAD
 --
 -- Dumping data untuk tabel `project_payment`
 --
-=======
-
---
--- Dumping data for table `project_payment`
---
-
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
 INSERT INTO `project_payment` (`id`, `project_id`, `nominal`, `subject`, `description`, `payment_date`, `created_by`, `created_at`) VALUES
 (1, 1, '1000000', 'PO Masuk ', 'Coolant', '2021-04-21', 0, '2021-04-21 15:59:44'),
 (4, 3, '500000', 'Pembayaran DP', '', '2021-04-22', 0, '2021-04-22 07:55:31'),
@@ -682,7 +619,6 @@ INSERT INTO `project_payment` (`id`, `project_id`, `nominal`, `subject`, `descri
 (11, 10, '1100000', 'Pembayaran DP', '', '2021-04-22', 0, '2021-04-22 08:16:57'),
 (12, 11, '1000000', 'Pembayaran DP', '', '2021-04-22', 0, '2021-04-22 08:18:50'),
 (13, 12, '1500000', 'Pembayaran DP', '', '2021-04-22', 0, '2021-04-22 08:21:59'),
-<<<<<<< HEAD
 (14, 13, '1000000', 'Pembayaran DP', '', '2021-04-22', 0, '2021-04-22 08:24:40'),
 (15, 18, '1500000', 'DP - Cash', 'Cash', '2021-04-25', 0, '2021-04-27 09:58:28'),
 (16, 13, '900000', 'nambah', '', '2021-05-05', 21, '2021-05-08 13:06:07'),
@@ -713,10 +649,6 @@ INSERT INTO `project_payment` (`id`, `project_id`, `nominal`, `subject`, `descri
 (41, 28, '500000', 'Cicilan agy', '', '2021-08-17', 21, '2021-08-17 19:07:37'),
 (42, 9, '2200000', 'Pelunasan', '', '2021-08-18', 21, '2021-08-18 12:47:08'),
 (43, 6, '1700000', 'Pelunasan', '', '2021-08-19', 21, '2021-08-19 09:03:31');
-=======
-(14, 13, '1000000', 'Pembayaran DP', '', '2021-04-22', 0, '2021-04-22 08:24:40');
-
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
 -- --------------------------------------------------------
 --
 -- Struktur dari tabel `user`
@@ -735,7 +667,6 @@ CREATE TABLE `user` (
 -- Dumping data untuk tabel `user`
 --
 INSERT INTO `user` (`id_user`, `id_pegawai`, `nama`, `username`, `password`, `level`, `last_activity`, `is_active`) VALUES
-<<<<<<< HEAD
 (1, 0, 'Administrator', 'admin', '90b9aa7e25f80cf4f64e990b78a9fc5ebd6cecad', 'admin', '2021-05-17 07:49:56', 0),
 (3, 14, 'Ardisa Valencia', 'ardisa.valencia', 'ae3b53ce20c3584382b131059c9df87a5110cb5b', '4', '2021-04-22 01:11:18', 0),
 (4, 15, 'Jamal Bahri', 'jamal.bahri', '077e8bbe47611178478f0fa5f6ed9fcfc2d7712b', '1', '2021-04-22 01:12:10', 0),
@@ -745,15 +676,6 @@ INSERT INTO `user` (`id_user`, `id_pegawai`, `nama`, `username`, `password`, `le
 (8, 23, 'Nurul Azmi', 'nurul.azmi', 'ca855751bd97374ffd5c1dce561b5ac9f8fbf77b', '11', '2021-05-10 08:03:28', 1),
 (9, 24, 'Choirul Satryo Utomo', 'choirul.satryo.utomo', '93d9be1793f40e3a0a237adeb923da334baf99ad', '11', '2021-06-21 04:29:40', 1),
 (10, 25, 'Rachma Adzima Maulida', 'rachma.adzima.maulida', 'd04ac5e5e2b5b70b9f5a7b28b4158725462f68db', '11', '2021-08-04 11:30:05', 1);
-=======
-(1, 0, 'Administrator', 'admin', '90b9aa7e25f80cf4f64e990b78a9fc5ebd6cecad', 'admin', '2021-04-21 08:00:31', 1),
-(3, 14, 'Ardisa Valencia', 'ardisa.valencia', 'ae3b53ce20c3584382b131059c9df87a5110cb5b', '4', '2021-04-22 01:11:18', 0),
-(4, 15, 'Jamal Bahri', 'jamal.bahri', '077e8bbe47611178478f0fa5f6ed9fcfc2d7712b', '1', '2021-04-22 01:12:10', 0),
-(5, 20, 'Denis Ahmad', 'denis.ahmad', '39038c331178493f0901bc0a36c1f55a2881eda6', '11', '2021-04-22 01:31:01', 1),
-(6, 21, 'Mitchell Marcel', 'mitchell.marcel', '1c06e0b34d6da25d6a21961cd75d1e4fb5ab55b5', '11', '2021-04-22 01:32:43', 1),
-(7, 22, 'Siti Maspupah', 'siti.maspupah', 'ecd7b59a6715aaa04530546ee94f30780524fb8a', '12', '2021-04-22 01:34:39', 1);
-
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
 --
 -- Indexes for dumped tables
 --
@@ -790,20 +712,10 @@ ALTER TABLE `project_log`
 --
 -- Indeks untuk tabel `project_payment`
 --
-<<<<<<< HEAD
 ALTER TABLE `project_payment`
   ADD PRIMARY KEY (`id`);
 --
 -- Indeks untuk tabel `user`
-=======
--- Indexes for table `project_payment`
---
-ALTER TABLE `project_payment`
-ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `user`
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id_user`);
@@ -814,12 +726,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `jabatan`
 --
 ALTER TABLE `jabatan`
-<<<<<<< HEAD
   MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-=======
-MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
 --
 -- AUTO_INCREMENT untuk tabel `kategori`
 --
@@ -829,62 +736,32 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT untuk tabel `log`
 --
 ALTER TABLE `log`
-<<<<<<< HEAD
   MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=270;
-=======
-MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
-
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
 --
 -- AUTO_INCREMENT untuk tabel `pegawai`
 --
 ALTER TABLE `pegawai`
-<<<<<<< HEAD
   MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-=======
-MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
 --
 -- AUTO_INCREMENT untuk tabel `project`
 --
 ALTER TABLE `project`
-<<<<<<< HEAD
   MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
-=======
-MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
 --
 -- AUTO_INCREMENT untuk tabel `project_log`
 --
 ALTER TABLE `project_log`
-<<<<<<< HEAD
   MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=150;
 --
 -- AUTO_INCREMENT untuk tabel `project_payment`
 --
 ALTER TABLE `project_payment`
   MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
-=======
-MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
---
--- AUTO_INCREMENT for table `project_payment`
---
-ALTER TABLE `project_payment`
-MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-<<<<<<< HEAD
   MODIFY `id_user` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-=======
-MODIFY `id_user` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
 COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

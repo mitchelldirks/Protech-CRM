@@ -1,9 +1,6 @@
 <?php 
 include '../../config/koneksi.php';
-<<<<<<< HEAD
 include '../../config/variable.php';
-=======
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
 include '../../config/function.php';
 $user   = $_SESSION['id_user'];
 $now    = date('Y-m-d H:i:s');

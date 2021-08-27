@@ -61,7 +61,6 @@
                 <span>Kategori</span>
               </a>
             </li>
-<<<<<<< HEAD
           <?php else: ?>
             <li class="sidebar-main-title">
               <div>
@@ -99,42 +98,3 @@
       <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
     </nav>
   </div>
-=======
-            <?php else: ?>
-              <li class="sidebar-main-title">
-                <div>
-                  <h6>Task</h6>
-                  <p>Profil & Project.</p>
-                </div>
-              </li>
-              <li class="sidebar-list">
-                <a class="sidebar-link sidebar-title link-nav" href="?module=pegawai&act=detail&id=<?php echo $_SESSION['id_user'] ?>">
-                  <i data-feather="user"> </i>
-                  <span>Profil</span>
-                </a>
-              </li>
-              <li class="sidebar-list">
-                <a class="sidebar-link sidebar-title link-nav" href="?module=project">
-                  <i data-feather="copy"> </i>
-                  <?php $query=mysqli_query($conn,"SELECT * from project where assignee = '".$_SESSION['id_user']."' and tracking < ".count($tracking)." ORDER BY updated_at desc");  ?>
-                  <?php if (mysqli_num_rows($query)>0): ?>
-                    <span class="badge badge-primary text-light text-right float-right ">
-                      <?php echo mysqli_num_rows($query) ?>
-                    </span>
-                  <?php endif ?>
-                  <span>My Project</span>
-                </a>
-              </li>
-            <?php endif ?>
-            <li class="sidebar-list ">
-              <a class="sidebar-link sidebar-title link-nav bg-danger text-white text-light" href="?logout">
-                <i class="text-white text-light" data-feather="home"> </i>
-                <span class="text-white text-light">Logout</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="right-arrow" id="right-arrow"><i data-feather="arrow-right"></i></div>
-      </nav>
-    </div>
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
