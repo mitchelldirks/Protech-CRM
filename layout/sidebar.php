@@ -61,6 +61,12 @@
                 <span>Kategori</span>
               </a>
             </li>
+            <li class="sidebar-list">
+              <a class="sidebar-link sidebar-title link-nav" href="?module=todo">
+                <i data-feather="list"></i>
+                <span>Todo</span>
+              </a>
+            </li>
           <?php else: ?>
             <li class="sidebar-main-title">
               <div>
