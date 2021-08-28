@@ -7,7 +7,10 @@ $action           = $_GET['act'];
 $table_name       = 'todo';
 $child_table_name = 'todo_detail';
 $now              = date('Y-m-d H:i:s');
-
+if ($act!=null) {
+  $data = isset($_GET['id']) ? $_GET['id'] : isset($_POST['id']) ? $_POST['id'] : "new entry";
+  mysqli_query($conn,"INSERT INTO log (action,module,data,info,created_by,created_at) values ('".ucwords($act)."','".ucwords($module)."','".ucwords($data)."','".ucwords($module." ".$act." ".$data)."','$user','$now')"); 
+}
 /**
  * Execute query function
  */
@@ -41,31 +44,31 @@ if (!isset($action)) {
  */
 if ($action === 'create') {
   $query = '
-      INSERT INTO '. $table_name .' 
-      (
-        title,
-        description,
-        start_date,
-        due_date,
-        assignee,
-        status,
-        create_by,
-        create_at,
-        updated_by,
-        updated_at
-      ) VALUES (
-      "' .
-        $_POST['title'] . '","' .
-        $_POST['description'] . '","' .
-        $_POST['start_date'] . '","' .
-        $_POST['due_date'] . '","' .
-        $_POST['assignee'] . '","' .
-        $_POST['status'] . '","' .
-        $current_user_id . '","' .
-        $now . '","' .
-        $current_user_id . '","' .
-        $now .
-      '")';
+  INSERT INTO '. $table_name .' 
+  (
+  title,
+  description,
+  start_date,
+  due_date,
+  assignee,
+  status,
+  create_by,
+  create_at,
+  updated_by,
+  updated_at
+  ) VALUES (
+  "' .
+  $_POST['title'] . '","' .
+  $_POST['description'] . '","' .
+  $_POST['start_date'] . '","' .
+  $_POST['due_date'] . '","' .
+  $_POST['assignee'] . '","' .
+  $_POST['status'] . '","' .
+  $current_user_id . '","' .
+  $now . '","' .
+  $current_user_id . '","' .
+  $now .
+  '")';
 
   $res = mysqli_query($conn, $query);
   $is_success = execute_query($res, $action);
@@ -85,23 +88,23 @@ if ($action === 'create') {
 if ($action === 'create-detail') {
   $is_checked = isset($_POST['is_checked']) ? '1' : '0';
   $query = '
-      INSERT INTO '. $child_table_name .' 
-      (
-        title,
-        todo_id,
-        description,
-        is_checked,
-        create_by,
-        create_at
-      ) VALUES (
-      "' .
-        $_POST['title'] . '","' .
-        $_POST['todo_id'] . '","' .
-        $_POST['description'] . '","' .
-        $is_checked . '","' .
-        $current_user_id . '","' .
-        $now .
-      '")';
+  INSERT INTO '. $child_table_name .' 
+  (
+  title,
+  todo_id,
+  description,
+  is_checked,
+  create_by,
+  create_at
+  ) VALUES (
+  "' .
+  $_POST['title'] . '","' .
+  $_POST['todo_id'] . '","' .
+  $_POST['description'] . '","' .
+  $is_checked . '","' .
+  $current_user_id . '","' .
+  $now .
+  '")';
 
   $res = mysqli_query($conn, $query);
   $is_success = execute_query($res, $action);
@@ -120,15 +123,15 @@ if ($action === 'create-detail') {
  */
 if ($action === 'edit') {
   $query = ' UPDATE ' . $table_name . ' SET
-      title       = "' . $_POST['title'] . '",
-      description = "' . $_POST['description'] . '",
-      start_date  = "' . $_POST['start_date'] . '",
-      due_date    = "' . $_POST['due_date'] . '",
-      assignee    = "' . $_POST['assignee'] . '",
-      status      = "' . $_POST['status'] . '",
-      updated_by  = "' . $current_user_id . '",
-      updated_at  = "' . $now . '"
-    WHERE id = ' . $_POST['id'];
+  title       = "' . $_POST['title'] . '",
+  description = "' . $_POST['description'] . '",
+  start_date  = "' . $_POST['start_date'] . '",
+  due_date    = "' . $_POST['due_date'] . '",
+  assignee    = "' . $_POST['assignee'] . '",
+  status      = "' . $_POST['status'] . '",
+  updated_by  = "' . $current_user_id . '",
+  updated_at  = "' . $now . '"
+  WHERE id = ' . $_POST['id'];
   $res = mysqli_query($conn, $query);
   $is_success = execute_query($res, $action);
 
@@ -147,10 +150,10 @@ if ($action === 'edit') {
 if ($action === 'edit-detail') {
   $is_checked = isset($_POST['is_checked']) ? '1' : '0';
   $query = ' UPDATE ' . $child_table_name . ' SET
-      title       = "' . $_POST['title'] . '",
-      description = "' . $_POST['description'] . '",
-      is_checked  = "' . $is_checked . '"
-    WHERE id = ' . $_GET['id'];
+  title       = "' . $_POST['title'] . '",
+  description = "' . $_POST['description'] . '",
+  is_checked  = "' . $is_checked . '"
+  WHERE id = ' . $_GET['id'];
   $res = mysqli_query($conn, $query);
 
   $is_success = execute_query($res, $action);
