@@ -63,15 +63,7 @@ $jabatan  = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM jabatan where i
       </thead>
       <tbody>
         <?php 
-<<<<<<< HEAD
         $query=mysqli_query($conn,"SELECT * from project where assignee = '".$_GET['id']."' ORDER BY updated_at desc");
-=======
-        if ($_SESSION['level']=='admin') {
-          $query=mysqli_query($conn,"SELECT * from project ORDER BY updated_at desc");
-        }else{
-          $query=mysqli_query($conn,"SELECT * from project where assignee = '".$_SESSION['id_user']."' ORDER BY updated_at desc");
-        }
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
         $no = 0;
         foreach($query as $row){
           $assignee     = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$row['assignee']."'"));

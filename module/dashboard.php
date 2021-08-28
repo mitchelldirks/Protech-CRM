@@ -40,11 +40,7 @@
             <div class="media-body">
               <div class="right-chart-content">
                 <h4><?php 
-<<<<<<< HEAD
                 echo mysqli_num_rows(mysqli_query($conn,"SELECT * from project where tracking < ".count($tracking)." and tracking > 1")); ?></h4><span>Progress </span>
-=======
-                echo mysqli_num_rows(mysqli_query($conn,"SELECT * from project where tracking < ".count($tracking))); ?></h4><span>Active </span>
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
               </div>
             </div>
           </div>
