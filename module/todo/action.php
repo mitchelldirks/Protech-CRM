@@ -10,6 +10,9 @@ $now              = date('Y-m-d H:i:s');
 
 /**
  * Execute query function
+ * @param \mysqli_result|bool $res
+ * @param string $action
+ * @return bool
  */
 function execute_query($res, $action)
 {
@@ -31,9 +34,39 @@ function execute_query($res, $action)
   return true;
 }
 
+
+/**
+ * Checking is_checked detail todo
+ * @param int $todo_id
+ * @param \mysqli $conn
+ */
+function check_detail_todos($todo_id, $conn)
+{
+  $table_name       = 'todo';
+  $child_table_name = 'todo_detail';
+
+  $query = 'SELECT is_checked FROM ' . $child_table_name . ' WHERE todo_id =' . $todo_id;
+  $res = mysqli_query($conn, $query);
+
+  if (!$res) return;
+
+  $status_todo = '0';
+  foreach ($res as $todo_detail) {
+    $is_checked = $todo_detail['is_checked'];
+    if (!$is_checked) {
+      $status_todo = '0';
+      break;
+    }
+
+    $status_todo = '1';
+  }
+
+  $res = mysqli_query($conn, 'UPDATE ' . $table_name . ' SET status = ' . $status_todo);
+}
+
 if (!isset($action)) {
   // lempar
-  header('Location:  ../../media.php?module=' . $module );
+  header('Location:  ../../media.php?module=' . $module);
 }
 
 /**
@@ -41,7 +74,7 @@ if (!isset($action)) {
  */
 if ($action === 'create') {
   $query = '
-      INSERT INTO '. $table_name .' 
+      INSERT INTO ' . $table_name . ' 
       (
         title,
         description,
@@ -55,28 +88,28 @@ if ($action === 'create') {
         updated_at
       ) VALUES (
       "' .
-        $_POST['title'] . '","' .
-        $_POST['description'] . '","' .
-        $_POST['start_date'] . '","' .
-        $_POST['due_date'] . '","' .
-        $_POST['assignee'] . '","' .
-        $_POST['status'] . '","' .
-        $current_user_id . '","' .
-        $now . '","' .
-        $current_user_id . '","' .
-        $now .
-      '")';
+    $_POST['title'] . '","' .
+    $_POST['description'] . '","' .
+    $_POST['start_date'] . '","' .
+    $_POST['due_date'] . '","' .
+    $_POST['assignee'] . '","' .
+    $_POST['status'] . '","' .
+    $current_user_id . '","' .
+    $now . '","' .
+    $current_user_id . '","' .
+    $now .
+    '")';
 
   $res = mysqli_query($conn, $query);
   $is_success = execute_query($res, $action);
 
   // Jika gagal do something
   if (!$is_success) {
-    header('Location:  ../../media.php?module=' . $module );
+    header('Location:  ../../media.php?module=' . $module);
   }
   // Jika sukses do something
   $_SESSION['alert']['icon'] = 'fa fa-check';
-  header('Location:  ../../media.php?module=' . $module );
+  header('Location:  ../../media.php?module=' . $module);
 }
 
 /**
@@ -85,7 +118,7 @@ if ($action === 'create') {
 if ($action === 'create-detail') {
   $is_checked = isset($_POST['is_checked']) ? '1' : '0';
   $query = '
-      INSERT INTO '. $child_table_name .' 
+      INSERT INTO ' . $child_table_name . ' 
       (
         title,
         todo_id,
@@ -95,24 +128,29 @@ if ($action === 'create-detail') {
         create_at
       ) VALUES (
       "' .
-        $_POST['title'] . '","' .
-        $_POST['todo_id'] . '","' .
-        $_POST['description'] . '","' .
-        $is_checked . '","' .
-        $current_user_id . '","' .
-        $now .
-      '")';
+    $_POST['title'] . '","' .
+    $_POST['todo_id'] . '","' .
+    $_POST['description'] . '","' .
+    $is_checked . '","' .
+    $current_user_id . '","' .
+    $now .
+    '")';
 
   $res = mysqli_query($conn, $query);
   $is_success = execute_query($res, $action);
 
   // Jika gagal do something
   if (!$is_success) {
-    header('Location:  ../../media.php?module=' . $module . '&act=detail&id=' . $_POST['todo_id'] );
+    header('Location:  ../../media.php?module=' . $module . '&act=detail&id=' . $_POST['todo_id']);
+    return;
   }
+
+  // check detail todo is_checked
+  check_detail_todos($_POST['todo_id'], $conn);
+
   // Jika sukses do something
   $_SESSION['alert']['icon'] = 'fa fa-check';
-  header('Location:  ../../media.php?module=' . $module . '&act=detail&id=' . $_POST['todo_id'] );
+  header('Location:  ../../media.php?module=' . $module . '&act=detail&id=' . $_POST['todo_id']);
 }
 
 /**
@@ -134,11 +172,11 @@ if ($action === 'edit') {
 
   // Jika gagal do something
   if (!$is_success) {
-    header('Location:  ../../media.php?module=' . $module );
+    header('Location:  ../../media.php?module=' . $module);
   }
   // Jika sukses do something
   $_SESSION['alert']['icon'] = 'fa fa-edit';
-  header('Location:  ../../media.php?module=' . $module );
+  header('Location:  ../../media.php?module=' . $module);
 }
 
 /**
@@ -157,11 +195,15 @@ if ($action === 'edit-detail') {
 
   // Jika gagal do something
   if (!$is_success) {
-    header('Location:  ../../media.php?module=' . $module . '&act=detail&id=' . $_GET['todo_id'] );
+    header('Location:  ../../media.php?module=' . $module . '&act=detail&id=' . $_GET['todo_id']);
+    return;
   }
+
+  // check detail todo is_checked
+  check_detail_todos($_GET['todo_id'], $conn);
   // Jika sukses do something
   $_SESSION['alert']['icon'] = 'fa fa-edit';
-  header('Location:  ../../media.php?module=' . $module . '&act=detail&id=' . $_GET['todo_id'] );
+  header('Location:  ../../media.php?module=' . $module . '&act=detail&id=' . $_GET['todo_id']);
 }
 
 /**
@@ -175,7 +217,7 @@ if ($action === 'delete') {
 
   // Jika gagal do something
   if (!$is_success) {
-    header('Location:  ../../media.php?module=' . $module );
+    header('Location:  ../../media.php?module=' . $module);
   }
 
   // delete data child
@@ -185,12 +227,12 @@ if ($action === 'delete') {
 
   // Jika gagal do something
   if (!$is_success) {
-    header('Location:  ../../media.php?module=' . $module );
+    header('Location:  ../../media.php?module=' . $module);
   }
 
   // Jika sukses do something
   $_SESSION['alert']['icon'] = 'fa fa-edit';
-  header('Location:  ../../media.php?module=' . $module );
+  header('Location:  ../../media.php?module=' . $module);
 }
 
 /**
@@ -204,11 +246,14 @@ if ($action === 'delete-detail') {
 
   // Jika gagal do something
   if (!$is_success) {
-    header('Location:  ../../media.php?module=' . $module . '&act=detail&id=' . $_GET['todo_id'] );
+    header('Location:  ../../media.php?module=' . $module . '&act=detail&id=' . $_GET['todo_id']);
+    return;
   }
 
+  // check detail todo is_checked
+  check_detail_todos($_GET['todo_id'], $conn);
+
   // Jika sukses do something
-  $_SESSION['alert']['icon'] = 'fa fa-edit';
-  header('Location:  ../../media.php?module=' . $module . '&act=detail&id=' . $_GET['todo_id'] );
+  $_SESSION['alert']['icon'] = 'fa fa-trash';
+  header('Location:  ../../media.php?module=' . $module . '&act=detail&id=' . $_GET['todo_id']);
 }
-?>
