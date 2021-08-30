@@ -24,7 +24,7 @@ $detail_todo = mysqli_query($conn, 'SELECT * FROM todo_detail WHERE todo_id = ' 
         <a class="btn btn-primary ml-2 mb-4 mt-2" href="?module=<?php echo $_GET['module'] ?>&act=create-detail&id=<?= $_GET['id'] ?>">Tambah list <?php echo $_GET['module'] ?></a>
         <span class="mb-2">Start Date <strong><?= $todo['start_date'] ?></strong></span>
         <span class="mb-2">Due Date <strong><?= $todo['due_date'] ?></strong></span>
-        <span class="mb-2">Status <strong><?= $todo['status'] === 1 ? 'Finished' : 'On Going' ?></strong></span>
+        <span class="mb-2">Status <strong><?= $todo['status'] == 1 ? 'Finished' : 'On Going' ?></strong></span>
       </div>
     </div>
 
