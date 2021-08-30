@@ -7,7 +7,7 @@ $action           = $_GET['act'];
 $table_name       = 'todo';
 $child_table_name = 'todo_detail';
 $now              = date('Y-m-d H:i:s');
-if ($act!=null) {
+if ($action!=null) {
   $data = isset($_GET['id']) ? $_GET['id'] : isset($_POST['id']) ? $_POST['id'] : "new entry";
   mysqli_query($conn,"INSERT INTO log (action,module,data,info,created_by,created_at) values ('".ucwords($act)."','".ucwords($module)."','".ucwords($data)."','".ucwords($module." ".$act." ".$data)."','$user','$now')"); 
 }
@@ -64,7 +64,8 @@ function check_detail_todos($todo_id, $conn)
     $status_todo = '1';
   }
 
-  $res = mysqli_query($conn, 'UPDATE ' . $table_name . ' SET status = ' . $status_todo);
+  $res = mysqli_query($conn, 'UPDATE ' . $table_name . ' SET status = ' . $status_todo .' WHERE id = '.$todo_id);
+
 }
 
 if (!isset($action)) {
@@ -77,33 +78,6 @@ if (!isset($action)) {
  */
 if ($action === 'create') {
   $query = '
-<<<<<<< HEAD
-      INSERT INTO ' . $table_name . ' 
-      (
-        title,
-        description,
-        start_date,
-        due_date,
-        assignee,
-        status,
-        create_by,
-        create_at,
-        updated_by,
-        updated_at
-      ) VALUES (
-      "' .
-    $_POST['title'] . '","' .
-    $_POST['description'] . '","' .
-    $_POST['start_date'] . '","' .
-    $_POST['due_date'] . '","' .
-    $_POST['assignee'] . '","' .
-    $_POST['status'] . '","' .
-    $current_user_id . '","' .
-    $now . '","' .
-    $current_user_id . '","' .
-    $now .
-    '")';
-=======
   INSERT INTO '. $table_name .' 
   (
   title,
@@ -129,8 +103,6 @@ if ($action === 'create') {
   $current_user_id . '","' .
   $now .
   '")';
->>>>>>> 47e1131227aaffd3818c647e0e582ed722b58f35
-
   $res = mysqli_query($conn, $query);
   $is_success = execute_query($res, $action);
 
@@ -149,26 +121,7 @@ if ($action === 'create') {
 if ($action === 'create-detail') {
   $is_checked = isset($_POST['is_checked']) ? '1' : '0';
   $query = '
-<<<<<<< HEAD
-      INSERT INTO ' . $child_table_name . ' 
-      (
-        title,
-        todo_id,
-        description,
-        is_checked,
-        create_by,
-        create_at
-      ) VALUES (
-      "' .
-    $_POST['title'] . '","' .
-    $_POST['todo_id'] . '","' .
-    $_POST['description'] . '","' .
-    $is_checked . '","' .
-    $current_user_id . '","' .
-    $now .
-    '")';
-=======
-  INSERT INTO '. $child_table_name .' 
+  INSERT INTO ' . $child_table_name . ' 
   (
   title,
   todo_id,
@@ -185,8 +138,6 @@ if ($action === 'create-detail') {
   $current_user_id . '","' .
   $now .
   '")';
->>>>>>> 47e1131227aaffd3818c647e0e582ed722b58f35
-
   $res = mysqli_query($conn, $query);
   $is_success = execute_query($res, $action);
 
