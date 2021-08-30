@@ -25,12 +25,12 @@
             </a>
           </li>
           <?php if ($_SESSION['level']=='admin'): ?>
-            <!-- <li class="sidebar-list">
+            <li class="sidebar-list">
               <a class="sidebar-link sidebar-title link-nav" href="?module=todo">
-                <i data-feather="copy"> </i>
-                <span>To Do</span>
+                <i data-feather="list"></i>
+                <span>Todo</span>
               </a>
-            </li> -->
+            </li>
             <li class="sidebar-list">
               <a class="sidebar-link sidebar-title link-nav" href="?module=project">
                 <i data-feather="copy"> </i>
@@ -61,12 +61,6 @@
                 <span>Kategori</span>
               </a>
             </li>
-            <li class="sidebar-list">
-              <a class="sidebar-link sidebar-title link-nav" href="?module=todo">
-                <i data-feather="list"></i>
-                <span>Todo</span>
-              </a>
-            </li>
           <?php else: ?>
             <li class="sidebar-main-title">
               <div>
@@ -78,6 +72,18 @@
               <a class="sidebar-link sidebar-title link-nav" href="?module=pegawai&act=detail&id=<?php echo $_SESSION['id_user'] ?>">
                 <i data-feather="user"> </i>
                 <span>Profil</span>
+              </a>
+            </li>
+            <li class="sidebar-list">
+              <a class="sidebar-link sidebar-title link-nav" href="?module=todo">
+                <i data-feather="list"></i>
+                <?php $query=mysqli_query($conn,"SELECT * from todo where assignee = '".$_SESSION['id_user']."' and status = '0' ORDER BY updated_at desc");  ?>
+                <?php if (mysqli_num_rows($query)>0): ?>
+                  <span class="badge badge-primary text-light text-right float-right ">
+                    <?php echo mysqli_num_rows($query) ?>
+                  </span>
+                <?php endif ?>
+                <span>Todo</span>
               </a>
             </li>
             <li class="sidebar-list">
