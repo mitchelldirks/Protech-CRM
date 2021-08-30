@@ -7,9 +7,15 @@ $action           = $_GET['act'];
 $table_name       = 'todo';
 $child_table_name = 'todo_detail';
 $now              = date('Y-m-d H:i:s');
-if ($action!=null) {
-  $data = isset($_GET['id']) ? $_GET['id'] : isset($_POST['id']) ? $_POST['id'] : "new entry";
-  mysqli_query($conn,"INSERT INTO log (action,module,data,info,created_by,created_at) values ('".ucwords($act)."','".ucwords($module)."','".ucwords($data)."','".ucwords($module." ".$act." ".$data)."','$user','$now')"); 
+
+function log_data($data){
+  global $module;
+  global $action;
+  global $current_user_id;
+  global $now;
+  global $conn;
+  $data   = isset($data) ? $data : "new entry";
+  mysqli_query($conn,"INSERT INTO log (action,module,data,info,created_by,created_at) values ('".ucwords($action)."','".ucwords($module)."','".ucwords($data)."','".ucwords($module." ".$action." ".$data)."','$current_user_id','$now')"); 
 }
 /**
  * Execute query function
@@ -63,9 +69,7 @@ function check_detail_todos($todo_id, $conn)
 
     $status_todo = '1';
   }
-
-  $res = mysqli_query($conn, 'UPDATE ' . $table_name . ' SET status = ' . $status_todo .' WHERE id = '.$todo_id);
-
+  $res = mysqli_query($conn,'UPDATE ' . $table_name . ' SET status = ' . $status_todo .' WHERE id = '.$todo_id);
 }
 
 if (!isset($action)) {
@@ -105,7 +109,7 @@ if ($action === 'create') {
   '")';
   $res = mysqli_query($conn, $query);
   $is_success = execute_query($res, $action);
-
+  log_data();
   // Jika gagal do something
   if (!$is_success) {
     header('Location:  ../../media.php?module=' . $module);
@@ -140,6 +144,7 @@ if ($action === 'create-detail') {
   '")';
   $res = mysqli_query($conn, $query);
   $is_success = execute_query($res, $action);
+  log_data($_POST['todo_id']);
 
   // Jika gagal do something
   if (!$is_success) {
@@ -171,6 +176,7 @@ if ($action === 'edit') {
   WHERE id = ' . $_POST['id'];
   $res = mysqli_query($conn, $query);
   $is_success = execute_query($res, $action);
+  log_data($_POST['id']);
 
   // Jika gagal do something
   if (!$is_success) {
@@ -194,6 +200,7 @@ if ($action === 'edit-detail') {
   $res = mysqli_query($conn, $query);
 
   $is_success = execute_query($res, $action);
+  log_data($_GET['todo_id']);
 
   // Jika gagal do something
   if (!$is_success) {
@@ -216,6 +223,7 @@ if ($action === 'delete') {
   $query = 'DELETE FROM ' . $table_name . ' WHERE id = ' . $_GET['id'];
   $res = mysqli_query($conn, $query);
   $is_success = execute_query($res, $action);
+  log_data($_GET['id']);
 
   // Jika gagal do something
   if (!$is_success) {
@@ -245,6 +253,7 @@ if ($action === 'delete-detail') {
   $query = 'DELETE FROM ' . $child_table_name . ' WHERE id = ' . $_GET['id'];
   $res = mysqli_query($conn, $query);
   $is_success = execute_query($res, $action);
+  log_data($_GET['todo_id']);
 
   // Jika gagal do something
   if (!$is_success) {
