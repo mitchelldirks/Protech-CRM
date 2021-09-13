@@ -31,6 +31,12 @@
                 <span>Project</span>
               </a>
             </li>
+            <li class="sidebar-list">
+              <a class="sidebar-link sidebar-title link-nav" href="?module=ticket">
+                <i data-feather="layers"> </i>
+                <span>Ticket</span>
+              </a>
+            </li>
             <li class="sidebar-main-title">
               <div>
                 <h6>Master</h6>
