@@ -37,6 +37,13 @@
                 <span>Project</span>
               </a>
             </li>
+            <li class="sidebar-list">
+                    <label class="badge badge-success">2</label><a class="sidebar-link sidebar-title" href="#"><i data-feather="home"></i><span class="lan-3">Pettycash</span></a>
+                    <ul class="sidebar-submenu">
+                      <li><a class="lan-4" href="index.html">Income</a></li>
+                      <li><a class="lan-5" href="dashboard-02.html">Ecommerce</a></li>
+                    </ul>
+                  </li>
             <li class="sidebar-main-title">
               <div>
                 <h6>Master</h6>
