@@ -1,0 +1,4 @@
+[22-Apr-2021 08:05:37 Asia/Jakarta] PHP Deprecated:  Unparenthesized `a ? b : c ? d : e` is deprecated. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)` in /home/dtek9578/public_html/crm/module/jabatan/action.php on line 9
+[22-Apr-2021 08:07:54 Asia/Jakarta] PHP Deprecated:  Unparenthesized `a ? b : c ? d : e` is deprecated. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)` in /home/dtek9578/public_html/crm/module/jabatan/action.php on line 9
+[22-Apr-2021 08:10:35 Asia/Jakarta] PHP Deprecated:  Unparenthesized `a ? b : c ? d : e` is deprecated. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)` in /home/dtek9578/public_html/crm/module/jabatan/action.php on line 9
+[21-Jun-2021 11:27:39 Asia/Jakarta] PHP Deprecated:  Unparenthesized `a ? b : c ? d : e` is deprecated. Use either `(a ? b : c) ? d : e` or `a ? b : (c ? d : e)` in /home/dtek9578/public_html/crm/module/jabatan/action.php on line 9

@@ -29,10 +29,10 @@
             </div>
           </div>
           <ul class="profile-dropdown onhover-show-div">
-            <?php if ($_SESSION['level']!='admin'): ?>
+            <?php //if ($_SESSION['level']!='admin'): ?>
 
               <li><a href="?module=pegawai&act=edit"><i data-feather="user"></i><span>Account </span></a></li>
-            <?php endif ?>
+            <?php //endif ?>
             <li><a href="?logout"><i data-feather="log-out"> </i><span>Logout</span></a></li>
           </ul>
         </li>

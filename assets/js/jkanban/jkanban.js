@@ -6,10 +6,8 @@
  * @site: http://www.riccardotartaglia.it/jkanban/
  * @author: Riccardo Tartaglia
  */
-
 //Require dragula
 var dragula = require("dragula");
-
 (function() {
   this.jKanban = function() {
     var self = this;
@@ -17,13 +15,13 @@ var dragula = require("dragula");
       enabled: false
     }
     this._disallowedItemProperties = [
-      "id",
-      "title",
-      "click",
-      "drag",
-      "dragend",
-      "drop",
-      "order"
+    "id",
+    "title",
+    "click",
+    "drag",
+    "dragend",
+    "drop",
+    "order"
     ];
     this.element = "";
     this.container = "";
@@ -56,23 +54,18 @@ var dragula = require("dragula");
       click: function(el) {},
       buttonClick: function(el, boardId) {}
     };
-
     if (arguments[0] && typeof arguments[0] === "object") {
       this.options = __extendDefaults(defaults, arguments[0]);
     }
-
     this.__getCanMove = function(handle) {
       if (!self.options.itemHandleOptions.enabled) {
         return !!self.options.dragItems;
       }
-
       if (self.options.itemHandleOptions.handleClass) {
         return handle.classList.contains(self.options.itemHandleOptions.handleClass);
       }
-
       return handle.classList.contains("item_handle")
     }
-
     this.init = function() {
       //set initial boards
       __setBoard();
@@ -80,103 +73,98 @@ var dragula = require("dragula");
       if (window.innerWidth > self.options.responsive) {
         //Init Drag Board
         self.drakeBoard = self
-          .dragula([self.container], {
-            moves: function(el, source, handle, sibling) {
-              if (!self.options.dragBoards) return false;
-              return (
-                handle.classList.contains("kanban-board-header") ||
-                handle.classList.contains("kanban-title-board")
+        .dragula([self.container], {
+          moves: function(el, source, handle, sibling) {
+            if (!self.options.dragBoards) return false;
+            return (
+              handle.classList.contains("kanban-board-header") ||
+              handle.classList.contains("kanban-title-board")
               );
-            },
-            accepts: function(el, target, source, sibling) {
-              return target.classList.contains("kanban-container");
-            },
-            revertOnSpill: true,
-            direction: "horizontal"
-          })
-          .on("drag", function(el, source) {
-            el.classList.add("is-moving");
-            self.options.dragBoard(el, source);
-            if (typeof el.dragfn === "function") el.dragfn(el, source);
-          })
-          .on("dragend", function(el) {
-            __updateBoardsOrder();
-            el.classList.remove("is-moving");
-            self.options.dragendBoard(el);
-            if (typeof el.dragendfn === "function") el.dragendfn(el);
-          })
-          .on("drop", function(el, target, source, sibling) {
-            el.classList.remove("is-moving");
-            self.options.dropBoard(el, target, source, sibling);
-            if (typeof el.dropfn === "function")
-              el.dropfn(el, target, source, sibling);
-          });
-
+          },
+          accepts: function(el, target, source, sibling) {
+            return target.classList.contains("kanban-container");
+          },
+          revertOnSpill: true,
+          direction: "horizontal"
+        })
+        .on("drag", function(el, source) {
+          el.classList.add("is-moving");
+          self.options.dragBoard(el, source);
+          if (typeof el.dragfn === "function") el.dragfn(el, source);
+        })
+        .on("dragend", function(el) {
+          __updateBoardsOrder();
+          el.classList.remove("is-moving");
+          self.options.dragendBoard(el);
+          if (typeof el.dragendfn === "function") el.dragendfn(el);
+        })
+        .on("drop", function(el, target, source, sibling) {
+          el.classList.remove("is-moving");
+          self.options.dropBoard(el, target, source, sibling);
+          if (typeof el.dropfn === "function")
+            el.dropfn(el, target, source, sibling);
+        });
         //Init Drag Item
         self.drake = self
-          .dragula(self.boardContainer, {
-            moves: function(el, source, handle, sibling) {
-              return self.__getCanMove(handle);
-            },
-            revertOnSpill: true
-          })
-          .on("cancel", function(el, container, source) {
-            self.enableAllBoards();
-          })
-          .on("drag", function(el, source) {
-            var elClass = el.getAttribute("class");
-            if (elClass !== "" && elClass.indexOf("not-draggable") > -1) {
-              self.drake.cancel(true);
-              return;
-            }
-
-            el.classList.add("is-moving");
-            var boardJSON = __findBoardJSON(source.parentNode.dataset.id);
-            if (boardJSON.dragTo !== undefined) {
-              self.options.boards.map(function(board) {
-                if (
-                  boardJSON.dragTo.indexOf(board.id) === -1 &&
-                  board.id !== source.parentNode.dataset.id
-                ) {
-                  self.findBoard(board.id).classList.add("disabled-board");
-                }
-              });
-            }
-
-            self.options.dragEl(el, source);
-            if (el !== null && typeof el.dragfn === "function")
-              el.dragfn(el, source);
-          })
-          .on("dragend", function(el) {
-            self.options.dragendEl(el);
-            if (el !== null && typeof el.dragendfn === "function")
-              el.dragendfn(el);
-          })
-          .on("drop", function(el, target, source, sibling) {
-            self.enableAllBoards();
-
-            var boardJSON = __findBoardJSON(source.parentNode.dataset.id);
-            if (boardJSON.dragTo !== undefined) {
+        .dragula(self.boardContainer, {
+          moves: function(el, source, handle, sibling) {
+            return self.__getCanMove(handle);
+          },
+          revertOnSpill: true
+        })
+        .on("cancel", function(el, container, source) {
+          self.enableAllBoards();
+        })
+        .on("drag", function(el, source) {
+          var elClass = el.getAttribute("class");
+          if (elClass !== "" && elClass.indexOf("not-draggable") > -1) {
+            self.drake.cancel(true);
+            return;
+          }
+          el.classList.add("is-moving");
+          var boardJSON = __findBoardJSON(source.parentNode.dataset.id);
+          if (boardJSON.dragTo !== undefined) {
+            self.options.boards.map(function(board) {
               if (
-                boardJSON.dragTo.indexOf(target.parentNode.dataset.id) === -1 &&
-                target.parentNode.dataset.id !== source.parentNode.dataset.id
-              ) {
-                self.drake.cancel(true);
-              }
-            }
-            if (el !== null) {
-              var result = self.options.dropEl(el, target, source, sibling);
-              if (result === false) {
-                self.drake.cancel(true);
-              }
-              el.classList.remove("is-moving");
-              if (typeof el.dropfn === "function")
-                el.dropfn(el, target, source, sibling);
+                boardJSON.dragTo.indexOf(board.id) === -1 &&
+                board.id !== source.parentNode.dataset.id
+                ) {
+                self.findBoard(board.id).classList.add("disabled-board");
             }
           });
+          }
+          self.options.dragEl(el, source);
+          if (el !== null && typeof el.dragfn === "function")
+            el.dragfn(el, source);
+        })
+        .on("dragend", function(el) {
+          self.options.dragendEl(el);
+          if (el !== null && typeof el.dragendfn === "function")
+            el.dragendfn(el);
+        })
+        .on("drop", function(el, target, source, sibling) {
+          self.enableAllBoards();
+          var boardJSON = __findBoardJSON(source.parentNode.dataset.id);
+          if (boardJSON.dragTo !== undefined) {
+            if (
+              boardJSON.dragTo.indexOf(target.parentNode.dataset.id) === -1 &&
+              target.parentNode.dataset.id !== source.parentNode.dataset.id
+              ) {
+              self.drake.cancel(true);
+          }
+        }
+        if (el !== null) {
+          var result = self.options.dropEl(el, target, source, sibling);
+          if (result === false) {
+            self.drake.cancel(true);
+          }
+          el.classList.remove("is-moving");
+          if (typeof el.dropfn === "function")
+            el.dropfn(el, target, source, sibling);
+        }
+      });
       }
     };
-
     this.enableAllBoards = function() {
       var allB = document.querySelectorAll(".kanban-board");
       if (allB.length > 0 && allB !== undefined) {
@@ -185,20 +173,19 @@ var dragula = require("dragula");
         }
       }
     };
-
     this.addElement = function(boardID, element) {
       var board = self.element.querySelector(
         '[data-id="' + boardID + '"] .kanban-drag'
-      );
+        );
       var nodeItem = document.createElement("div");
       nodeItem.classList.add("kanban-item");
       if (typeof element.id !== "undefined" && element.id !== "") {
         nodeItem.setAttribute("data-eid", element.id);
       }
       if(element.class && Array.isArray(element.class)) {
-	element.class.forEach( function(cl){
-	  nodeItem.classList.add(cl);
-	})
+        element.class.forEach( function(cl){
+          nodeItem.classList.add(cl);
+        })
       }
       nodeItem.innerHTML = __buildItemTitle(element.title);
       //add function
@@ -214,17 +201,15 @@ var dragula = require("dragula");
       board.appendChild(nodeItem);
       return self;
     };
-
     this.addForm = function(boardID, formItem) {
       var board = self.element.querySelector(
         '[data-id="' + boardID + '"] .kanban-drag'
-      );
+        );
       var _attribute = formItem.getAttribute("class");
       formItem.setAttribute("class", _attribute + " not-draggable");
       board.appendChild(formItem);
       return self;
     };
-
     this.addBoards = function(boards, isInit) {
       if (self.options.responsivePercentage) {
         self.container.style.width = "100%";
@@ -239,7 +224,6 @@ var dragula = require("dragula");
       }
       var addButton = self.options.addItemButton;
       var buttonContent = self.options.buttonContent;
-
       //for on all the boards
       for (var boardkey in boards) {
         // single board
@@ -247,18 +231,17 @@ var dragula = require("dragula");
         if (!isInit) {
           self.options.boards.push(board);
         }
-
         if (!self.options.responsivePercentage) {
           //add width to container
           if (self.container.style.width === "") {
             self.container.style.width =
-              parseInt(boardWidth) + parseInt(self.options.gutter) * 2 + "px";
+            parseInt(boardWidth) + parseInt(self.options.gutter) * 2 + "px";
           } else {
             self.container.style.width =
-              parseInt(self.container.style.width) +
-              parseInt(boardWidth) +
-              parseInt(self.options.gutter) * 2 +
-              "px";
+            parseInt(self.container.style.width) +
+            parseInt(boardWidth) +
+            parseInt(self.options.gutter) * 2 +
+            "px";
           }
         }
         //create node
@@ -284,7 +267,7 @@ var dragula = require("dragula");
           headerBoard.classList.add(value);
         });
         headerBoard.innerHTML =
-          '<div class="kanban-title-board">' + board.title + "</div>";
+        '<div class="kanban-title-board">' + board.title + "</div>";
         // if add button is true, add button to the board
         if (addButton) {
           var btn = document.createElement("BUTTON");
@@ -292,7 +275,7 @@ var dragula = require("dragula");
           btn.setAttribute(
             "class",
             "kanban-title-button btn btn-default btn-xs"
-          );
+            );
           btn.appendChild(t);
           //var buttonHtml = '<button class="kanban-title-button btn btn-default btn-xs">'+buttonContent+'</button>'
           headerBoard.appendChild(btn);
@@ -347,12 +330,10 @@ var dragula = require("dragula");
       }
       return self;
     };
-
     this.findBoard = function(id) {
       var el = self.element.querySelector('[data-id="' + id + '"]');
       return el;
     };
-
     this.getParentBoardID = function(el) {
       if (typeof el === "string") {
         el = self.element.querySelector('[data-eid="' + el + '"]');
@@ -362,16 +343,13 @@ var dragula = require("dragula");
       }
       return el.parentNode.parentNode.dataset.id;
     };
-
     this.moveElement = function(targetBoardID, elementID, element) {
       if (targetBoardID === this.getParentBoardID(elementID)) {
         return;
       }
-
       this.removeElement(elementID);
       return this.addElement(targetBoardID, element);
     };
-
     this.replaceElement = function(el, element) {
       var nodeItem = el;
       if (typeof nodeItem === "string") {
@@ -386,19 +364,16 @@ var dragula = require("dragula");
       __appendCustomProperties(nodeItem, element);
       return self;
     };
-
     this.findElement = function(id) {
       var el = self.element.querySelector('[data-eid="' + id + '"]');
       return el;
     };
-
     this.getBoardElements = function(id) {
       var board = self.element.querySelector(
         '[data-id="' + id + '"] .kanban-drag'
-      );
+        );
       return board.childNodes;
     };
-
     this.removeElement = function(el) {
       if (typeof el === "string")
         el = self.element.querySelector('[data-eid="' + el + '"]');
@@ -407,7 +382,6 @@ var dragula = require("dragula");
       }
       return self;
     };
-
     this.removeBoard = function(board) {
       var boardElement = null;
       if (typeof board === "string")
@@ -415,18 +389,15 @@ var dragula = require("dragula");
       if (boardElement !== null) {
         boardElement.remove();
       }
-
       // remove thboard in options.boards
-	    for(var i = 0; i < self.options.boards.length; i++) {
-		    if(self.options.boards[i].id === board) {
-			    self.options.boards.splice(i, 1);
-			    break;
-		    }
-	    }
-
+      for(var i = 0; i < self.options.boards.length; i++) {
+        if(self.options.boards[i].id === board) {
+          self.options.boards.splice(i, 1);
+          break;
+        }
+      }
       return self;
     };
-
     // board button on click function
     this.onButtonClick = function(el) {};
     //PRIVATE FUNCTION
@@ -439,7 +410,6 @@ var dragula = require("dragula");
       }
       return source;
     }
-
     function __setBoard() {
       self.element = document.querySelector(self.options.element);
       //create container
@@ -451,7 +421,6 @@ var dragula = require("dragula");
       //appends to container
       self.element.appendChild(self.container);
     }
-
     function __onclickHandler(nodeItem, clickfn) {
       nodeItem.addEventListener("click", function(e) {
         e.preventDefault();
@@ -459,7 +428,6 @@ var dragula = require("dragula");
         if (typeof this.clickfn === "function") this.clickfn(this);
       });
     }
-
     function __onButtonClickHandler(nodeItem, boardId) {
       nodeItem.addEventListener("click", function(e) {
         e.preventDefault();
@@ -468,7 +436,6 @@ var dragula = require("dragula");
         //     this.clickfn(this);
       });
     }
-
     function __findBoardJSON(id) {
       var el = [];
       self.options.boards.map(function(board) {
@@ -478,27 +445,23 @@ var dragula = require("dragula");
       });
       return el[0];
     }
-
     function __appendCustomProperties(element, parentObject) {
       for (var propertyName in parentObject) {
         if (self._disallowedItemProperties.indexOf(propertyName) > -1) {
           continue;
         }
-
         element.setAttribute(
           "data-" + propertyName,
           parentObject[propertyName]
-        );
+          );
       }
     }
-
     function __updateBoardsOrder() {
       var index = 1;
       for (var i = 0; i < self.container.childNodes.length; i++) {
         self.container.childNodes[i].dataset.order = index++;
       }
     }
-
     function __buildItemTitle(title) {
       var result = title;
       if (self.options.itemHandleOptions.enabled) {
@@ -511,7 +474,6 @@ var dragula = require("dragula");
           if ((customCssIconHandler || undefined) === undefined) {
             customCssIconHandler = customCssHandler + "_icon";
           }
-
           result = "<div class='item_handle "+customCssHandler+"'><i class='item_handle "+customCssIconHandler+"'></i></div><div>" + result + "</div>";
         } else {
           result = self.options.itemHandleOptions.customHandler.replace("%s", result);
@@ -519,46 +481,38 @@ var dragula = require("dragula");
       }
       return result;
     }
-
     //init plugin
     this.init();
   };
 })();
-
 },{"dragula":9}],2:[function(require,module,exports){
-module.exports = function atoa (a, n) { return Array.prototype.slice.call(a, n); }
-
+  module.exports = function atoa (a, n) { return Array.prototype.slice.call(a, n); }
 },{}],3:[function(require,module,exports){
-'use strict';
-
-var ticky = require('ticky');
-
-module.exports = function debounce (fn, args, ctx) {
-  if (!fn) { return; }
-  ticky(function run () {
-    fn.apply(ctx || null, args || []);
-  });
-};
-
-},{"ticky":11}],4:[function(require,module,exports){
-'use strict';
-
-var atoa = require('atoa');
-var debounce = require('./debounce');
-
-module.exports = function emitter (thing, options) {
-  var opts = options || {};
-  var evt = {};
-  if (thing === undefined) { thing = {}; }
-  thing.on = function (type, fn) {
-    if (!evt[type]) {
-      evt[type] = [fn];
-    } else {
-      evt[type].push(fn);
-    }
-    return thing;
+  'use strict';
+  var ticky = require('ticky');
+  module.exports = function debounce (fn, args, ctx) {
+    if (!fn) { return; }
+    ticky(function run () {
+      fn.apply(ctx || null, args || []);
+    });
   };
-  thing.once = function (type, fn) {
+},{"ticky":11}],4:[function(require,module,exports){
+  'use strict';
+  var atoa = require('atoa');
+  var debounce = require('./debounce');
+  module.exports = function emitter (thing, options) {
+    var opts = options || {};
+    var evt = {};
+    if (thing === undefined) { thing = {}; }
+    thing.on = function (type, fn) {
+      if (!evt[type]) {
+        evt[type] = [fn];
+      } else {
+        evt[type].push(fn);
+      }
+      return thing;
+    };
+    thing.once = function (type, fn) {
     fn._once = true; // thing.off(fn) still works!
     thing.on(type, fn);
     return thing;
@@ -595,101 +549,88 @@ module.exports = function emitter (thing, options) {
   };
   return thing;
 };
-
 },{"./debounce":3,"atoa":2}],5:[function(require,module,exports){
-(function (global){
-'use strict';
-
-var customEvent = require('custom-event');
-var eventmap = require('./eventmap');
-var doc = global.document;
-var addEvent = addEventEasy;
-var removeEvent = removeEventEasy;
-var hardCache = [];
-
-if (!global.addEventListener) {
-  addEvent = addEventHard;
-  removeEvent = removeEventHard;
-}
-
-module.exports = {
-  add: addEvent,
-  remove: removeEvent,
-  fabricate: fabricateEvent
-};
-
-function addEventEasy (el, type, fn, capturing) {
-  return el.addEventListener(type, fn, capturing);
-}
-
-function addEventHard (el, type, fn) {
-  return el.attachEvent('on' + type, wrap(el, type, fn));
-}
-
-function removeEventEasy (el, type, fn, capturing) {
-  return el.removeEventListener(type, fn, capturing);
-}
-
-function removeEventHard (el, type, fn) {
-  var listener = unwrap(el, type, fn);
-  if (listener) {
-    return el.detachEvent('on' + type, listener);
-  }
-}
-
-function fabricateEvent (el, type, model) {
-  var e = eventmap.indexOf(type) === -1 ? makeCustomEvent() : makeClassicEvent();
-  if (el.dispatchEvent) {
-    el.dispatchEvent(e);
-  } else {
-    el.fireEvent('on' + type, e);
-  }
-  function makeClassicEvent () {
-    var e;
-    if (doc.createEvent) {
-      e = doc.createEvent('Event');
-      e.initEvent(type, true, true);
-    } else if (doc.createEventObject) {
-      e = doc.createEventObject();
+  (function (global){
+    'use strict';
+    var customEvent = require('custom-event');
+    var eventmap = require('./eventmap');
+    var doc = global.document;
+    var addEvent = addEventEasy;
+    var removeEvent = removeEventEasy;
+    var hardCache = [];
+    if (!global.addEventListener) {
+      addEvent = addEventHard;
+      removeEvent = removeEventHard;
     }
-    return e;
-  }
-  function makeCustomEvent () {
-    return new customEvent(type, { detail: model });
-  }
-}
-
-function wrapperFactory (el, type, fn) {
-  return function wrapper (originalEvent) {
-    var e = originalEvent || global.event;
-    e.target = e.target || e.srcElement;
-    e.preventDefault = e.preventDefault || function preventDefault () { e.returnValue = false; };
-    e.stopPropagation = e.stopPropagation || function stopPropagation () { e.cancelBubble = true; };
-    e.which = e.which || e.keyCode;
-    fn.call(el, e);
-  };
-}
-
-function wrap (el, type, fn) {
-  var wrapper = unwrap(el, type, fn) || wrapperFactory(el, type, fn);
-  hardCache.push({
-    wrapper: wrapper,
-    element: el,
-    type: type,
-    fn: fn
-  });
-  return wrapper;
-}
-
-function unwrap (el, type, fn) {
-  var i = find(el, type, fn);
-  if (i) {
-    var wrapper = hardCache[i].wrapper;
+    module.exports = {
+      add: addEvent,
+      remove: removeEvent,
+      fabricate: fabricateEvent
+    };
+    function addEventEasy (el, type, fn, capturing) {
+      return el.addEventListener(type, fn, capturing);
+    }
+    function addEventHard (el, type, fn) {
+      return el.attachEvent('on' + type, wrap(el, type, fn));
+    }
+    function removeEventEasy (el, type, fn, capturing) {
+      return el.removeEventListener(type, fn, capturing);
+    }
+    function removeEventHard (el, type, fn) {
+      var listener = unwrap(el, type, fn);
+      if (listener) {
+        return el.detachEvent('on' + type, listener);
+      }
+    }
+    function fabricateEvent (el, type, model) {
+      var e = eventmap.indexOf(type) === -1 ? makeCustomEvent() : makeClassicEvent();
+      if (el.dispatchEvent) {
+        el.dispatchEvent(e);
+      } else {
+        el.fireEvent('on' + type, e);
+      }
+      function makeClassicEvent () {
+        var e;
+        if (doc.createEvent) {
+          e = doc.createEvent('Event');
+          e.initEvent(type, true, true);
+        } else if (doc.createEventObject) {
+          e = doc.createEventObject();
+        }
+        return e;
+      }
+      function makeCustomEvent () {
+        return new customEvent(type, { detail: model });
+      }
+    }
+    function wrapperFactory (el, type, fn) {
+      return function wrapper (originalEvent) {
+        var e = originalEvent || global.event;
+        e.target = e.target || e.srcElement;
+        e.preventDefault = e.preventDefault || function preventDefault () { e.returnValue = false; };
+        e.stopPropagation = e.stopPropagation || function stopPropagation () { e.cancelBubble = true; };
+        e.which = e.which || e.keyCode;
+        fn.call(el, e);
+      };
+    }
+    function wrap (el, type, fn) {
+      var wrapper = unwrap(el, type, fn) || wrapperFactory(el, type, fn);
+      hardCache.push({
+        wrapper: wrapper,
+        element: el,
+        type: type,
+        fn: fn
+      });
+      return wrapper;
+    }
+    function unwrap (el, type, fn) {
+      var i = find(el, type, fn);
+      if (i) {
+        var wrapper = hardCache[i].wrapper;
     hardCache.splice(i, 1); // free up a tad of memory
     return wrapper;
   }
 }
-
 function find (el, type, fn) {
   var i, item;
   for (i = 0; i < hardCache.length; i++) {
@@ -699,39 +640,31 @@ function find (el, type, fn) {
     }
   }
 }
-
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./eventmap":6,"custom-event":7}],6:[function(require,module,exports){
-(function (global){
-'use strict';
-
-var eventmap = [];
-var eventname = '';
-var ron = /^on/;
-
-for (eventname in global) {
-  if (ron.test(eventname)) {
-    eventmap.push(eventname.slice(2));
-  }
-}
-
-module.exports = eventmap;
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+  (function (global){
+    'use strict';
+    var eventmap = [];
+    var eventname = '';
+    var ron = /^on/;
+    for (eventname in global) {
+      if (ron.test(eventname)) {
+        eventmap.push(eventname.slice(2));
+      }
+    }
+    module.exports = eventmap;
+  }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],7:[function(require,module,exports){
-(function (global){
-
-var NativeCustomEvent = global.CustomEvent;
-
-function useNative () {
-  try {
-    var p = new NativeCustomEvent('cat', { detail: { foo: 'bar' } });
-    return  'cat' === p.type && 'bar' === p.detail.foo;
-  } catch (e) {
-  }
-  return false;
-}
-
+  (function (global){
+    var NativeCustomEvent = global.CustomEvent;
+    function useNative () {
+      try {
+        var p = new NativeCustomEvent('cat', { detail: { foo: 'bar' } });
+        return  'cat' === p.type && 'bar' === p.detail.foo;
+      } catch (e) {
+      }
+      return false;
+    }
 /**
  * Cross-browser `CustomEvent` constructor.
  *
@@ -739,9 +672,7 @@ function useNative () {
  *
  * @public
  */
-
-module.exports = useNative() ? NativeCustomEvent :
-
+ module.exports = useNative() ? NativeCustomEvent :
 // IE >= 9
 'function' === typeof document.createEvent ? function CustomEvent (type, params) {
   var e = document.createEvent('CustomEvent');
@@ -752,7 +683,6 @@ module.exports = useNative() ? NativeCustomEvent :
   }
   return e;
 } :
-
 // IE <= 8
 function CustomEvent (type, params) {
   var e = document.createEventObject();
@@ -768,59 +698,50 @@ function CustomEvent (type, params) {
   }
   return e;
 }
-
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],8:[function(require,module,exports){
-'use strict';
-
-var cache = {};
-var start = '(?:^|\\s)';
-var end = '(?:\\s|$)';
-
-function lookupClass (className) {
-  var cached = cache[className];
-  if (cached) {
-    cached.lastIndex = 0;
-  } else {
-    cache[className] = cached = new RegExp(start + className + end, 'g');
+  'use strict';
+  var cache = {};
+  var start = '(?:^|\\s)';
+  var end = '(?:\\s|$)';
+  function lookupClass (className) {
+    var cached = cache[className];
+    if (cached) {
+      cached.lastIndex = 0;
+    } else {
+      cache[className] = cached = new RegExp(start + className + end, 'g');
+    }
+    return cached;
   }
-  return cached;
-}
-
-function addClass (el, className) {
-  var current = el.className;
-  if (!current.length) {
-    el.className = className;
-  } else if (!lookupClass(className).test(current)) {
-    el.className += ' ' + className;
+  function addClass (el, className) {
+    var current = el.className;
+    if (!current.length) {
+      el.className = className;
+    } else if (!lookupClass(className).test(current)) {
+      el.className += ' ' + className;
+    }
   }
-}
-
-function rmClass (el, className) {
-  el.className = el.className.replace(lookupClass(className), ' ').trim();
-}
-
-module.exports = {
-  add: addClass,
-  rm: rmClass
-};
-
+  function rmClass (el, className) {
+    el.className = el.className.replace(lookupClass(className), ' ').trim();
+  }
+  module.exports = {
+    add: addClass,
+    rm: rmClass
+  };
 },{}],9:[function(require,module,exports){
-(function (global){
-'use strict';
-
-var emitter = require('contra/emitter');
-var crossvent = require('crossvent');
-var classes = require('./classes');
-var doc = document;
-var documentElement = doc.documentElement;
-
-function dragula (initialContainers, options) {
-  var len = arguments.length;
-  if (len === 1 && Array.isArray(initialContainers) === false) {
-    options = initialContainers;
-    initialContainers = [];
-  }
+  (function (global){
+    'use strict';
+    var emitter = require('contra/emitter');
+    var crossvent = require('crossvent');
+    var classes = require('./classes');
+    var doc = document;
+    var documentElement = doc.documentElement;
+    function dragula (initialContainers, options) {
+      var len = arguments.length;
+      if (len === 1 && Array.isArray(initialContainers) === false) {
+        options = initialContainers;
+        initialContainers = [];
+      }
   var _mirror; // mirror image
   var _source; // source container
   var _item; // item being dragged
@@ -834,7 +755,6 @@ function dragula (initialContainers, options) {
   var _renderTimer; // timer for setTimeout renderMirrorImage
   var _lastDropTarget = null; // last container item was over
   var _grabbed; // holds mousedown context until first mousemove
-
   var o = options || {};
   if (o.moves === void 0) { o.moves = always; }
   if (o.accepts === void 0) { o.accepts = always; }
@@ -848,7 +768,6 @@ function dragula (initialContainers, options) {
   if (o.direction === void 0) { o.direction = 'vertical'; }
   if (o.ignoreInputTextSelection === void 0) { o.ignoreInputTextSelection = true; }
   if (o.mirrorContainer === void 0) { o.mirrorContainer = doc.body; }
-
   var drake = emitter({
     containers: o.containers,
     start: manualStart,
@@ -859,51 +778,40 @@ function dragula (initialContainers, options) {
     canMove: canMove,
     dragging: false
   });
-
   if (o.removeOnSpill === true) {
     drake.on('over', spillOver).on('out', spillOut);
   }
-
   events();
-
   return drake;
-
   function isContainer (el) {
     return drake.containers.indexOf(el) !== -1 || o.isContainer(el);
   }
-
   function events (remove) {
     var op = remove ? 'remove' : 'add';
     touchy(documentElement, op, 'mousedown', grab);
     touchy(documentElement, op, 'mouseup', release);
   }
-
   function eventualMovements (remove) {
     var op = remove ? 'remove' : 'add';
     touchy(documentElement, op, 'mousemove', startBecauseMouseMoved);
   }
-
   function movements (remove) {
     var op = remove ? 'remove' : 'add';
     crossvent[op](documentElement, 'selectstart', preventGrabbed); // IE8
     crossvent[op](documentElement, 'click', preventGrabbed);
   }
-
   function destroy () {
     events(true);
     release({});
   }
-
   function preventGrabbed (e) {
     if (_grabbed) {
       e.preventDefault();
     }
   }
-
   function grab (e) {
     _moveX = e.clientX;
     _moveY = e.clientY;
-
     var ignore = whichMouseButton(e) !== 1 || e.metaKey || e.ctrlKey;
     if (ignore) {
       return; // we only care about honest-to-god left clicks and touch events
@@ -923,7 +831,6 @@ function dragula (initialContainers, options) {
       }
     }
   }
-
   function startBecauseMouseMoved (e) {
     if (!_grabbed) {
       return;
@@ -944,22 +851,18 @@ function dragula (initialContainers, options) {
         return;
       }
     }
-
     var grabbed = _grabbed; // call to end() unsets _grabbed
     eventualMovements(true);
     movements();
     end();
     start(grabbed);
-
     var offset = getOffset(_item);
     _offsetX = getCoord('pageX', e) - offset.left;
     _offsetY = getCoord('pageY', e) - offset.top;
-
     classes.add(_copy || _item, 'gu-transit');
     renderMirrorImage();
     drag(e);
   }
-
   function canStart (item) {
     if (drake.dragging && _mirror) {
       return;
@@ -984,47 +887,38 @@ function dragula (initialContainers, options) {
     if (o.invalid(item, handle)) {
       return;
     }
-
     var movable = o.moves(item, source, handle, nextEl(item));
     if (!movable) {
       return;
     }
-
     return {
       item: item,
       source: source
     };
   }
-
   function canMove (item) {
     return !!canStart(item);
   }
-
   function manualStart (item) {
     var context = canStart(item);
     if (context) {
       start(context);
     }
   }
-
   function start (context) {
     if (isCopy(context.item, context.source)) {
       _copy = context.item.cloneNode(true);
       drake.emit('cloned', _copy, context.item, 'copy');
     }
-
     _source = context.source;
     _item = context.item;
     _initialSibling = _currentSibling = nextEl(context.item);
-
     drake.dragging = true;
     drake.emit('drag', _item, _source);
   }
-
   function invalidTarget () {
     return false;
   }
-
   function end () {
     if (!drake.dragging) {
       return;
@@ -1032,16 +926,13 @@ function dragula (initialContainers, options) {
     var item = _copy || _item;
     drop(item, getParent(item));
   }
-
   function ungrab () {
     _grabbed = false;
     eventualMovements(true);
     movements(true);
   }
-
   function release (e) {
     ungrab();
-
     if (!drake.dragging) {
       return;
     }
@@ -1058,7 +949,6 @@ function dragula (initialContainers, options) {
       cancel();
     }
   }
-
   function drop (item, target) {
     var parent = getParent(item);
     if (_copy && o.copySortSource && target === _source) {
@@ -1071,7 +961,6 @@ function dragula (initialContainers, options) {
     }
     cleanup();
   }
-
   function remove () {
     if (!drake.dragging) {
       return;
@@ -1084,7 +973,6 @@ function dragula (initialContainers, options) {
     drake.emit(_copy ? 'cancel' : 'remove', item, parent, _source);
     cleanup();
   }
-
   function cancel (revert) {
     if (!drake.dragging) {
       return;
@@ -1109,7 +997,6 @@ function dragula (initialContainers, options) {
     }
     cleanup();
   }
-
   function cleanup () {
     var item = _copy || _item;
     ungrab();
@@ -1127,7 +1014,6 @@ function dragula (initialContainers, options) {
     drake.emit('dragend', item);
     _source = _item = _copy = _initialSibling = _currentSibling = _renderTimer = _lastDropTarget = null;
   }
-
   function isInitialPlacement (target, s) {
     var sibling;
     if (s !== void 0) {
@@ -1139,20 +1025,17 @@ function dragula (initialContainers, options) {
     }
     return target === _source && sibling === _initialSibling;
   }
-
   function findDropTarget (elementBehindCursor, clientX, clientY) {
     var target = elementBehindCursor;
     while (target && !accepted()) {
       target = getParent(target);
     }
     return target;
-
     function accepted () {
       var droppable = isContainer(target);
       if (droppable === false) {
         return false;
       }
-
       var immediate = getImmediateChild(target, elementBehindCursor);
       var reference = getReference(target, immediate, clientX, clientY);
       var initial = isInitialPlacement(target, reference);
@@ -1162,21 +1045,17 @@ function dragula (initialContainers, options) {
       return o.accepts(_item, target, _source, reference);
     }
   }
-
   function drag (e) {
     if (!_mirror) {
       return;
     }
     e.preventDefault();
-
     var clientX = getCoord('clientX', e);
     var clientY = getCoord('clientY', e);
     var x = clientX - _offsetX;
     var y = clientY - _offsetY;
-
     _mirror.style.left = x + 'px';
     _mirror.style.top = y + 'px';
-
     var item = _copy || _item;
     var elementBehindCursor = getElementBehindPoint(_mirror, clientX, clientY);
     var dropTarget = findDropTarget(elementBehindCursor, clientX, clientY);
@@ -1210,65 +1089,58 @@ function dragula (initialContainers, options) {
       (reference === null && changed) ||
       reference !== item &&
       reference !== nextEl(item)
-    ) {
+      ) {
       _currentSibling = reference;
-      dropTarget.insertBefore(item, reference);
-      drake.emit('shadow', item, dropTarget, _source);
-    }
-    function moved (type) { drake.emit(type, item, _lastDropTarget, _source); }
-    function over () { if (changed) { moved('over'); } }
-    function out () { if (_lastDropTarget) { moved('out'); } }
+    dropTarget.insertBefore(item, reference);
+    drake.emit('shadow', item, dropTarget, _source);
   }
-
-  function spillOver (el) {
-    classes.rm(el, 'gu-hide');
+  function moved (type) { drake.emit(type, item, _lastDropTarget, _source); }
+  function over () { if (changed) { moved('over'); } }
+  function out () { if (_lastDropTarget) { moved('out'); } }
+}
+function spillOver (el) {
+  classes.rm(el, 'gu-hide');
+}
+function spillOut (el) {
+  if (drake.dragging) { classes.add(el, 'gu-hide'); }
+}
+function renderMirrorImage () {
+  if (_mirror) {
+    return;
   }
-
-  function spillOut (el) {
-    if (drake.dragging) { classes.add(el, 'gu-hide'); }
+  var rect = _item.getBoundingClientRect();
+  _mirror = _item.cloneNode(true);
+  _mirror.style.width = getRectWidth(rect) + 'px';
+  _mirror.style.height = getRectHeight(rect) + 'px';
+  classes.rm(_mirror, 'gu-transit');
+  classes.add(_mirror, 'gu-mirror');
+  o.mirrorContainer.appendChild(_mirror);
+  touchy(documentElement, 'add', 'mousemove', drag);
+  classes.add(o.mirrorContainer, 'gu-unselectable');
+  drake.emit('cloned', _mirror, _item, 'mirror');
+}
+function removeMirrorImage () {
+  if (_mirror) {
+    classes.rm(o.mirrorContainer, 'gu-unselectable');
+    touchy(documentElement, 'remove', 'mousemove', drag);
+    getParent(_mirror).removeChild(_mirror);
+    _mirror = null;
   }
-
-  function renderMirrorImage () {
-    if (_mirror) {
-      return;
-    }
-    var rect = _item.getBoundingClientRect();
-    _mirror = _item.cloneNode(true);
-    _mirror.style.width = getRectWidth(rect) + 'px';
-    _mirror.style.height = getRectHeight(rect) + 'px';
-    classes.rm(_mirror, 'gu-transit');
-    classes.add(_mirror, 'gu-mirror');
-    o.mirrorContainer.appendChild(_mirror);
-    touchy(documentElement, 'add', 'mousemove', drag);
-    classes.add(o.mirrorContainer, 'gu-unselectable');
-    drake.emit('cloned', _mirror, _item, 'mirror');
+}
+function getImmediateChild (dropTarget, target) {
+  var immediate = target;
+  while (immediate !== dropTarget && getParent(immediate) !== dropTarget) {
+    immediate = getParent(immediate);
   }
-
-  function removeMirrorImage () {
-    if (_mirror) {
-      classes.rm(o.mirrorContainer, 'gu-unselectable');
-      touchy(documentElement, 'remove', 'mousemove', drag);
-      getParent(_mirror).removeChild(_mirror);
-      _mirror = null;
-    }
+  if (immediate === documentElement) {
+    return null;
   }
-
-  function getImmediateChild (dropTarget, target) {
-    var immediate = target;
-    while (immediate !== dropTarget && getParent(immediate) !== dropTarget) {
-      immediate = getParent(immediate);
-    }
-    if (immediate === documentElement) {
-      return null;
-    }
-    return immediate;
-  }
-
-  function getReference (dropTarget, target, x, y) {
-    var horizontal = o.direction === 'horizontal';
-    var reference = target !== dropTarget ? inside() : outside();
-    return reference;
-
+  return immediate;
+}
+function getReference (dropTarget, target, x, y) {
+  var horizontal = o.direction === 'horizontal';
+  var reference = target !== dropTarget ? inside() : outside();
+  return reference;
     function outside () { // slower, but able to figure out any position
       var len = dropTarget.children.length;
       var i;
@@ -1282,7 +1154,6 @@ function dragula (initialContainers, options) {
       }
       return null;
     }
-
     function inside () { // faster, but only available if dropped inside a child element
       var rect = target.getBoundingClientRect();
       if (horizontal) {
@@ -1290,17 +1161,14 @@ function dragula (initialContainers, options) {
       }
       return resolve(y > rect.top + getRectHeight(rect) / 2);
     }
-
     function resolve (after) {
       return after ? nextEl(target) : target;
     }
   }
-
   function isCopy (item, container) {
     return typeof o.copy === 'boolean' ? o.copy : o.copy(item, container);
   }
 }
-
 function touchy (el, op, type, fn) {
   var touch = {
     mouseup: 'touchend',
@@ -1326,7 +1194,6 @@ function touchy (el, op, type, fn) {
     crossvent[op](el, type, fn);
   }
 }
-
 function whichMouseButton (e) {
   if (e.touches !== void 0) { return e.touches.length; }
   if (e.which !== void 0 && e.which !== 0) { return e.which; } // see https://github.com/bevacqua/dragula/issues/261
@@ -1336,7 +1203,6 @@ function whichMouseButton (e) {
     return button & 1 ? 1 : button & 2 ? 3 : (button & 4 ? 2 : 0);
   }
 }
-
 function getOffset (el) {
   var rect = el.getBoundingClientRect();
   return {
@@ -1344,7 +1210,6 @@ function getOffset (el) {
     top: rect.top + getScroll('scrollTop', 'pageYOffset')
   };
 }
-
 function getScroll (scrollProp, offsetProp) {
   if (typeof global[offsetProp] !== 'undefined') {
     return global[offsetProp];
@@ -1354,7 +1219,6 @@ function getScroll (scrollProp, offsetProp) {
   }
   return doc.body[scrollProp];
 }
-
 function getElementBehindPoint (point, x, y) {
   var p = point || {};
   var state = p.className;
@@ -1364,7 +1228,6 @@ function getElementBehindPoint (point, x, y) {
   p.className = state;
   return el;
 }
-
 function never () { return false; }
 function always () { return true; }
 function getRectWidth (rect) { return rect.width || (rect.right - rect.left); }
@@ -1377,7 +1240,6 @@ function isEditable (el) {
   if (el.contentEditable === 'true') { return true; } // found a contentEditable element in the chain
   return isEditable(getParent(el)); // contentEditable is set to 'inherit'
 }
-
 function nextEl (el) {
   return el.nextElementSibling || manually();
   function manually () {
@@ -1388,7 +1250,6 @@ function nextEl (el) {
     return sibling;
   }
 }
-
 function getEventHost (e) {
   // on touchend event, we have to use `e.changedTouches`
   // see http://stackoverflow.com/questions/7192563/touchend-event-properties
@@ -1401,7 +1262,6 @@ function getEventHost (e) {
   }
   return e;
 }
-
 function getCoord (coord, e) {
   var host = getEventHost(e);
   var missMap = {
@@ -1413,164 +1273,149 @@ function getCoord (coord, e) {
   }
   return host[coord];
 }
-
 module.exports = dragula;
-
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./classes":8,"contra/emitter":4,"crossvent":5}],10:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
-
 // cached from whatever global is present so that test runners that stub it
 // don't break things.  But we need to wrap it in a try catch in case it is
 // wrapped in strict mode code which doesn't define any globals.  It's inside a
 // function because try/catches deoptimize in certain engines.
-
 var cachedSetTimeout;
 var cachedClearTimeout;
-
 function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
+  throw new Error('setTimeout has not been defined');
 }
 function defaultClearTimeout () {
-    throw new Error('clearTimeout has not been defined');
+  throw new Error('clearTimeout has not been defined');
 }
 (function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
+  try {
+    if (typeof setTimeout === 'function') {
+      cachedSetTimeout = setTimeout;
+    } else {
+      cachedSetTimeout = defaultSetTimout;
     }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
+  } catch (e) {
+    cachedSetTimeout = defaultSetTimout;
+  }
+  try {
+    if (typeof clearTimeout === 'function') {
+      cachedClearTimeout = clearTimeout;
+    } else {
+      cachedClearTimeout = defaultClearTimeout;
     }
+  } catch (e) {
+    cachedClearTimeout = defaultClearTimeout;
+  }
 } ())
 function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
+  if (cachedSetTimeout === setTimeout) {
         //normal enviroments in sane situations
         return setTimeout(fun, 0);
-    }
+      }
     // if setTimeout wasn't available but was latter defined
     if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
+      cachedSetTimeout = setTimeout;
+      return setTimeout(fun, 0);
     }
     try {
         // when when somebody has screwed with setTimeout but no I.E. maddness
         return cachedSetTimeout(fun, 0);
-    } catch(e){
+      } catch(e){
         try {
             // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
             return cachedSetTimeout.call(null, fun, 0);
-        } catch(e){
+          } catch(e){
             // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
             return cachedSetTimeout.call(this, fun, 0);
+          }
         }
-    }
-
-
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
+      }
+      function runClearTimeout(marker) {
+        if (cachedClearTimeout === clearTimeout) {
         //normal enviroments in sane situations
         return clearTimeout(marker);
-    }
+      }
     // if clearTimeout wasn't available but was latter defined
     if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
+      cachedClearTimeout = clearTimeout;
+      return clearTimeout(marker);
     }
     try {
         // when when somebody has screwed with setTimeout but no I.E. maddness
         return cachedClearTimeout(marker);
-    } catch (e){
+      } catch (e){
         try {
             // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
             return cachedClearTimeout.call(null, marker);
-        } catch (e){
+          } catch (e){
             // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
             // Some versions of I.E. have different rules for clearTimeout vs setTimeout
             return cachedClearTimeout.call(this, marker);
+          }
         }
-    }
-
-
-
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while(len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
+      }
+      var queue = [];
+      var draining = false;
+      var currentQueue;
+      var queueIndex = -1;
+      function cleanUpNextTick() {
+        if (!draining || !currentQueue) {
+          return;
+        }
+        draining = false;
+        if (currentQueue.length) {
+          queue = currentQueue.concat(queue);
+        } else {
+          queueIndex = -1;
+        }
+        if (queue.length) {
+          drainQueue();
+        }
+      }
+      function drainQueue() {
+        if (draining) {
+          return;
+        }
+        var timeout = runTimeout(cleanUpNextTick);
+        draining = true;
+        var len = queue.length;
+        while(len) {
+          currentQueue = queue;
+          queue = [];
+          while (++queueIndex < len) {
             if (currentQueue) {
-                currentQueue[queueIndex].run();
+              currentQueue[queueIndex].run();
             }
+          }
+          queueIndex = -1;
+          len = queue.length;
         }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
+        currentQueue = null;
+        draining = false;
+        runClearTimeout(timeout);
+      }
+      process.nextTick = function (fun) {
+        var args = new Array(arguments.length - 1);
+        if (arguments.length > 1) {
+          for (var i = 1; i < arguments.length; i++) {
             args[i - 1] = arguments[i];
+          }
         }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
+        queue.push(new Item(fun, args));
+        if (queue.length === 1 && !draining) {
+          runTimeout(drainQueue);
+        }
+      };
 // v8 likes predictible objects
 function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
+  this.fun = fun;
+  this.array = array;
 }
 Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
+  this.fun.apply(null, this.array);
 };
 process.title = 'browser';
 process.browser = true;
@@ -1578,9 +1423,7 @@ process.env = {};
 process.argv = [];
 process.version = ''; // empty string to avoid regexp issues
 process.versions = {};
-
 function noop() {}
-
 process.on = noop;
 process.addListener = noop;
 process.once = noop;
@@ -1590,40 +1433,33 @@ process.removeAllListeners = noop;
 process.emit = noop;
 process.prependListener = noop;
 process.prependOnceListener = noop;
-
 process.listeners = function (name) { return [] }
-
 process.binding = function (name) {
-    throw new Error('process.binding is not supported');
+  throw new Error('process.binding is not supported');
 };
-
 process.cwd = function () { return '/' };
 process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
+  throw new Error('process.chdir is not supported');
 };
 process.umask = function() { return 0; };
-
 },{}],11:[function(require,module,exports){
-(function (setImmediate){
-var si = typeof setImmediate === 'function', tick;
-if (si) {
-  tick = function (fn) { setImmediate(fn); };
-} else {
-  tick = function (fn) { setTimeout(fn, 0); };
-}
-
-module.exports = tick;
-}).call(this,require("timers").setImmediate)
+  (function (setImmediate){
+    var si = typeof setImmediate === 'function', tick;
+    if (si) {
+      tick = function (fn) { setImmediate(fn); };
+    } else {
+      tick = function (fn) { setTimeout(fn, 0); };
+    }
+    module.exports = tick;
+  }).call(this,require("timers").setImmediate)
 },{"timers":12}],12:[function(require,module,exports){
-(function (setImmediate,clearImmediate){
-var nextTick = require('process/browser.js').nextTick;
-var apply = Function.prototype.apply;
-var slice = Array.prototype.slice;
-var immediateIds = {};
-var nextImmediateId = 0;
-
+  (function (setImmediate,clearImmediate){
+    var nextTick = require('process/browser.js').nextTick;
+    var apply = Function.prototype.apply;
+    var slice = Array.prototype.slice;
+    var immediateIds = {};
+    var nextImmediateId = 0;
 // DOM APIs, for completeness
-
 exports.setTimeout = function() {
   return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
 };
@@ -1632,7 +1468,6 @@ exports.setInterval = function() {
 };
 exports.clearTimeout =
 exports.clearInterval = function(timeout) { timeout.close(); };
-
 function Timeout(id, clearFn) {
   this._id = id;
   this._clearFn = clearFn;
@@ -1641,21 +1476,17 @@ Timeout.prototype.unref = Timeout.prototype.ref = function() {};
 Timeout.prototype.close = function() {
   this._clearFn.call(window, this._id);
 };
-
 // Does not start the time, just sets up the members needed.
 exports.enroll = function(item, msecs) {
   clearTimeout(item._idleTimeoutId);
   item._idleTimeout = msecs;
 };
-
 exports.unenroll = function(item) {
   clearTimeout(item._idleTimeoutId);
   item._idleTimeout = -1;
 };
-
 exports._unrefActive = exports.active = function(item) {
   clearTimeout(item._idleTimeoutId);
-
   var msecs = item._idleTimeout;
   if (msecs >= 0) {
     item._idleTimeoutId = setTimeout(function onTimeout() {
@@ -1664,14 +1495,11 @@ exports._unrefActive = exports.active = function(item) {
     }, msecs);
   }
 };
-
 // That's not how node.js implements it but the exposed api is the same.
 exports.setImmediate = typeof setImmediate === "function" ? setImmediate : function(fn) {
   var id = nextImmediateId++;
   var args = arguments.length < 2 ? false : slice.call(arguments, 1);
-
   immediateIds[id] = true;
-
   nextTick(function onNextTick() {
     if (immediateIds[id]) {
       // fn.call() is faster so we optimize for the common use-case
@@ -1685,10 +1513,8 @@ exports.setImmediate = typeof setImmediate === "function" ? setImmediate : funct
       exports.clearImmediate(id);
     }
   });
-
   return id;
 };
-
 exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
   delete immediateIds[id];
 };

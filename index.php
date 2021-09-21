@@ -47,6 +47,7 @@
                       </div>
                     <?php endif ?>
                     <form class="theme-form" action="auth.php" method="POST">
+                      <input type="hidden" name="redirect" value="<?php echo rawurldecode(@$_GET['r']) ?>">
                       <div class="form-group">
                         <label class="col-form-label pt-0">Username</label>
                         <input class="form-control" name="username" type="text" placeholder="Username" <?php 
