@@ -90,5 +90,14 @@ if($act == 'create'){
     $_SESSION['flash']['label']='Penghapusan '.$_GET['module'].' Berhasil';
     $_SESSION['flash']['icon']='fa fa-trash';
     header('Location: ../../media.php?module='.$module);
+}else if($act == 'payment_delete'){
+    $sql="delete from project_payment
+    WHERE id = '".$_GET['id']."'";
+    //echo $sql;exit;
+    $query = mysqli_query($conn, $sql);
+    $_SESSION['flash']['class']='alert alert-danger';
+    $_SESSION['flash']['label']='Penghapusan Pembayaran Berhasil';
+    $_SESSION['flash']['icon']='fa fa-trash';
+    header('Location: ../../media.php?module='.$module);
 }
 ?>

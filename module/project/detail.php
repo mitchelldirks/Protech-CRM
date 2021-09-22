@@ -174,7 +174,7 @@ $logs=mysqli_query($conn,$sql);
               <h6>Rp. <?php echo number_format($p['nominal']) ?></h6>
               <small><?php echo $p['subject'] ?></small>
               <span class="badge badge-primary badge-pill float-right"><?php echo dateIndonesian($p['payment_date']) ?></span>
-
+              <a href="<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=payment_delete&id=<?php echo $p['id'] ?>"><i class="fa fa-times text-danger"></i></a>
             </li>
           <?php endforeach ?>
           <li class="list-group-item d-flex justify-content-between align-items-center">
