@@ -172,14 +172,9 @@ $logs=mysqli_query($conn,$sql);
           foreach ($payment as $p): $total+=$p['nominal']; ?>
             <li class="list-group-item d-flex justify-content-between align-items-center">
               <h6>Rp. <?php echo number_format($p['nominal']) ?></h6>
-<<<<<<< HEAD
               <small><?php echo $p['subject'] ?></small>
               <span class="badge badge-primary badge-pill float-right"><?php echo dateIndonesian($p['payment_date']) ?></span>
-=======
-              <strong><?php echo $p['subject'] ?></strong>
-              <p><?php echo $p['description'] ?></p>
-              <span class="badge badge-primary badge-pill"><?php echo dateIndonesian($p['payment_date']) ?></span>
->>>>>>> 0b1a85a7c06307a2d2543d90f1291d91259be3eb
+
             </li>
           <?php endforeach ?>
           <li class="list-group-item d-flex justify-content-between align-items-center">
