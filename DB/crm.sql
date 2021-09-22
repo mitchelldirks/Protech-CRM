@@ -667,7 +667,7 @@ CREATE TABLE `user` (
 -- Dumping data untuk tabel `user`
 --
 INSERT INTO `user` (`id_user`, `id_pegawai`, `nama`, `username`, `password`, `level`, `last_activity`, `is_active`) VALUES
-(1, 0, 'Administrator', 'admin', '90b9aa7e25f80cf4f64e990b78a9fc5ebd6cecad', 'admin', '2021-05-17 07:49:56', 0),
+(1, 0, 'Administrator', 'admin', '90b9aa7e25f80cf4f64e990b78a9fc5ebd6cecad', 'admin', '2021-05-17 07:49:56', 1),
 (3, 14, 'Ardisa Valencia', 'ardisa.valencia', 'ae3b53ce20c3584382b131059c9df87a5110cb5b', '4', '2021-04-22 01:11:18', 0),
 (4, 15, 'Jamal Bahri', 'jamal.bahri', '077e8bbe47611178478f0fa5f6ed9fcfc2d7712b', '1', '2021-04-22 01:12:10', 0),
 (5, 20, 'Denis Ahmad', 'denis.ahmad', '39038c331178493f0901bc0a36c1f55a2881eda6', 'admin', '2021-05-04 04:09:01', 1),
