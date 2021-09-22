@@ -16,8 +16,12 @@
 				<thead>
 					<tr>
 						<th>No</th>
+						<th>Flow</th>
+						<th>Kategori</th>
 						<th>Nama</th>
-						<th>Job Description</th>
+						<th>Subject</th>
+						<th>Amount</th>
+						<th></th>
 						<th class="no-content"></th>
 					</tr>
 				</thead>

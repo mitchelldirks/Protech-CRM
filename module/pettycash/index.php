@@ -16,22 +16,28 @@
 				<thead>
 					<tr>
 						<th>No</th>
+						<th>Flow</th>
+						<th>Kategori</th>
 						<th>Nama</th>
-						<th>Job Description</th>
+						<th>Subject</th>
+						<th>Amount</th>
 						<th class="no-content"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php
 					$no = 0;
-					$query = mysqli_query($conn, "SELECT * FROM jabatan ORDER BY id");
+					$query = mysqli_query($conn, "SELECT * FROM pettycash ORDER BY id");
 					foreach($query as $row){
 						$no++;
 						?>
 						<tr>
 							<td><?php echo $no; ?></td>
-							<td><?php echo $row['nama_jabatan']; ?></td>
-							<td><?php echo $row['job_desc']; ?></td>
+							<td><?php echo $row['flow']; ?></td>
+							<td><?php echo $row['description']; ?></td>
+							<td><?php echo $row['id_project']; ?></td>
+							<td><?php echo $row['subject']; ?></td>
+							<td><?php echo $row['amount']; ?></td>
 							<td>
 								<span class="float-right">
 									<a class="btn btn-primary btn-xs" href="?module=<?php echo $_GET['module'] ?>&act=edit&id=<?php echo $row['id']; ?>"><i data-feather="edit"></i></a>
