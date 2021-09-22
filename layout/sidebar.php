@@ -37,6 +37,12 @@
                 <span>Project</span>
               </a>
             </li>
+            <li class="sidebar-list">
+              <a class="sidebar-link sidebar-title link-nav" href="?module=task">
+                <i data-feather="clipboard"></i>
+                <span>Task</span>
+              </a>
+            </li>
             <li class="sidebar-main-title">
               <div>
                 <h6>Master</h6>
@@ -61,7 +67,9 @@
                 <span>Kategori</span>
               </a>
             </li>
+            <!-- menu task -->
           <?php else: ?>
+
             <li class="sidebar-main-title">
               <div>
                 <h6>Task</h6>
