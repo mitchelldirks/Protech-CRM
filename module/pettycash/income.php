@@ -8,8 +8,9 @@
 		</div>
 	<?php endif ?>
 	<div class="widget-content-area br-4">
-		<span class="float-left">
-			<a class="btn btn-primary ml-2 mb-4 mt-2" href="?module=<?php echo $_GET['module'] ?>&act=create">Tambah <?php echo $_GET['module'] ?></a>
+		<span class="float-right">
+			<a class="btn btn-primary ml-2 mb-4 mt-2" href="#" type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#myModal<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=<?php echo $_GET['act'] ?>">Tambah</a>
+
 		</span>
 		<div class="table-responsive mb-4 mt-4">
 			<table id="basic-1" class="table table-hover" style="width:100%">
@@ -28,14 +29,17 @@
 				<tbody>
 					<?php
 					$no = 0;
-					$query = mysqli_query($conn, "SELECT * FROM jabatan ORDER BY id");
+					$query = mysqli_query($conn, "SELECT * FROM pettycash ORDER BY id");
 					foreach($query as $row){
 						$no++;
 						?>
 						<tr>
 							<td><?php echo $no; ?></td>
-							<td><?php echo $row['nama_jabatan']; ?></td>
-							<td><?php echo $row['job_desc']; ?></td>
+							<td><?php echo $row['flow']; ?></td>
+							<td><?php echo $row['nama_kategori']; ?></td>
+							<td><?php echo $row['nama_pegawai']; ?></td>
+							<td><?php echo $row['subject']; ?></td>
+							<td><?php echo $row['amount']; ?></td>
 							<td>
 								<span class="float-right">
 									<a class="btn btn-primary btn-xs" href="?module=<?php echo $_GET['module'] ?>&act=edit&id=<?php echo $row['id']; ?>"><i data-feather="edit"></i></a>

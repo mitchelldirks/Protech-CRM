@@ -2,16 +2,16 @@
 include '../../config/koneksi.php';
 $user   = $_SESSION['id_user'];
 $now    = date('Y-m-d H:i:s');
-$table  = 'jabatan';
+$table  = 'pettycash';
 $module = $_GET['module'];
 $act    = $_GET['act'];
 if ($act!=null) {
     $data = isset($_GET['id']) ? $_GET['id'] : isset($_POST['id']) ? $_POST['id'] : "new entry";
-    mysqli_query($conn,"INSERT INTO log (action,module,data,info,created_by,created_at) values ('".ucwords($act)."','".ucwords($module)."','".ucwords($data)."','".ucwords($module." ".$act." ".$data)."','$user','$now')");
+    mysqli_query($conn,"INSERT INTO pettycash (action,module,data,info,created_by,created_at) values ('".ucwords($act)."','".ucwords($module)."','".ucwords($data)."','".ucwords($module." ".$act." ".$data)."','$user','$now')");
 }
 if($act == 'create'){
-    $sql="INSERT INTO ".$table." (nama_jabatan,job_desc,created_by,created_at,updated_by,updated_at)
-    VALUES ('".$_POST['nama_jabatan']."', '".$_POST['job_desc']."','$user','$now','$user','$now')";
+    $sql="INSERT INTO ".$table." (flow,payment_type, payment_date, id_project,subject, description, amount, status, create_by, create_at, update_by, update_at)
+    VALUES ('".$_POST['flow']."', '".$_POST['id_project']."',, '".$_POST['subject']."','".$_POST['amount']."','$user','$now','$user','$now')";
     $query = mysqli_query($conn,$sql);
     $_SESSION['flash']['class']='alert alert-success';
     $_SESSION['flash']['label']='Penambahan '.$_GET['module'].' Berhasil';
@@ -19,8 +19,10 @@ if($act == 'create'){
     header('Location: ../../media.php?module='.$module);
 }else if($act == 'edit'){
     $sql="UPDATE ".$table." SET 
-    nama_jabatan    = '".$_POST['nama_jabatan']."', 
-    job_desc        = '".$_POST['job_desc']."',
+    flow            = '".$_POST['flow']."', 
+    id_project      = '".$_POST['id_project']."',
+    amount          = '".$_POST['amount']."',
+    subject         = '".$_POST['subject']."',
     updated_by      = '$user',
     updated_at      = '$now'
     WHERE id = '".$_POST['id']."'";

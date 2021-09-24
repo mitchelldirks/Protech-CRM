@@ -11,8 +11,19 @@
 		<span class="float-left">
 			<a class="btn btn-primary ml-2 mb-4 mt-2" href="?module=<?php echo $_GET['module'] ?>&act=create">Tambah <?php echo $_GET['module'] ?></a>
 		</span>
+		<br><br>
+		<form method="GET">
+                  <label for="date1">Date From</label>
+                  <input type="date" name="date1" value="<?php echo date('ymd') ?>">
+                  <label for="date2">&nbsp;Date To</label>
+                  <input type="date" name="date2" value="<?php echo date('ymd') ?>">
+                  <input type="submit" name="submit" class="btn btn-primary" value="filter">
+                </form>
+		
+
 		<div class="table-responsive mb-4 mt-4">
-			<table id="basic-1" class="table table-hover" style="width:100%">
+			<table id="example-1" class="table table-bordered table-striped" cellspacing="0" style="width: 100%">
+			<!-- <table id="basic-1" class="table table-hover" style="width:100%"> -->
 				<thead>
 					<tr>
 						<th>No</th>
@@ -21,7 +32,7 @@
 						<th>Nama</th>
 						<th>Subject</th>
 						<th>Amount</th>
-						<th class="no-content"></th>
+						<th class="no-content">Last Modified</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -34,8 +45,8 @@
 						<tr>
 							<td><?php echo $no; ?></td>
 							<td><?php echo $row['flow']; ?></td>
-							<td><?php echo $row['description']; ?></td>
-							<td><?php echo $row['id_project']; ?></td>
+							<td><?php echo $row['nama_kategori']; ?></td>
+							<td><?php echo $row['nama_pegawai']; ?></td>
 							<td><?php echo $row['subject']; ?></td>
 							<td><?php echo $row['amount']; ?></td>
 							<td>
