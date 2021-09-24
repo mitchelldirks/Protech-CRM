@@ -17,7 +17,7 @@ $jabatan  = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM jabatan where i
       </div>
       <div class="col-6 col-sm-6">
         <h6>Active</h6>
-        <h3 class="counter"><?php echo mysqli_num_rows(mysqli_query($conn,"SELECT * from project where assignee = '".$detail['id']."' ORDER BY updated_at desc")) ?></h3>
+        <h3 class="counter"><?php echo mysqli_num_rows(mysqli_query($conn,"SELECT * from project where assignee = '".$detail['id']."' and tracking < ".count($tracking)." ORDER BY updated_at desc")) ?></h3>
       </div>
     </div>
   </div>
@@ -63,7 +63,7 @@ $jabatan  = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM jabatan where i
       </thead>
       <tbody>
         <?php 
-        $query=mysqli_query($conn,"SELECT * from project where assignee = '".$_GET['id']."' ORDER BY updated_at desc");
+        $query=mysqli_query($conn,"SELECT * from project where assignee = '".$detail['id']."' and tracking < ".count($tracking)." ORDER BY updated_at desc");
         $no = 0;
         foreach($query as $row){
           $assignee     = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$row['assignee']."'"));
