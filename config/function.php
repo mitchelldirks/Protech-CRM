@@ -100,4 +100,6 @@ function timeElapsed($time_ago) {
 		}
 	}
 }
+
+
 ?>

@@ -6,11 +6,11 @@
 			<i class="<?php echo $_SESSION['flash']['icon'] ?>"></i> <?php echo $_SESSION['flash']['label']; ?>
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
 		</div>
-	<?php endif ?>
+	<?php endif ?> <br>
 	<div class="widget-content-area br-4">
 		<span class="float-right">
-			<a class="btn btn-primary ml-2 mb-4 mt-2" href="#" type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#modal">Tambah Income</a>
-		</span><br>
+			<a class="btn btn-primary ml-2 mb-4 mt-2" href="#" type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#modal">Tambah Expanse</a>
+		</span> 
 		<form method="GET">
                   <label for="date1">Date From</label>
                   <input type="date" name="date1" value="<?php echo date('ymd') ?>">
@@ -62,7 +62,7 @@
     <div class="modal-content">
       <div class="modal-header">
         
-        <h4 class="modal-title" id="myModalLabel">Form Tambah Income</h4>
+        <h4 class="modal-title" id="myModalLabel">Form Tambah Expanse</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">

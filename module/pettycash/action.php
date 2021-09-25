@@ -11,7 +11,7 @@ if ($act!=null) {
 }
 if($act == 'create'){
     $sql="INSERT INTO ".$table." (flow,payment_type, payment_date, id_project,subject, description, amount, status, create_by, create_at, update_by, update_at)
-    VALUES ('".$_POST['flow']."', '".$_POST['id_project']."',, '".$_POST['subject']."','".$_POST['amount']."','$user','$now','$user','$now')";
+    VALUES ('".$_POST['flow']."', '".$_POST['subject']."','".$_POST['amount']."','$user','$now','$user','$now')";
     $query = mysqli_query($conn,$sql);
     $_SESSION['flash']['class']='alert alert-success';
     $_SESSION['flash']['label']='Penambahan '.$_GET['module'].' Berhasil';
@@ -20,7 +20,6 @@ if($act == 'create'){
 }else if($act == 'edit'){
     $sql="UPDATE ".$table." SET 
     flow            = '".$_POST['flow']."', 
-    id_project      = '".$_POST['id_project']."',
     amount          = '".$_POST['amount']."',
     subject         = '".$_POST['subject']."',
     updated_by      = '$user',
