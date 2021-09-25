@@ -13,9 +13,9 @@
 		</span> 
 		<form method="GET">
                   <label for="date1">Date From</label>
-                  <input type="date" name="date1" value="<?php echo date('ymd') ?>">
+                  <input type="date" name="date1" value="<?php echo date('y-m-d') ?>">
                   <label for="date2">&nbsp;Date To</label>
-                  <input type="date" name="date2" value="<?php echo date('ymd') ?>">
+                  <input type="date" name="date2" value="<?php echo date('y-m-d') ?>">
                   <input type="submit" name="submit" class="btn btn-primary" value="filter">
          </form>
 		<div class="table-responsive mb-4 mt-4">

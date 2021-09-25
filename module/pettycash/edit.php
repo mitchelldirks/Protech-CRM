@@ -9,13 +9,7 @@ $row 	= mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pettycase where id 
 			<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
 			<div class="row">
 				
-<!-- th>No</th>
-						<th>Flow</th>
-						<th>Kategori</th>
-						<th>Nama</th>
-						<th>Subject</th>
-						<th>Amount</th>
-						<th class="no-content">Last Modified</th> -->
+
 				<div class="col-md-12 col-xs-12 form-group">
 					<label class="text-dark">Flow</label>
 					<input type="text" class="form-control" name="flow" value="<?php echo $row['flow']; ?>">
