@@ -13,9 +13,9 @@
 		</span><br>
 		<form method="GET">
                   <label for="date1">Date From</label>
-                  <input type="date" name="date1" value="<?php echo date('ymd') ?>">
+                  <input type="date" name="date1" value="<?php echo date('Y-m-d') ?>">
                   <label for="date2">&nbsp;Date To</label>
-                  <input type="date" name="date2" value="<?php echo date('ymd') ?>">
+                  <input type="date" name="date2" value="<?php echo date('Y-m-d') ?>">
                   <input type="submit" name="submit" class="btn btn-primary" value="filter">
          </form>
 		<div class="table-responsive mb-4 mt-4">
@@ -70,7 +70,7 @@
          <div class="col-md-12 form-group">
          <div class="form-group">
           <label for="">Flow</label>
-          <input type="text" name="flow" class="form-control" id="exampleFormControlInput1" placeholder="Input field">
+          <input type="text" name="flow" class="form-control" id="exampleFormControlInput1" placeholder="Input field" value="<?php echo $_GET['act'] ?>">
          </div>
          <div class="form-group">
           <?php $data = mysqli_query($conn,"SELECT * FROM kategori order by nama_kategori") ?>
