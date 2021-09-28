@@ -3,8 +3,13 @@ $aksi="module/".$_GET['module']."/action.php";
 $where=array();
 $where[] = " is_delete = 0 ";
 if 		($_SESSION['level']!=='admin') { 	$where[] = " assignee = '".$_SESSION['id_user']."' "; }
-if (isset($_GET['view']) and $_GET['view'] != 'all') {
-	$where[] = isset($_GET['view']) ? " tracking = ".$_GET['view']." ":" tracking = 3 ";
+if (isset($_GET['view'])) {
+
+	if ($_GET['view'] !== 'all') {
+		$where[] = " tracking = ".$_GET['view']." ";
+	}
+}else{
+	$where[] = " tracking = 3 ";
 }
 $sql="SELECT * from project where ".implode(" and ", $where)." ORDER BY updated_at desc";
 $query=mysqli_query($conn,$sql);
@@ -29,7 +34,7 @@ $query=mysqli_query($conn,$sql);
 		</div>
 	<?php endif ?>
 </div>
-<div class="row project-cards">
+<div class="row project-cards mb-5">
 	<div class="col-md-12 project-list">
 		<div class="card">
 			<div class="row">
