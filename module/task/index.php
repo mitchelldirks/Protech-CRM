@@ -42,7 +42,7 @@ if ($_SESSION['level']=='admin') {
 							<tr>
 								<td><?= $no; ?></td>
 								<td>
-									<a class="btn btn-primary btn-xs" href="?module=<?php echo $_GET['module'] ?>&act=detail&id=<?php echo $row['id']; ?>"><strong><?= $row['title']; ?></strong></a><br>
+									<a class="btn btn-primary btn-xs" href="?module=todo&act=detail&id=<?php echo $row['id']; ?>"><strong><?= $row['title']; ?></strong></a><br>
 									<small class="text-wrap"><?= $row['description']; ?></small>
 								</td>
 								<td><?= $row['start_date']; ?></td>
@@ -67,7 +67,7 @@ if ($_SESSION['level']=='admin') {
 <div class="col-xl-12 col-lg-12 col-md-12 col-xs-12 card layout-spacing">
 	<div class="widget-content-area br-4 px-3 py-4">
 		<h2>Project</h2>
-		<?php if (mysqli_num_rows($res) > 0): ?>
+		<?php if (mysqli_num_rows($query) > 0): ?>
 			<div class="table-responsive mb-4 mt-4">
 				<table id="basic-1a" class="table table-hover table-striped" style="width:100%">
 					<thead>
@@ -91,14 +91,14 @@ if ($_SESSION['level']=='admin') {
 							<tr>
 								<td><?php echo $no++; ?></td>
 								<td>
-									<a class="crm-detail" href="?module=<?php echo $_GET['module'] ?>&act=detail&id=<?php echo $row['id']; ?>">
+									<a class="crm-detail" href="?module=project&act=detail&id=<?php echo $row['id']; ?>">
 										#CRM-<?php echo $row['id']; ?>
 									</a>
 								</td>
 								<td><?php echo ucwords(@$tracking[$row['tracking']]); ?></td>
 								<td><?php echo ucwords(@$priority[$row['priority']]); ?></td>
 								<td>
-									<a class="crm-detail" href="?module=<?php echo $_GET['module'] ?>&act=detail&id=<?php echo $row['id']; ?>">
+									<a class="crm-detail" href="?module=project&act=detail&id=<?php echo $row['id']; ?>">
 										<?php echo $row['nama_project']; ?>
 									</a>
 								</td>
