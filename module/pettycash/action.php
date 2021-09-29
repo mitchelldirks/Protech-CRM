@@ -10,8 +10,8 @@ if ($act!=null) {
     mysqli_query($conn,"INSERT INTO pettycash (action,module,data,info,created_by,created_at) values ('".ucwords($act)."','".ucwords($module)."','".ucwords($data)."','".ucwords($module." ".$act." ".$data)."','$user','$now')");
 }
 if($act == 'create'){
-    $sql="INSERT INTO ".$table." (flow, payment_type, payment_date, id_project, subject, description, amount, status, create_by, create_at, update_by, update_at)
-    VALUES ('".$_POST['flow']."','".$_POST['payment_type']."','".$_POST['payment_date']."', '".$_POST['id_project']."','".$_POST['subject']."','".$_POST['description']."','".$_POST['amount']."','".$_POST['status']."', '$user','$now','$user','$now')";
+    $sql="INSERT INTO ".$table." (flow, payment_type, payment_date, id_project, subject, description, amount, create_by, create_at, update_by, update_at)
+    VALUES ('".$_POST['flow']."','".$_POST['payment_type']."','".$_POST['payment_date']."', '".$_POST['id_project']."','".$_POST['subject']."','".$_POST['description']."','".$_POST['amount']."', '$user','$now','$user','$now')";
     $query = mysqli_query($conn,$sql);
     $_SESSION['flash']['class']='alert alert-success';
     $_SESSION['flash']['label']='Penambahan '.$_GET['module'].' Berhasil';
@@ -26,7 +26,6 @@ if($act == 'create'){
     subject         = '".$_POST['subject']."',
     description     = '".$_POST['description']."', 
     amount          = '".$_POST['amount']."',
-    status          = '".$_POST['status']."',
     update_by      = '$user',
     update_at      = '$now'
     WHERE id = '".$_POST['id']."'";

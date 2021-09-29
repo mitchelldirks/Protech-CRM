@@ -21,7 +21,7 @@ $row 	= mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pettycash where id 
 					<select class="form-control custom-select" name="payment_type">
 					<option selected disabled>--Pilih salah satu--</option>
 					<option <?php echo $row['payment_type']=='transfer'? 'selected':"" ?> value="transfer">Transfer</option>
-						<option <?php echo $row['payment_type']=='cash'? 'selected':"" ?> value="cash">Cash</option>
+					<option <?php echo $row['payment_type']=='cash'? 'selected':"" ?> value="cash">Cash</option>
 					</select>
 			</div>
 		 	<div class="form-group">
@@ -32,7 +32,7 @@ $row 	= mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pettycash where id 
           	<?php $data = mysqli_query($conn,"SELECT * FROM project order by id desc") ?>
 				<label class="text-dark">Project </label>
 					<select class="form-control custom-select" name="id_project">
-						<option selected disabled>--Tidak Berafiliasi dengan project apapun--</option>
+						<option selected>--Tidak Berafiliasi dengan project apapun--</option>
 						<?php foreach ($data as $row2): ?>
 							<option <?php echo $row['id_project']==$row2['id'] ?'selected':"" ?> value="<?php echo $row2['id'] ?>"><?php echo ucwords($row2['nama_project']) ?></option>
 						<?php endforeach ?>
@@ -50,10 +50,6 @@ $row 	= mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pettycash where id 
 		<div class="form-group">
 			 <label class="text-dark">Subject</label>
 				<input type="text" class="form-control" name="subject" value="<?php echo $row['subject'] ?>">
-		</div>
-		<div class="form-group">
-			 <label class="text-dark">Status</label>
-				<input type="text" class="form-control" name="status" value="<?php echo $row['status'] ?>">
 		</div>
 		<div class="form-group">
 			 <label class="text-dark">Deskripsi</label>

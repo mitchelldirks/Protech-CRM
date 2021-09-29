@@ -18,7 +18,7 @@
                   <input type="date" name="date1" value="<?php echo date('Y-m-d') ?>">
                   <label for="date2">&nbsp;Date To</label>
                   <input type="date" name="date2" value="<?php echo date('Y-m-d') ?>">
-                  <input type="submit" name="submit" class="btn btn-primary" value="filter">
+                  <input type="submit" class="btn btn-primary">
          </form>
 
 		<div class="table-responsive mb-4 mt-4">
@@ -32,7 +32,6 @@
 						<th>Project</th>
 						<th>Subject</th>
 						<th>Amount</th>
-						<th>Status</th>
 						<th>Desc</th>
 						<th class="no-content">Last Modified</th>
 						<th></th>
@@ -60,7 +59,6 @@
 							<td><?php echo $project['nama_project']; ?></td>
 							<td><?php echo $row['subject']; ?></td>
 							<td>Rp. <?php echo number_format($row['amount'],0,',','.'); ?></td>
-							<td><?php echo $row['status']; ?></td>
 							<td><?php echo $row['description']; ?></td>
 							<td><?php echo $row['update_at']; ?></td>
 							
@@ -91,31 +89,27 @@
          <div class="col-md-12 form-group">
          <div class="form-group">
          <label class="text-dark">Flow</label>
-          <select class="form-control custom-select" name="flow">
-          	<option selected disabled>--Pilih salah satu--</option>
-			<option value="income">Income</option>
-			<option value="expense">Expense</option>
-	  </select>
-	
-          <!-- <input type="text" name="flow" class="form-control" id="exampleFormControlInput1" placeholder="Input field" value="<?php echo $_GET['act'] ?>"> -->
-         </div>
+          <select class="form-control custom-select" name="flow" required>
+						<option value="income" <?php echo $_GET['act']=='income' ? 'selected':'' ?>>Income</option>
+						<option value="expense" <?php echo $_GET['act']=='expense' ? 'selected':'' ?>>Expense</option>
+				  </select>
+	       </div>
          <div class="form-group">
 				<label class="text-dark">Payment Type</label>
-					<select class="form-control custom-select" name="payment_type">
-					<option selected disabled>--Pilih salah satu--</option>
+					<select class="form-control custom-select" name="payment_type" required>
 						<option value="transfer">Transfer</option>
 						<option value="cash">Cash</option>
 					</select>
 			</div>
 		 	<div class="form-group">
 		 		<label for="exampleFormControlInput1">Payment Date</label>
-         		<input type="date" class="form-control" id="exampleFormControlInput1" name="payment_date" placeholder="date" value="<?php echo date("Y-m-d") ?>">
+         		<input type="date" class="form-control" id="exampleFormControlInput1" name="payment_date" placeholder="date" value="<?php echo date("Y-m-d") ?>" required>
 			</div>
 			<div class="form-group">
           	<?php $data = mysqli_query($conn,"SELECT * FROM project order by id desc") ?>
 				<label class="text-dark">Project </label>
-					<select class="form-control custom-select" name="id_project">
-						<option selected disabled>--Tidak Berafiliasi dengan project apapun--</option>
+					<select class="form-control custom-select" name="id_project" required>
+						<option selected>--Tidak Berafiliasi dengan project apapun--</option>
 						<?php foreach ($data as $row): ?>
 							<option value="<?php echo $row['id'] ?>"><?php echo ucwords($row['nama_project']) ?></option>
 						<?php endforeach ?>
@@ -127,16 +121,12 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text" id="amount" >Rp.</span>
 			</div>
-			 <input type="Number" class="form-control" name="amount" aria-label="amount" aria-describedby="amount">
+			 <input type="Number" class="form-control" name="amount" aria-label="amount" aria-describedby="amount" required>
 			</div>
 				
 		<div class="form-group">
 			 <label class="text-dark">Subject</label>
-				<input type="text" class="form-control" name="subject">
-		</div>
-		<div class="form-group">
-			 <label class="text-dark">Status</label>
-				<input type="text" class="form-control" name="status">
+				<input type="text" class="form-control" name="subject" required>
 		</div>
 		<div class="form-group">
 			 <label class="text-dark">Deskripsi</label>
@@ -151,11 +141,6 @@
    </div> 
 </div>
 </div>
- <!-- <script>function formatNumber(num) {
-  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-
-alert(formatNumber(1000)) 
-</script> -->
 </div>
 </div>
 </div>

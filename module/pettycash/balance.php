@@ -18,7 +18,7 @@
                   <input type="date" name="date1" value="<?php echo date('Y-m-d') ?>">
                   <label for="date2">&nbsp;Date To</label>
                   <input type="date" name="date2" value="<?php echo date('Y-m-d') ?>">
-                  <input type="submit" name="submit" class="btn btn-primary" value="filter">
+                  <input type="submit" class="btn btn-primary">
          </form>
 		<div class="table-responsive mb-4 mt-4">
 			<table id="basic-1" class="table table-hover" style="width:100%">

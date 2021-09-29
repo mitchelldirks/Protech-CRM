@@ -18,7 +18,7 @@
                   <input type="date" name="date1" value="<?php echo date('Y-m-d') ?>">
                   <label for="date2">&nbsp;Date To</label>
                   <input type="date" name="date2" value="<?php echo date('Y-m-d') ?>">
-                  <input type="submit" name="submit" class="btn btn-primary" value="filter">
+                  <input type="submit" class="btn btn-primary">
          </form>
 		<div class="table-responsive mb-4 mt-4">
 			<table id="basic-1" class="table table-hover" style="width:100%">
@@ -31,7 +31,6 @@
 						<th>Project</th>
 						<th>Subject</th>
 						<th>Amount</th>
-						<th>Status</th>
 						<th>Desc</th>
 						<th class="no-content">Last Modified</th>
 						<th></th>
@@ -58,7 +57,6 @@
 							<td><?php echo $project['nama_project']; ?></td>
 							<td><?php echo $row['subject']; ?></td>
 							<td>Rp. <?php echo number_format($row['amount'],0,',','.'); ?></td>
-							<td><?php echo $row['status']; ?></td>
 							<td><?php echo $row['description']; ?></td>
 						    <td><?php echo $row['update_at']; ?></td>
 							<td>
@@ -88,14 +86,11 @@
          <div class="col-md-12 form-group">
          <div class="form-group">
          <label class="text-dark">Flow</label>
-          <select class="form-control custom-select" name="flow">
-          	<option selected disabled>--Pilih salah satu--</option>
-			<option value="income">Income</option>
-			<option value="expense">Expense</option>
-	  </select>
-	
-          <!-- <input type="text" name="flow" class="form-control" id="exampleFormControlInput1" placeholder="Input field" value="<?php echo $_GET['act'] ?>"> -->
-         </div>
+         <select class="form-control custom-select" name="flow">
+						<option value="income" <?php echo $_GET['act']=='income' ? 'selected':'' ?>>Income</option>
+						<option value="expense" <?php echo $_GET['act']=='expense' ? 'selected':'' ?>>Expense</option>
+				  </select>
+				  </div>
          <div class="form-group">
 				<label class="text-dark">Payment Type</label>
 					<select class="form-control custom-select" name="payment_type">
@@ -112,7 +107,7 @@
           	<?php $data = mysqli_query($conn,"SELECT * FROM project order by id desc") ?>
 				<label class="text-dark">Project </label>
 					<select class="form-control custom-select" name="id_project">
-						<option selected disabled>--Tidak Berafiliasi dengan project apapun--</option>
+						<option selected>--Tidak Berafiliasi dengan project apapun--</option>
 						<?php foreach ($data as $row): ?>
 							<option value="<?php echo $row['id'] ?>"><?php echo ucwords($row['nama_project']) ?></option>
 						<?php endforeach ?>
@@ -132,10 +127,6 @@
 				<input type="text" class="form-control" name="subject">
 		</div>
 		<div class="form-group">
-			 <label class="text-dark">Status</label>
-				<input type="text" class="form-control" name="status">
-		</div>
-		<div class="form-group">
 			 <label class="text-dark">Deskripsi</label>
 				<input type="text" class="form-control" name="description">
 		</div>
@@ -147,11 +138,6 @@
    </div> 
 </div>
 </div>
- <!-- <script>function formatNumber(num) {
-  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
-
-alert(formatNumber(1000)) 
-</script> -->
 </div>
 </div>
 </div>
