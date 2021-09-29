@@ -69,7 +69,7 @@
     <div class="modal-content">
       <div class="modal-header">
         
-        <h4 class="modal-title" id="myModalLabel">Form Tambah Income</h4>
+        <h4 class="modal-title" id="myModalLabel">Form Tambah expense</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       </div>
       <div class="modal-body">
