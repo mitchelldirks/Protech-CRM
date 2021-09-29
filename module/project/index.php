@@ -1,16 +1,31 @@
-<?php $aksi="module/".$_GET['module']."/action.php"; ?>
+<?php 
+$aksi="module/".$_GET['module']."/action.php";
+$where=array();
+$where[] = " is_delete = 0 ";
+if 		($_SESSION['level']!=='admin') { 	$where[] = " assignee = '".$_SESSION['id_user']."' "; }
+if (isset($_GET['view'])) {
+
+	if ($_GET['view'] !== 'all') {
+		$where[] = " tracking = ".$_GET['view']." ";
+	}
+}else{
+	$where[] = " tracking = 3 ";
+}
+$sql="SELECT * from project where ".implode(" and ", $where)." ORDER BY updated_at desc";
+$query=mysqli_query($conn,$sql);
+?>
 <style type="text/css">
-	.crm-detail{
-		transition: 0.5s;
-	}
-	.crm-detail:hover{
-		text-decoration: underline;
-		color: chocolate;
-		margin-top: -5px;
-		transition: 0.5s;
-	}
+.crm-detail{
+	transition: 0.5s;
+}
+.crm-detail:hover{
+	text-decoration: underline;
+	color: chocolate;
+	margin-top: -5px;
+	transition: 0.5s;
+}
 </style>
-<div class="col-xl-12 col-lg-12 col-md-12 col-12 card layout-spacing">
+<div class="col-md-12">
 	<?php 
 	if (isset($_SESSION['flash'])): ?>
 		<div class="<?php echo $_SESSION['flash']['class']; ?> mt-3 mb-3"> 
@@ -18,70 +33,83 @@
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
 		</div>
 	<?php endif ?>
-	<div class="widget-content-area br-4">
-		<span class="float-left">
-			<a class="btn btn-primary ml-2 mb-4 mt-2" href="?module=<?php echo $_GET['module'] ?>&act=create">Tambah <?php echo $_GET['module'] ?></a>
-		</span>
-		<span class="float-right">
-			<?php $count_done=mysqli_num_rows(mysqli_query($conn,"SELECT * from project where tracking = ".count($tracking))); ?>
-			<?php if ($count_done > 0): ?>
-				<a class="btn btn-link mr-2 mb-4 mt-2 text-muted" href="?module=<?php echo $_GET['module'] ?>&act=history">
-					<?php echo ucwords($_GET['module']) ?> selesai (<?php echo $count_done; ?>)
-				</a>
-			<?php endif ?>
-		</span>
-		<div class="table-responsive mb-4 mt-4">
-			<table id="basic-1" class="table table-hover table-striped" style="width:100%">
-				<thead>
-					<tr>
-						<th>No</th>
-						<th>#ID</th>
-						<th>Project Case</th>
-						<th>Tracker</th>
-						<th>Priority</th>
-						<th>Project</th>
-						<th>Assignee</th>
-						<th class="no-content">Last updated</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php 
-					if ($_SESSION['level']=='admin') {
-						$query=mysqli_query($conn,"SELECT * from project where tracking < ".count($tracking)." and is_delete = 0 ORDER BY updated_at desc");
-					}else{
-						// $query=mysqli_query($conn,"SELECT * from project where assignee = '".$_SESSION['id_user']."' and  start_date <= '".date('Y-m-d')."' and due_date >= '".date('Y-m-d')."' and tracking < ".count($tracking)." ORDER BY updated_at desc");
-						$query=mysqli_query($conn,"SELECT * from project where assignee = '".$_SESSION['id_user']."' and tracking < ".count($tracking)." and is_delete = 0 ORDER BY updated_at desc");
-					}
-					$no = 1;
-					foreach($query as $row){
-						$assignee 		= mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$row['assignee']."'"));
-						$kategori=mysqli_fetch_array(mysqli_query($conn,"SELECT nama_kategori FROM kategori where id = '".$row['kategori']."'"));
-						?>
-						<tr>
-							<td><?php echo $no++; ?></td>
-							<td>
-								<a class="crm-detail" href="?module=<?php echo $_GET['module'] ?>&act=detail&id=<?php echo $row['id']; ?>">
-									#CRM-<?php echo $row['id']; ?>
-								</a>
-							</td>
-							<td><?php echo ucwords(@$project_case[$row['project_case']]); ?></td>
-							<td><?php echo ucwords(@$tracking[$row['tracking']]); ?></td>
-							<td><?php echo ucwords(@$priority[$row['priority']]); ?></td>
-							<td>
-								<a class="crm-detail" href="?module=<?php echo $_GET['module'] ?>&act=detail&id=<?php echo $row['id']; ?>">
-									<?php echo $row['nama_project']; ?>
-								</a>
-							</td>
-							<td>
-								<a class="crm-detail" href="?module=pegawai&act=detail&id=<?php echo $assignee['id']; ?>">
-									<?php echo $assignee['nama_pegawai']; ?>
-								</a>
-							</td>
-							<td><?php echo $row['updated_at']; ?></td>
-						</tr>
-					<?php } ?>
-				</tbody>
-			</table>
+</div>
+<div class="row project-cards mb-5">
+	<div class="col-md-12 project-list">
+		<div class="card">
+			<div class="row">
+				<div class="col-md-12">
+					<ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">
+						<li class="nav-item">
+							<a class="btn btn-primary" href="?module=<?php echo $_GET['module'] ?>&act=create" title="Tambah <?php echo $_GET['module'] ?>"><i data-feather="plus-square"></i></a>
+						</li>
+						<li class="nav-item"><a class="nav-link <?php echo  $_GET['view'] == 'all' ? 'active':'' ?>" href="?module=<?php echo $_GET['module'] ?>&view=all" style="font-size: 12px;"><i data-feather="target"></i>All</a></li>
+						<?php 
+						$tr = isset($_GET['view']) ? $_GET['view'] : 3;
+						foreach ($tracking as $key => $value): 
+							?>
+							<li class="nav-item"><a class="nav-link <?php echo  $tr == $key ? 'active':'' ?>" href="?module=<?php echo $_GET['module'] ?>&view=<?php echo $key ?>" style="font-size: 12px;"><i data-feather="check-circle"></i><?php echo ucwords($value) ?></a></li>
+						<?php endforeach ?>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-12">
+		<div class="row">
+			<?php 
+			foreach($query as $row):
+				$nama_project = strlen($row['nama_project'])>38 ? substr($row['nama_project'], 0,38).".." : $row['nama_project'];
+				$percentage = round($row['tracking'] / count($tracking) *100);
+				$assignee 		= mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$row['assignee']."'"));
+				$kategori=mysqli_fetch_array(mysqli_query($conn,"SELECT nama_kategori FROM kategori where id = '".$row['kategori']."'"));
+				if ($row['tracking'] == count($tracking)) {
+					$bg='light';
+				}elseif ($row['tracking'] == 1 or $row['tracking'] == 2) {
+					$bg='primary';	
+				}elseif ($row['tracking'] > 2 and $row['tracking'] < count($tracking)) {
+					$bg='success';	
+				}
+				?>
+				<div class="col-xxl-4 col-lg-6 col-xs-12 mt-2">
+					<div class="project-box shadow">
+						<span class="float-right badge badge-<?= $bg ?>"><?php echo ucwords(@$tracking[$row['tracking']]); ?></span>
+						<h5>
+							<a class="crm-detail" href="?module=<?php echo $_GET['module'] ?>&act=detail&id=<?php echo $row['id']; ?>"><?php echo $nama_project; ?></a>
+						</h5>
+						<p class="text-muted">
+							<a class="crm-detail text-muted" href="?module=<?php echo $_GET['module'] ?>&act=detail&id=<?php echo $row['id']; ?>">
+								#CRM-<?php echo $row['id']; ?>
+							</a>
+						</p>
+						<p>
+							<img class="img-20 me-1 rounded-circle" src="../assets/images/dashboard/profile.jpg" alt="" data-original-title="" title="">
+							<a class="ml-2 text-dark" href="?module=pegawai&act=detail&id=<?php echo $assignee['id']; ?>">
+								<b><?php echo $assignee['nama_pegawai']; ?></b>
+							</a>
+						</p>
+						<div class="row details">
+							<div class="col-6"><span>Project Case </span></div>
+							<div class="col-6"><b><?php echo ucwords(@$project_case[$row['project_case']]); ?></b></div>
+							<div class="col-6"> <span>Priority</span></div>
+							<div class="col-6"><b><?php echo ucwords(@$priority[$row['priority']]); ?></b></div>
+							<div class="col-6"> <span>Start Date</span></div>
+							<div class="col-6"><b><?php echo dateIndonesian($row['start_date']); ?></b></div>
+							<div class="col-6"> <span>Due Date</span></div>
+							<div class="col-6"><b><?php echo dateIndonesian($row['due_date']); ?></b></div>
+						</div>
+						<div class="project-status mt-4">
+							<div class="media mb-0">
+								<p><?php echo $percentage ?>%</p>
+								<div class="media-body text-end ml-2"><span>Done</span></div>
+							</div>
+							<div class="progress" style="height: 10px">
+								<div class="progress-bar-animated bg-<?=$bg?> progress-bar-striped" role="progressbar" style="width: <?php echo $percentage ?>%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<?php endforeach ?>
 		</div>
 	</div>
 </div>

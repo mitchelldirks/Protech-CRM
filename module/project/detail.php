@@ -122,37 +122,27 @@ $initial      = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai whe
 $sql="SELECT * from project_log where project_id = '".$_GET["id"]."' group by created_at order by created_at desc";
 $logs=mysqli_query($conn,$sql);
 ?>
-<div class="uk-container uk-padding">
-  <div class="uk-timeline">
-    <?php $no=1;
-    foreach ($logs as $log): 
-      $assignee     = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$log['created_by']."'"));
-      ?>
-      <div class="uk-timeline-item">
-        <div class="uk-timeline-icon">
-          <span class="uk-badge"><span uk-icon="check"></span></span>
-        </div>
-        <div class="uk-timeline-content">
-          <div class="uk-card uk-card-default uk-margin-medium-bottom uk-overflow-auto">
-            <div class="uk-card-header">
-              <div class="uk-grid-small uk-flex-middle" uk-grid>
-                <h3 class="uk-card-title"><a class="text-dark" href="?module=pegawai&act=detail&id=<?php echo $detail['created_by']; ?>"><strong><?php echo ucwords($assignee['nama_pegawai']) ?></strong></a> melakukan kontribusi <?php echo timeElapsed($log['created_at'],true) ?></h3>
-                <span class="uk-label uk-label-primary uk-margin-auto-left">#<?php echo $no++;//echo $log['field'] ?></span>
-              </div>
-            </div>
-            <div class="uk-card-body">
-              <?php 
-              $sub_logs=mysqli_query($conn,"SELECT * from project_log where project_id = '$_GET[id]' and created_at = '".$log['created_at']."'");
-              foreach ($sub_logs as $sl): ?>
-                <p class="uk-text-dark"><?php echo $sl['text'] ?></p>
-              <?php endforeach ?>
-            </div>
-          </div>
-        </div>
+<section class="cd-container" id="cd-timeline">
+  <?php $no=1;
+  foreach ($logs as $log): 
+    $assignee     = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$log['created_by']."'"));
+    ?>
+    <div class="cd-timeline-block">
+      <div class="cd-timeline-img cd-picture bg-primary pt-3 text-center"><span><?php echo date_format(date_create($log['created_at']),'H:i') ?></span></div>
+      <div class="cd-timeline-content">
+        <h5><a class="text-dark" href="?module=pegawai&act=detail&id=<?php echo $detail['created_by']; ?>"><strong><?php echo ucwords($assignee['nama_pegawai']) ?></strong></a> melakukan kontribusi <?php echo timeElapsed($log['created_at'],true) ?></h5>
+        <hr>
+        <?php 
+        $sub_logs=mysqli_query($conn,"SELECT * from project_log where project_id = '$_GET[id]' and created_at = '".$log['created_at']."'");
+        foreach ($sub_logs as $sl): ?>
+          <p class="text-dark"><?php echo $sl['text'] ?></p>
+        <?php endforeach ?>
+        <span class="cd-date"><?php echo dateIndonesian($log['created_at']) ?></span>
       </div>
-    <?php endforeach ?>
-  </div>
-</div>
+    </div>
+  <?php endforeach ?>
+
+</section>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="detail-nominal" tabindex="-1" role="dialog" aria-labelledby="detail-nominalLabel" aria-hidden="true">
@@ -174,14 +164,15 @@ $logs=mysqli_query($conn,$sql);
               <h6>Rp. <?php echo number_format($p['nominal']) ?></h6>
               <small><?php echo $p['subject'] ?></small>
               <span class="badge badge-primary badge-pill float-right"><?php echo dateIndonesian($p['payment_date']) ?></span>
-
+              <a href="<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=payment_delete&id=<?php echo $p['id'] ?>"><i class="fa fa-times text-danger"></i></a>
             </li>
           <?php endforeach ?>
           <li class="list-group-item d-flex justify-content-between align-items-center">
-              <h6 class="<?php echo $total < $detail['nominal'] ?"text-danger":"text-success" ?>">Rp. <?php echo number_format($total-$detail['nominal']) ?></h6>
-              <small class="text-left">Balance</small>
-              <span class="badge <?php echo $total < $detail['nominal'] ? "badge-danger":"badge-success" ?> badge-pill float-right"><?php echo $total < $detail['nominal'] ? "Belum Lunas":"Lunas" ?></span>
-            </li>
+            <h6 class="<?php echo $total < $detail['nominal'] ?"text-danger":"text-success" ?>">Rp. <?php echo number_format($total-$detail['nominal']) ?></h6>
+            <small class="text-left">Balance</small>
+            <span class="badge <?php echo $total < $detail['nominal'] ? "badge-danger":"badge-success" ?> badge-pill float-right"><?php echo $total < $detail['nominal'] ? "Belum Lunas":"Lunas" ?></span>
+            <a></a>
+          </li>
         </ul>
       </div>
       <div class="modal-footer">
