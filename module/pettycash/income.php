@@ -11,7 +11,9 @@
 		<span class="float-right">
 			<a class="btn btn-primary ml-2 mb-4 mt-2" href="#" type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#modal">Tambah Income</a>
 		</span><br>
-		<form method="GET">
+		<form  method="GET" enctype="multipart/form-data">
+			<input type="hidden" name="module" value="<?php echo $_GET['module']?>">
+			<input type="hidden" name="act" value="<?php echo $_GET['act']?>">
                   <label for="date1">Date From</label>
                   <input type="date" name="date1" value="<?php echo date('Y-m-d') ?>">
                   <label for="date2">&nbsp;Date To</label>
@@ -32,13 +34,20 @@
 						<th>Status</th>
 						<th>Desc</th>
 						<th class="no-content">Last Modified</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php
 					$no = 0;
-					$query = mysqli_query($conn, "SELECT * FROM pettycash ORDER BY id");
+					if (isset($_GET['date1'])) {
+					$query = mysqli_query($conn, "SELECT * FROM pettycash WHERE flow='income' AND payment_date between '".$_GET['date1']."' and '".$_GET['date2']."' ORDER BY payment_date desc");
+
+					}else{
+					$query = mysqli_query($conn, "SELECT * FROM pettycash WHERE flow='income' ORDER BY payment_date desc");
+				}
 					foreach($query as $row){
+						$project 		= mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM project where id = '".$row['id_project']."'"));
 						$no++;
 						?>
 						<tr>
@@ -46,11 +55,12 @@
 							<td><?php echo $row['flow']; ?></td>
 							<td><?php echo $row['payment_type']; ?></td>
 							<td><?php echo dateIndonesian($row['payment_date']); ?></td>
-							<td><?php echo $row['id_project']; ?></td>
+							<td><?php echo $project['nama_project']; ?></td>
 							<td><?php echo $row['subject']; ?></td>
-							<td><?php echo number_format($row['amount'],0,',','.'); ?></td>
+							<td>Rp. <?php echo number_format($row['amount'],0,',','.'); ?></td>
 							<td><?php echo $row['status']; ?></td>
 							<td><?php echo $row['description']; ?></td>
+						    <td><?php echo $row['update_at']; ?></td>
 							<td>
 								<span class="float-right">
 									<a class="btn btn-primary btn-xs" href="?module=<?php echo $_GET['module'] ?>&act=edit&id=<?php echo $row['id']; ?>"><i data-feather="edit"></i></a>
@@ -133,10 +143,9 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-lg btn-primary">Simpan</button>	
-
-<!--         <button type="submit" name="simpan" class="btn btn-primary">Save changes</button>
- -->       </form>
+ </form>
    </div> 
+</div>
 </div>
  <!-- <script>function formatNumber(num) {
   return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
