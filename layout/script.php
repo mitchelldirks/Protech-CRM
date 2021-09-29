@@ -18,3 +18,20 @@
 <script type="text/javascript">
 	$('input:visible:first').focus();
 </script>
+<?php if (!isset($_GET['module'])): ?>
+	<script src="assets/js/custom-card/custom-card.js"></script>
+	<script src="assets/js/datepicker/date-picker/datepicker.js"></script>
+	<script src="assets/js/datepicker/date-picker/datepicker.en.js"></script>
+	<script src="assets/js/datepicker/date-picker/datepicker.custom.js"></script>
+	<script src="assets/js/general-widget.js"></script>
+	<script type="text/javascript">
+		$.ajax({
+			type: "POST",
+			url: "https://zenquotes.io/api/random",
+			success: function(msg){
+				console.log(msg)
+				$('#quote').html(msg.h);
+			}
+		});
+	</script>
+	<?php endif ?>

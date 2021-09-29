@@ -49,75 +49,38 @@
     </div>
   </div>
 </div>
-<!-- <div class="col-xl-4 col-lg-4 col-xs-12  box-col-4">
-  <div class="card o-hidden profile-greeting">
-    <div class="card-body">
-      <div class="media">
-        <div class="badge-groups w-100">
-          <div class="badge f-12"><i class="mr-1" data-feather="clock"></i><?php echo date('D, d F Y') ?></div>
-          <div class="badge f-12"><i class="fa fa-spin fa-cog f-14"></i></div>
+<div class="col-xl-6 xl-100 box-col-12">
+  <div class="card">
+    <div class="cal-date-widget card-body">
+      <div class="row">
+        <div class="col-xl-6 col-xs-12 col-md-6 col-sm-6">
+          <div class="cal-info text-center">
+            <span class="text-muted"><?php echo explode(",",dateIndonesian(date('Y-m-d')))[0] ?></span>
+            <h2 style="color:#7366fe"><?php echo date('d') ?></h2>
+            <div class="d-inline-block mt-2"><span class="b-r-dark pr-3"><?php echo bulan(date('m')) ?></span><span class="pl-3"><?php echo date('Y') ?></span></div>
+            <p class="mt-4 f-16 text-muted" id="quote">
+              <?php 
+              $ch = curl_init(); 
+              curl_setopt($ch, CURLOPT_URL, "https://zenquotes.io/api/random");
+              curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+              $output = curl_exec($ch); 
+              curl_close($ch);      
+              $decode = json_decode($output);
+              if ($decode) {
+                print_r($decode[0]->h);
+              }else{
+                echo "<i>Yang penting pada sehat aja dah</i> ,- Adul";
+              }
+              ?>
+            </p>
+          </div>
+        </div>
+        <div class="col-xl-6 col-xs-12 col-md-6 col-sm-6">
+          <div class="cal-datepicker">
+            <div class="datepicker-here float-sm-right" data-language="en"></div>
+          </div>
         </div>
       </div>
-      <div class="greeting-user text-center">
-        <div class="profile-vector"><img class="img-fluid" src="assets/images/dashboard/welcome.png" alt=""></div>
-        <h4 class="f-w-600"><span id="greeting">Good Day Nigga</span> <span class="right-circle"><i class="fa fa-check-circle f-14 middle"></i></span></h4>
-        <p><span> Today's Presence is</span></p>
-        <div class="whatsnew-btn"><a class="btn btn-primary"> <?php echo round($today/$pegawai*100,2)."%"; ?></a></div>
-        <div class="left-icon"><i class="fa fa-bell"> </i></div>
-      </div>
     </div>
-  </div>
-</div> -->
-<div class="col-xl-12 col-lg-12 col-xs-12  box-col-8">
-  <div class="card p-4">
-    <h3 class="">Project Tersedia</h3>
-    <table class="table table-hover table-striped" id="basic-1">
-      <thead>
-        <th>No</th>
-        <th>#ID</th>
-        <th>Project Case</th>
-        <th>Tracker</th>
-        <th>Priority</th>
-        <th>Project</th>
-        <th>Assignee</th>
-        <th class="no-content">Last updated</th>
-      </thead>
-      <tbody>
-        <?php 
-        if ($_SESSION['level']=='admin') {
-          $query=mysqli_query($conn,"SELECT * from project where tracking < ".count($tracking)." ORDER BY updated_at desc");
-        }else{
-          $query=mysqli_query($conn,"SELECT * from project where assignee = '".$_SESSION['id_user']."' and tracking < ".count($tracking)." ORDER BY updated_at desc");
-        }
-        $no=1; 
-        foreach ($query as $row): 
-          $assignee    = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$row['assignee']."'"));
-          $kategori=mysqli_fetch_array(mysqli_query($conn,"SELECT nama_kategori FROM kategori where id = '".$row['kategori']."'"));
-          ?>
-          <tr>
-            <td><?php echo $no++; ?></td>
-            <td>
-              <a class="crm-detail" href="?module=project&act=detail&id=<?php echo $row['id']; ?>">
-                #CRM-<?php echo $row['id']; ?>
-              </a>
-            </td>
-            <td><?php echo ucwords(@$project_case[$row['project_case']]); ?></td>
-            <td><?php echo ucwords(@$tracking[$row['tracking']]); ?></td>
-            <td><?php echo ucwords(@$priority[$row['priority']]); ?></td>
-            <td>
-              <a class="crm-detail" href="?module=project&act=detail&id=<?php echo $row['id']; ?>">
-                <?php echo $row['nama_project']; ?>
-              </a>
-            </td>
-            <td>
-              <a class="crm-detail" href="?module=pegawai&act=detail&id=<?php echo $assignee['id']; ?>">
-                <?php echo $assignee['nama_pegawai']; ?>
-              </a>
-            </td>
-            <td><?php echo $row['updated_at']; ?></td>
-          </tr>
-        <?php endforeach ?>
-      </tbody>
-    </table>
   </div>
 </div>
