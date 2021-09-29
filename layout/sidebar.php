@@ -43,6 +43,14 @@
                 <span>Task</span>
               </a>
             </li>
+            <li class="sidebar-list">
+              <a class="sidebar-link sidebar-title" href="#"><i data-feather="clipboard"></i><span>Pettycash</span></a>
+              <ul class="sidebar-submenu">
+                <li><a class="lan" href="?module=pettycash&act=income">Income</a></li>
+                <li><a class="lan" href="?module=pettycash&act=expense">Expense</a></li>
+                <li><a class="lan" href="?module=pettycash&act=balance">Balance</a></li>
+              </ul>
+            </li>
             <li class="sidebar-main-title">
               <div>
                 <h6>Master</h6>
