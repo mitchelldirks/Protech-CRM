@@ -9,7 +9,7 @@
 	<?php endif ?>
 	<div class="widget-content-area br-4">
 		<span class="float-right">
-			<a class="btn btn-primary ml-2 mb-4 mt-2" href="#" type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#modal">Tambah Income</a>
+			<a class="btn btn-primary ml-2 mb-4 mt-2" href="#" type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#modal">Tambah Expense</a>
 		</span><br>
 		<form method="GET">
                   <label for="date1">Date From</label>
