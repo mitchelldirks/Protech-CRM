@@ -2,7 +2,6 @@
 $aksi 	= "module/".$_GET['module']."/action.php";
 $row 	= mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pettycash where id = '".$_GET['id']."'"));
 ?>
-
 <div class="col-xl-12 col-lg-12 col-md-12 col-12 layout-spacing card">
 	<div class="widget-content-area br-4 ">
 		<form method="POST" action="<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=<?php echo $_GET['act'] ?>" enctype="multipart/form-data">
@@ -34,7 +33,7 @@ $row 	= mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pettycash where id 
 					<select class="form-control custom-select" name="id_project">
 						<option selected>--Tidak Berafiliasi dengan project apapun--</option>
 						<?php foreach ($data as $row2): ?>
-							<option <?php echo $row['id_project']==$row2['id'] ?'selected':"" ?> value="<?php echo $row2['id'] ?>"><?php echo ucwords($row2['nama_project']) ?></option>
+							<option <?php echo $row['id_project']==$row2['id'] ?'selected':"" ?> value="<?php echo $row2['id'] ?>"><?php echo "CRM-".$row2['id']." | ".ucwords($row2['nama_project']) ?></option>
 						<?php endforeach ?>
 					</select>
 			</div>
@@ -46,7 +45,6 @@ $row 	= mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pettycash where id 
 			</div>
 			 <input type="Number" class="form-control" name="amount" aria-label="amount" aria-describedby="amount" value="<?php echo $row['amount']?>">
 			</div>
-				
 		<div class="form-group">
 			 <label class="text-dark">Subject</label>
 				<input type="text" class="form-control" name="subject" value="<?php echo $row['subject'] ?>">
@@ -58,8 +56,6 @@ $row 	= mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pettycash where id 
 		<div class="col-md-12 col-xs-12 form-group">
 					<button type="submit" class="btn btn-lg btn-primary">Simpan</button>	
 				</div>
-
-
         </form>
     </div>
 </div>

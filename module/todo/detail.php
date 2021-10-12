@@ -3,7 +3,6 @@ $aksi = "module/" . $_GET['module'] . "/action.php";
 $todo = mysqli_fetch_array(mysqli_query($conn, 'SELECT * FROM todo WHERE id = ' . $_GET['id']));
 $detail_todo = mysqli_query($conn, 'SELECT * FROM todo_detail WHERE todo_id = ' . $_GET['id'] . ' ORDER BY id');
 ?>
-
 <div class="col-xl-12 col-lg-12 col-md-12 col-12 layout-spacing card">
   <?php
   if (isset($_SESSION['alert'])) : ?>
@@ -27,7 +26,6 @@ $detail_todo = mysqli_query($conn, 'SELECT * FROM todo_detail WHERE todo_id = ' 
         <span class="mb-2">Status <strong><?= $todo['status'] == 1 ? 'Finished' : 'On Going' ?></strong></span>
       </div>
     </div>
-
     <div class="table-responsive my-4">
       <table class="table table-hover" style="width:100%">
         <tbody>
@@ -50,13 +48,10 @@ $detail_todo = mysqli_query($conn, 'SELECT * FROM todo_detail WHERE todo_id = ' 
                   </span>
                 </td>
               </tr>
-
             <?php endforeach; ?>
           <?php endif; ?>
         </tbody>
       </table>
     </div>
-
-
   </div>
 </div>

@@ -28,6 +28,12 @@
             <li class="sidebar-list">
               <a class="sidebar-link sidebar-title link-nav" href="?module=todo">
                 <i data-feather="list"></i>
+                <?php $query=mysqli_query($conn,"SELECT * from todo where assignee = '".$_SESSION['id_user']."' and status = '0' ORDER BY updated_at desc");  ?>
+                <?php if (mysqli_num_rows($query)>0): ?>
+                  <span class="badge badge-primary text-light text-right float-right ">
+                    <?php echo mysqli_num_rows($query) ?>
+                  </span>
+                <?php endif ?>
                 <span>Todo</span>
               </a>
             </li>
@@ -39,7 +45,7 @@
             </li>
             <li class="sidebar-list">
               <a class="sidebar-link sidebar-title link-nav" href="?module=task">
-                <i data-feather="clipboard"></i>
+                <i data-feather="list"> </i>
                 <span>Task</span>
               </a>
             </li>
@@ -75,9 +81,7 @@
                 <span>Kategori</span>
               </a>
             </li>
-            <!-- menu task -->
           <?php else: ?>
-
             <li class="sidebar-main-title">
               <div>
                 <h6>Task</h6>

@@ -23,11 +23,13 @@ $initial      = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai whe
                 <div class="text-md-right text-xs-center">
                   <h3>Invoice #<span class="counter"><?php echo $_GET['id'] ?></span></h3>
                   <p>
-                    Date 
+                    Issued 
+                    <?php echo dateIndonesian(date('Y-m-d')) ?> 
+                    <!-- Start
                     <?php echo dateIndonesian(date('Y-m-d')) ?> 
                     <br>
                     Due 
-                    <?php echo dateIndonesian($detail['due_date']); ?> 
+                    <?php echo dateIndonesian($detail['due_date']); ?>  -->
                   </p>
                 </div>
               </div>
@@ -37,7 +39,9 @@ $initial      = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai whe
           <div class="row">
             <div class="col-md-12">
               <div class="media">
-                <div class="media-left"><img class="media-object rounded-circle img-60" src="../assets/images/user/1.jpg" alt=""></div>
+                <div class="media-left">
+                  <!-- <img class="media-object rounded-circle img-60" src="../assets/images/user/1.jpg" alt=""> -->
+                </div>
                 <div class="media-body m-l-20">
                   <h4 class="media-heading"><?php echo $detail['nama_project'] ?></h4>
                   <?php //echo $detail['deskripsi'] ?>
@@ -54,6 +58,9 @@ $initial      = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai whe
                       <h6 class="p-2 mb-0">Tanggal</h6>
                     </td>
                     <td class="Hours">
+                      <h6 class="p-2 mb-0">Method</h6>
+                    </td>
+                    <td class="Hours">
                       <h6 class="p-2 mb-0">Keterangan</h6>
                     </td>
                     <td class="Rate">
@@ -62,25 +69,29 @@ $initial      = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai whe
                   </tr>
                   <?php 
                   $total = 0;
-                  $query = mysqli_query($conn,"SELECT * from project_payment where project_id = '$_GET[id]' order by payment_date");
+          $query=mysqli_query($conn,"SELECT * from pettycash where id_project = '$_GET[id]' and is_delete = '0' order by payment_date");
+
                   ?>
-                  <?php foreach ($query as $payment): $total+=$payment['nominal']; ?>
+                  <?php foreach ($query as $payment): $total+=$payment['amount']; ?>
                     <tr>
                       <td>
                         <p class="itemtext"><?php echo dateIndonesian($payment['payment_date']) ?></p>
                       </td>
                       <td>
-                        <h5><?php echo $payment['subject'] ?></h5>
+                        <p class="itemtext"><?php echo ($payment['payment_type']) ?></p>
+                      </td>
+                      <td>
+                        <p><?php echo $payment['subject'] ?></p>
                         <p class="itemtext"><?php echo $payment['deskripsi'] ?></p>
                       </td>
                       <td>
                         <span class="float-left">Rp. &nbsp;</span>
-                        <p class="itemtext"><?php echo number_format($payment['nominal']) ?></p>
+                        <p class="itemtext"><?php echo number_format($payment['amount']) ?></p>
                       </td>
                     </tr>
                   <?php endforeach ?>
                   <tr>
-                    <td></td>
+                    <td colspan="2"></td>
                     <td class="Rate">
                       <h6 class="mb-0 p-2">Total</h6>
                     </td>

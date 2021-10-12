@@ -4,7 +4,6 @@ $where=array();
 $where[] = " is_delete = 0 ";
 if 		($_SESSION['level']!=='admin') { 	$where[] = " assignee = '".$_SESSION['id_user']."' "; }
 if (isset($_GET['view'])) {
-
 	if ($_GET['view'] !== 'all') {
 		$where[] = " tracking = ".$_GET['view']." ";
 	}
@@ -41,7 +40,7 @@ $query=mysqli_query($conn,$sql);
 				<div class="col-md-12">
 					<ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">
 						<li class="nav-item">
-							<a class="btn btn-primary" href="?module=<?php echo $_GET['module'] ?>&act=create" title="Tambah <?php echo $_GET['module'] ?>"><i data-feather="plus-square"></i></a>
+							<a class="btn btn-primary btn-block" href="?module=<?php echo $_GET['module'] ?>&act=create" title="Tambah <?php echo $_GET['module'] ?>"><i data-feather="plus-square"></i></a>
 						</li>
 						<li class="nav-item"><a class="nav-link <?php echo  $_GET['view'] == 'all' ? 'active':'' ?>" href="?module=<?php echo $_GET['module'] ?>&view=all" style="font-size: 12px;"><i data-feather="target"></i>All</a></li>
 						<?php 
@@ -83,7 +82,7 @@ $query=mysqli_query($conn,$sql);
 							</a>
 						</p>
 						<p>
-							<img class="img-20 me-1 rounded-circle" src="../assets/images/dashboard/profile.jpg" alt="" data-original-title="" title="">
+							<img class="img-20 me-1 rounded-circle" src="assets/images/dashboard/profile.jpg" alt="" data-original-title="" title="">
 							<a class="ml-2 text-dark" href="?module=pegawai&act=detail&id=<?php echo $assignee['id']; ?>">
 								<b><?php echo $assignee['nama_pegawai']; ?></b>
 							</a>

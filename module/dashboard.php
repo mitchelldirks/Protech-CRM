@@ -30,7 +30,10 @@
           <div class="media align-items-center">
             <div class="media-body">
               <div class="right-chart-content">
-                <h4><?php echo mysqli_num_rows(mysqli_query($conn,"SELECT * from project where tracking = ".count($tracking))); ?></h4><span>Closed </span>
+                <h4>
+                  <?php echo "Rp. ".number_format(mysqli_fetch_array(mysqli_query($conn, "SELECT sum(amount) as nominal FROM pettycash WHERE flow='income' and is_delete = '0' and payment_date between '".date('Y-m-01')."' and '".date('Y-m-d')."' ORDER BY payment_date desc"))['nominal']); ?>
+                    
+                  </h4><span>Revenue this month </span>
               </div>
             </div>
           </div>
@@ -39,8 +42,9 @@
           <div class="media align-items-center">
             <div class="media-body">
               <div class="right-chart-content">
-                <h4><?php 
-                echo mysqli_num_rows(mysqli_query($conn,"SELECT * from project where tracking < ".count($tracking)." and tracking > 1")); ?></h4><span>Progress </span>
+                <h4>
+                  <?php echo "Rp. ".number_format(mysqli_fetch_array(mysqli_query($conn, "SELECT sum(amount) as nominal FROM pettycash WHERE flow='income' and is_delete = '0' ORDER BY payment_date desc"))['nominal']); ?>
+                </h4><span>Revenue </span>
               </div>
             </div>
           </div>

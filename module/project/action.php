@@ -74,7 +74,9 @@ if($act == 'create'){
     $_SESSION['flash']['icon']='fa fa-edit';
     header('Location: ../../media.php?module='.$module."&act=detail&id=".$_POST['id']);
 }else if($act == 'payment'){
-    $sql="INSERT INTO project_payment (project_id,nominal,subject,description,payment_date,created_by) values ('".$_POST['project_id']."','".$_POST['nominal']."','".$_POST['subject']."','".$_POST['description']."','".$_POST['payment_date']."','$user')";
+    // $sql="INSERT INTO project_payment (project_id,nominal,subject,description,payment_date,created_by) values ('".$_POST['project_id']."','".$_POST['nominal']."','".$_POST['subject']."','".$_POST['description']."','".$_POST['payment_date']."','$user')";
+    $sql="INSERT INTO pettycash (flow, payment_type, payment_date, id_project, subject, description, amount, create_by, create_at, update_by, update_at)
+    VALUES ('income','".$_POST['payment_type']."','".$_POST['payment_date']."', '".$_POST['project_id']."','".$_POST['subject']."','".$_POST['description']."','".$_POST['nominal']."', '$user','$now','$user','$now')";
     $query = mysqli_query($conn, $sql);
     $_SESSION['flash']['class']='alert alert-success';
     $_SESSION['flash']['label']='Penambahan '.$_GET['module'].' Project Berhasil';
@@ -91,13 +93,26 @@ if($act == 'create'){
     $_SESSION['flash']['icon']='fa fa-trash';
     header('Location: ../../media.php?module='.$module);
 }else if($act == 'payment_delete'){
-    $sql="delete from project_payment
+    // $sql="delete from pettycash
+    // WHERE id = '".$_GET['id']."'";
+    $sql="UPDATE pettycash SET 
+    is_delete = '1'
     WHERE id = '".$_GET['id']."'";
     //echo $sql;exit;
     $query = mysqli_query($conn, $sql);
     $_SESSION['flash']['class']='alert alert-danger';
     $_SESSION['flash']['label']='Penghapusan Pembayaran Berhasil';
     $_SESSION['flash']['icon']='fa fa-trash';
-    header('Location: ../../media.php?module='.$module);
+    header('Location: ../../media.php?module='.$module."&act=detail&id=".$_GET['project_id']);
+// }else if($act == 'merge'){
+//     $query = mysqli_query($conn,'SELECT * from project_payment');
+//     foreach ($query as $_POST) {
+//         $sql="UPDATE pettycash set payment_type = 'transfer'";
+//         $fill = mysqli_query($conn, $sql);
+//         if (!$fill) {
+//             echo $sql;exit;
+//         }
+//     }
+//     echo "succeed";
 }
 ?>

@@ -58,9 +58,9 @@ $initial      = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai whe
         <div class="input-group-append">
           <?php 
           $sum=0;
-          $pay=mysqli_query($conn,"SELECT * from project_payment where project_id = '$_GET[id]'");
+          $pay=mysqli_query($conn,"SELECT * from pettycash where id_project = '$_GET[id]' and is_delete = '0' order by payment_date desc");
           foreach ($pay as $p) {
-            $sum+=$p['nominal'];
+            $sum+=$p['amount'];
           }
           ?>
           <span class="input-group-text bg-transparent" title="Rp. <?php echo number_format($sum) ?>">
@@ -146,7 +146,7 @@ $logs=mysqli_query($conn,$sql);
 </div>
 <!-- Modal -->
 <div class="modal fade" id="detail-nominal" tabindex="-1" role="dialog" aria-labelledby="detail-nominalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="detail-nominalLabel">Payment Timeline</h5>
@@ -155,25 +155,26 @@ $logs=mysqli_query($conn,$sql);
         </button>
       </div>
       <div class="modal-body">
-        <ul class="list-group  list-group-flush">
+        <table class="table table-hover">            
           <?php 
-          $payment=mysqli_query($conn,"SELECT * from project_payment where project_id = '$_GET[id]' order by payment_date");
+          $payment=mysqli_query($conn,"SELECT * from pettycash where id_project = '$_GET[id]' and is_delete = '0' order by payment_date desc");
           $total=0;
-          foreach ($payment as $p): $total+=$p['nominal']; ?>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-              <h6>Rp. <?php echo number_format($p['nominal']) ?></h6>
-              <small><?php echo $p['subject'] ?></small>
-              <span class="badge badge-primary badge-pill float-right"><?php echo dateIndonesian($p['payment_date']) ?></span>
-              <a href="<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=payment_delete&id=<?php echo $p['id'] ?>"><i class="fa fa-times text-danger"></i></a>
-            </li>
+          foreach ($payment as $p): $total+=$p['amount']; ?>
+            <tr>
+              <td><h6>Rp. <?php echo number_format($p['amount']) ?></h6></td>
+              <td><?php echo $p['payment_type'] ?></td>
+              <td><small><?php echo $p['subject'] ?></small></td>
+              <td><span class="badge badge-primary badge-pill"><?php echo dateIndonesian($p['payment_date']) ?></span></td>
+              <td><a href="<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=payment_delete&id=<?php echo $p['id'] ?>&project_id=<?php echo $_GET['id'] ?>"><i class="fa fa-times text-danger"></i></a></td>
+            </tr>
           <?php endforeach ?>
-          <li class="list-group-item d-flex justify-content-between align-items-center">
-            <h6 class="<?php echo $total < $detail['nominal'] ?"text-danger":"text-success" ?>">Rp. <?php echo number_format($total-$detail['nominal']) ?></h6>
-            <small class="text-left">Balance</small>
-            <span class="badge <?php echo $total < $detail['nominal'] ? "badge-danger":"badge-success" ?> badge-pill float-right"><?php echo $total < $detail['nominal'] ? "Belum Lunas":"Lunas" ?></span>
-            <a></a>
-          </li>
-        </ul>
+          <tr>
+            <td><h6 class="<?php echo $total < $detail['nominal'] ?"text-danger":"text-success" ?>">Rp. <?php echo number_format($total-$detail['nominal']) ?></h6></td>
+            <td><small class="text-left">Balance</small></td>
+            <td><span class="badge <?php echo $total < $detail['nominal'] ? "badge-danger":"badge-success" ?> badge-pill"><?php echo $total < $detail['nominal'] ? "Belum Lunas":"Lunas" ?></span></td>
+            <td></td>
+          </tr>
+        </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-link text-muted" data-dismiss="modal">Close</button>
@@ -206,6 +207,13 @@ $logs=mysqli_query($conn,$sql);
               <input type="number" class="form-control" name="nominal" required aria-label="nominal" aria-describedby="nominal">
             </div>
           </div>
+          <div class="form-group">
+                      <label class="text-dark">Payment Type</label>
+                      <select class="form-control custom-select" name="payment_type" required>
+                        <option value="transfer">Transfer</option>
+                        <option value="cash">Cash</option>
+                      </select>
+                    </div>
           <div class="form-group">
             <label>Payment Date</label>
             <input type="date" name="payment_date" class="form-control" required value="<?php echo date('Y-m-d') ?>">
