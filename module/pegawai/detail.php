@@ -62,7 +62,7 @@ $jabatan  = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM jabatan where i
         </tr>
       </thead>
       <tbody>
-        <?php 
+        <?php
         $query=mysqli_query($conn,"SELECT * from project where assignee = '".$detail['id']."' and tracking < ".count($tracking)." ORDER BY updated_at desc");
         $no = 0;
         foreach($query as $row){

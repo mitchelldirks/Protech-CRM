@@ -22,12 +22,12 @@ if($act == 'create'){
     $_SESSION['flash']['icon']='fa fa-check';
     header('Location: ../../media.php?module='.$module);
 }else if($act == 'edit'){
-    $sql="UPDATE ".$table." SET 
-    nama_pegawai    = '".$_POST['nama_pegawai']."', 
-    tel             = '".$_POST['tel']."', 
+    $sql="UPDATE ".$table." SET
+    nama_pegawai    = '".$_POST['nama_pegawai']."',
+    tel             = '".$_POST['tel']."',
     email           = '".$_POST['email']."',
-    jabatan         = '".$_POST['jab']."', 
-    tempatlahir     = '".$_POST['pob']."', 
+    jabatan         = '".$_POST['jab']."',
+    tempatlahir     = '".$_POST['pob']."',
     tanggallahir    = '".$_POST['dob']."',
     updated_by      = '$user',
     updated_at      = '$now'
@@ -42,11 +42,11 @@ if($act == 'create'){
         header('Location: ../../media.php?module='.$module);
     }
 }else if($act == 'delete'){
-    $sql="UPDATE ".$table." SET 
+    $sql="UPDATE ".$table." SET
     is_active = '0'
     WHERE id = '".$_GET['id']."'";
     $query = mysqli_query($conn, $sql);
-    $sql="UPDATE user SET 
+    $sql="UPDATE user SET
     is_active = '0'
     WHERE id_pegawai = '".$_GET['id']."'";
     $query = mysqli_query($conn, $sql);

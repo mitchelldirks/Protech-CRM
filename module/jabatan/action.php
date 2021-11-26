@@ -18,8 +18,8 @@ if($act == 'create'){
     $_SESSION['flash']['icon']='fa fa-check';
     header('Location: ../../media.php?module='.$module);
 }else if($act == 'edit'){
-    $sql="UPDATE ".$table." SET 
-    nama_jabatan    = '".$_POST['nama_jabatan']."', 
+    $sql="UPDATE ".$table." SET
+    nama_jabatan    = '".$_POST['nama_jabatan']."',
     job_desc        = '".$_POST['job_desc']."',
     updated_by      = '$user',
     updated_at      = '$now'

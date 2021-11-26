@@ -18,13 +18,13 @@ if($act == 'create'){
     $_SESSION['flash']['icon']='fa fa-check';
     header('Location: ../../media.php?module='.$module."&act=".$_POST['flow']);
 }else if($act == 'edit'){
-    $sql="UPDATE ".$table." SET 
-    flow            = '".$_POST['flow']."', 
-    payment_type    = '".$_POST['payment_type']."', 
-    payment_date    = '".$_POST['payment_date']."',    
-    id_project      = '".$_POST['id_project']."', 
+    $sql="UPDATE ".$table." SET
+    flow            = '".$_POST['flow']."',
+    payment_type    = '".$_POST['payment_type']."',
+    payment_date    = '".$_POST['payment_date']."',
+    id_project      = '".$_POST['id_project']."',
     subject         = '".$_POST['subject']."',
-    description     = '".$_POST['description']."', 
+    description     = '".$_POST['description']."',
     amount          = '".$_POST['amount']."',
     update_by      = '$user',
     update_at      = '$now'

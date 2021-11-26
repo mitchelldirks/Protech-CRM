@@ -33,14 +33,14 @@ if ($_SESSION['level']!='admin') {
 				</div>
 				<div class="col-md-6 col-xs-12 form-group">
 					<label class="text-dark">Jabatan</label>
-					<?php 
+					<?php
 					$jab=mysqli_query($conn,"SELECT * from jabatan where id = $row[jabatan] order by nama_jabatan");
 					$j=mysqli_fetch_array($jab);
 					?>
 					<input type="text" readonly class="form-control" value="<?php echo ucwords($j['nama_jabatan']); ?>">
 					<input type="hidden" class="form-control" name="jab" value="<?php echo ($j['id']); ?>">
 				</div>
-				<?php 
+				<?php
 				if ($_SESSION['level']!='admin') {
 					?>
 					<div class="col-md-6 col-xs-12 form-group">
@@ -54,7 +54,7 @@ if ($_SESSION['level']!='admin') {
 					</div>
 				<?php } ?>
 				<div class="col-md-12 col-xs-12 form-group">
-					<button type="submit" class="btn btn-lg btn-primary">Simpan</button>	
+					<button type="submit" class="btn btn-lg btn-primary">Simpan</button>
 				</div>
 			</div>
 		</form>
@@ -63,7 +63,7 @@ if ($_SESSION['level']!='admin') {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
 	$('#password, #Cpassword').on('keyup', function () {
-		if ($('#password').val() == $('#Cpassword').val()) { 
+		if ($('#password').val() == $('#Cpassword').val()) {
 			$('#message').html('Password Match').css('color', 'green');
 		} else {
 			$('#message').html('Password Not Match').css('color', 'red');

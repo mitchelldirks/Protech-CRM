@@ -32,7 +32,7 @@
 				<div class="col-md-6 col-xs-12 form-group">
 					<label class="text-dark">Jabatan</label>
 					<select class="form-control" name="jab">
-						<?php 
+						<?php
 						$jab=mysqli_query($conn,"SELECT * from jabatan order by nama_jabatan");
 						foreach ($jab as $j) {
 							echo '<option value="'.ucwords($j['id']).'">'.ucwords($j['nama_jabatan']).'</option>';
@@ -41,7 +41,7 @@
 					</select>
 				</div>
 				<div class="col-md-12 col-xs-12 form-group">
-					<button type="submit" class="btn btn-lg btn-primary">Simpan</button>	
+					<button type="submit" class="btn btn-lg btn-primary">Simpan</button>
 				</div>
 			</div>
 		</form>
