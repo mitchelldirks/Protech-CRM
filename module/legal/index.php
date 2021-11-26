@@ -3,7 +3,7 @@
 
   <div class="card">
       <div class="card-header">
-          <strong>Legal Data</strong>
+          <strong>Legal Data (Incoming)</strong>
       </div>
         <div class="card-body">
           <div class="col-md-3 mb-4">

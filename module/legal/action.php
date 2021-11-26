@@ -10,6 +10,8 @@ $now=$dt->format('Y-m-d G:i:s');
 if($act == 'create'){
   $flow=$_POST['flow'];
   $fileName=$_FILES['doc']['name'];
+  $tmpName=$_FILES['doc']['tmp_name'];
+  $direktori= 'documents/';
   $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($fileName)));
   $doc=$_FILES['doc']['name'];
   $extension=pathinfo($doc,PATHINFO_EXTENSION);
@@ -39,6 +41,7 @@ if($act == 'create'){
   $createdAt=$dt->format('Y-m-d G:i:s');
   $updateBy=NULL;
   $updateAt=$dt->format('Y-m-d G:i:s');
+  move_uploaded_file($tmpName,$direktori.$fileName);
   $sql="INSERT INTO legal(id,id_project,flow,filename,slug,extension,link_doc,doc_number,doc_date,doc_title,doc_author,doc_recepient,doc_body,is_public,is_sent,is_delete,us_approve,approve_date,created_by,created_at,updated_by,updated_at)VALUES(NULL,NULL,'$flow','$fileName','$slug','$extension','$link_doc','$docNumb','$docDate','$docTitle','$docAuthor',
     '$docRecepient','$docBody','$is_public','$is_sent','$is_delete','$us_approve','$approve_date','$createdBy','$createdAt','$updateBy','$updateAt' );";
 
