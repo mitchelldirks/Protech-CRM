@@ -4,6 +4,15 @@ $user   = $_SESSION['id_user'];
 $table  = 'legal';
 $module = $_GET['module'];
 $act    = $_GET['act'];
+function log_data($data){
+  global $module;
+  global $action;
+  global $user;
+  global $now;
+  global $conn;
+  $data   = isset($data) ? $data : "new entry";
+  mysqli_query($conn,"INSERT INTO log (action,module,data,info,created_by,created_at) values ('".ucwords($action)."','".ucwords($module)."','".ucwords($data)."','".ucwords($module." ".$action." ".$data)."','$user','$now')"); 
+}
 $tz = 'Asia/Jakarta';
 $dt = new DateTime("now", new DateTimeZone($tz));
 $now=$dt->format('Y-m-d G:i:s');
@@ -38,6 +47,9 @@ if($act == 'create'){
     '$docRecepient','$docBody','$is_public','$is_sent','$is_delete','$us_approve','$approve_date','$createdBy','$createdAt','$updateBy','$updateAt' );";
 
   $query=mysqli_query($conn,$sql);
+  if ($query) {
+    log_data();
+  }
   header('Location:../../media.php?module='.$module);
 }elseif($act == 'edit') {
     $is_public      = $_POST['is_public'] == true ? 1:0;
@@ -55,11 +67,14 @@ if($act == 'create'){
     WHERE id = '".$_POST['id']."'";
 
     $query=mysqli_query($conn,$sql);
+    if ($query) {
+      log_data($_POST['id']);
+    }
       header('Location:../../media.php?module='.$module);
 }elseif($act == 'delete'){
   $sql="DELETE FROM ".$table." WHERE id = '".$_GET['id']."'";
   $query = mysqli_query($conn, $sql);
-
+  log_data($_GET['id']);
   header('Location: ../../media.php?module='.$module);
 }
 
