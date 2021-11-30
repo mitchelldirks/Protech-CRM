@@ -10,7 +10,7 @@
             <div class="mb-3">
                <label for="exampleInputEmail1" class="form-label"><strong>Flow</strong></label>
                <select name="flow" id="disabledSelect" class="form-control" required>
-                 <option readonly selected disabled hidden>- Choose Type -</option>
+                 <option selected disabled>- Choose Type -</option>
                  <option value="Incoming Letter">Incoming Letter</option>
                  <option value="Outcoming Letter">Outcoming Letter</option>
                </select>
@@ -28,9 +28,12 @@
             <div class="mb-3">
                <label for="exampleInputEmail1" class="form-label"><strong>Project</strong></label>
                <select name="project" id="disabledSelect" class="form-control" required>
-                 <option readonly selected disabled hidden>-Choose Project-</option>
-                 <option value="Incoming Letter">Incoming Letter</option>
-                 <option value="Outcoming Letter">Outcoming Letter</option>
+                  <option selected disabled>-Choose Project-</option>
+                  <?php 
+                  $project = mysqli_query($conn,"SELECT * from project where is_delete = 0 order by id desc");
+                  foreach ($project as $p): ?>
+                    <option value="<?php echo $p['id'] ?>"><?php echo "CRM-".$p['id']." ".$p['nama_project'] ?></option>
+                  <?php endforeach ?>
                </select>
             </div>
           </div>
