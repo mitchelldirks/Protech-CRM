@@ -34,7 +34,6 @@ if($act == 'create'){
     $_SESSION['flash']['label']='Pengubahan '.$_GET['module'].' Berhasil';
     $_SESSION['flash']['icon']='fa fa-edit';
     header('Location: ../../media.php?module='.$module."&act=".$_POST['flow']);
-
 }else if($act == 'delete'){
     $query = mysqli_query($conn, "DELETE FROM ".$table." WHERE id = '".$_GET['id']."'");
     $_SESSION['flash']['class']='alert alert-danger';

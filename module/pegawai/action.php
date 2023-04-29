@@ -33,10 +33,16 @@ if($act == 'create'){
     updated_at      = '$now'
     WHERE id = '".$_POST['id']."'";
     $query = mysqli_query($conn, $sql);
+    if (strlen($_POST['password'])>0) {
+         $sql="UPDATE user SET 
+            password    = '".sha1(md5($_POST['password']))."'
+            WHERE id_pegawai = '".$_POST['id']."'";
+            $query = mysqli_query($conn, $sql);
+    }
     $_SESSION['flash']['class']='alert alert-success';
     $_SESSION['flash']['label']='Pengubahan '.$_GET['module'].' Berhasil';
     $_SESSION['flash']['icon']='fa fa-edit';
-    if ($_SESSION['level']!='admin') {
+    if ($_SESSION['level']!=='admin') {
         header('Location: ../../media.php?module='.$module.'&act='.$act);
     }else{
         header('Location: ../../media.php?module='.$module);

@@ -7,6 +7,13 @@ if ($_SESSION['level']!='admin') {
 }
 ?>
 <div class="col-xl-12 col-lg-12 col-md-12 col-12 layout-spacing card">
+	<?php 
+	if (isset($_SESSION['flash'])): ?>
+		<div class="<?php echo $_SESSION['flash']['class']; ?> mt-3 mb-3"> 
+			<i class="<?php echo $_SESSION['flash']['icon'] ?>"></i> <?php echo $_SESSION['flash']['label']; ?>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+		</div>
+	<?php endif ?>
 	<div class="widget-content-area br-4 ">
 		<form method="POST" action="<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=<?php echo $_GET['act'] ?>" enctype="multipart/form-data">
 			<input type="hidden" name="id" value="<?php echo $row['id']; ?>">

@@ -8,7 +8,7 @@ $table_name       = 'todo';
 $child_table_name = 'todo_detail';
 $now              = date('Y-m-d H:i:s');
 
-function log_data($data){
+function log_data($data=null){
   global $module;
   global $action;
   global $current_user_id;
@@ -27,7 +27,7 @@ function execute_query($res, $action)
 {
   // Jika query gagal di execute
   // Maka akan muncul alert gagal
-  $action_in_text = strpos($action, 'create') !== false ? 'menambahkan' : strpos($action, 'edit') !== false ? 'mengubah' : 'menghapus';
+  $action_in_text = strpos($action, 'create') !== false ? 'menambahkan' : strpos($action, 'edit') !== false ? 'mengubah' : strpos($action, 'update_list') !== false ? 'mengupdate' : 'menghapus';
   if (!$res) {
     $_SESSION['alert']['class']   = 'alert alert-danger';
     $_SESSION['alert']['text']    = 'Gagal ' . $action_in_text . ' todo list';
@@ -35,9 +35,12 @@ function execute_query($res, $action)
 
     return false;
   }
-
+  if (strpos($action, 'delete')) {
+    $_SESSION['alert']['class']   = 'alert alert-danger';
+  }else{
+    $_SESSION['alert']['class']   = 'alert alert-success';    
+  }
   // Jika berhasil, maka akan lanjut
-  $_SESSION['alert']['class']   = 'alert alert-success';
   $_SESSION['alert']['text']    = 'Berhasil ' . $action_in_text . '  todo list';
 
   return true;
@@ -81,11 +84,20 @@ if (!isset($action)) {
  * Action create todo list
  */
 if ($action === 'create') {
+  $data = array();
+  for ($i=0; $i < count($_POST['list_title']); $i++) { 
+    $data[] = array(
+      'title'     => $_POST['list_title'][$i],
+      'description' => $_POST['list_description'][$i],
+      'is_checked'  => 0,
+    );
+  }
   $query = '
   INSERT INTO '. $table_name .' 
   (
   title,
   description,
+  data,
   start_date,
   due_date,
   assignee,
@@ -98,6 +110,7 @@ if ($action === 'create') {
   "' .
   $_POST['title'] . '","' .
   $_POST['description'] . '","' .
+  rawurlencode(json_encode($data)) . '","' .
   $_POST['start_date'] . '","' .
   $_POST['due_date'] . '","' .
   $_POST['assignee'] . '","' .
@@ -107,6 +120,7 @@ if ($action === 'create') {
   $current_user_id . '","' .
   $now .
   '")';
+  // print_r($query);exit;
   $res = mysqli_query($conn, $query);
   $is_success = execute_query($res, $action);
   log_data();
@@ -122,6 +136,29 @@ if ($action === 'create') {
 /**
  * Action create detail todo list
  */
+if ($action == 'update_list') {
+  $data = array();
+
+  // print_r($_POST);exit;
+  for ($i=0; $i < count($_POST['list_title']); $i++) { 
+    $data[] = array(
+      'title'     => $_POST['list_title'][$i],
+      'description' => $_POST['list_description'][$i],
+      'is_checked'  => $_POST['list_is_checked'][$i] == 'on' ? 1 : 0,
+    );
+  }
+  $query = '
+  UPDATE '. $table_name .' SET
+  data = "' .rawurlencode(json_encode($data)) . '",
+  updated_by = "' .$current_user_id . '",
+  updated_at = "' .$now . '"
+  where id = "'.$_GET['id'].'"
+  ';
+  $res = mysqli_query($conn, $query);
+  $is_success = execute_query($res, $action);
+  header('Location:  ../../media.php?module=' . $module . '&act=detail&id=' . $_GET['id']);
+
+}
 if ($action === 'create-detail') {
   $is_checked = isset($_POST['is_checked']) ? '1' : '0';
   $query = '

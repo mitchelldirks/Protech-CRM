@@ -3,9 +3,13 @@
 	<div class="widget-content-area br-4 ">
 		<form method="POST" action="<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=<?php echo $_GET['act'] ?>" enctype="multipart/form-data">
 			<div class="row">
-				<div class="col-md-12 col-xs-12 form-group">
+				<div class="col-md-6 col-xs-12 form-group">
 					<label class="text-dark">Project</label>
 					<input type="text" class="form-control" name="nama_project">
+				</div>
+				<div class="col-md-6 col-xs-12 form-group">
+					<label class="text-dark">URL Demo/Live (optional)</label>
+					<input type="url" class="form-control" name="url">
 				</div>
 				<div class="col-md-6 col-xs-12 form-group">
 					<?php $data = mysqli_query($conn,"SELECT * FROM kategori order by nama_kategori") ?>
@@ -40,13 +44,12 @@
 						<?php endforeach ?>
 					</select>
 				</div>
-
 				<div class="col-md-6 col-xs-12 form-group">
-					<?php $data = mysqli_query($conn,"SELECT * FROM pegawai where is_active=1 and jabatan != 0 order by nama_pegawai") ?>
+					<?php $data = mysqli_query($conn,"SELECT * FROM pegawai where is_active='1' and jabatan != 0 order by nama_pegawai") ?>
 					<label class="text-dark">Assignee</label>
 					<select class="form-control custom-select" name="assignee">
 						<?php foreach ($data as $row): ?>
-							<option value="<?php echo $row['id'] ?>"><?php echo ucwords($row['nama_pegawai']) ?></option>
+							<option value="<?php echo $row['id'] ?>" <?php echo $_SESSION['id_user']==$row['id'] ? 'selected':'' ?>><?php echo ucwords($row['nama_pegawai']) ?></option>
 						<?php endforeach ?>
 					</select>
 				</div>

@@ -12,12 +12,15 @@ if ($act!=null) {
     mysqli_query($conn,"INSERT INTO log (action,module,data,info,created_by,created_at) values ('".ucwords($act)."','".ucwords($module)."','".ucwords($data)."','".ucwords($module." ".$act." ".$data)."','$user','$now')");
 }
 if($act == 'create'){
-    $sql="INSERT INTO ".$table." (nama_project,deskripsi,kategori,project_case,tracking,assignee,nominal,start_date,due_date,priority,created_by,created_at,updated_by,updated_at)
-    VALUES ('".$_POST['nama_project']."', '".$_POST['deskripsi']."', '".$_POST['kategori']."', '".$_POST['project_case']."', '".$_POST['tracking']."', '".$_POST['assignee']."', '".$_POST['nominal']."', '".$_POST['start_date']."', '".$_POST['due_date']."', '".$_POST['priority']."','$user','$now','$user','$now')";
+    $sql="INSERT INTO ".$table." (url,nama_project,deskripsi,kategori,project_case,tracking,assignee,nominal,start_date,due_date,priority,created_by,created_at,updated_by,updated_at)
+    VALUES ('".$_POST['url']."','".$_POST['nama_project']."', '".$_POST['deskripsi']."', '".$_POST['kategori']."', '".$_POST['project_case']."', '".$_POST['tracking']."', '".$_POST['assignee']."', '".$_POST['nominal']."', '".$_POST['start_date']."', '".$_POST['due_date']."', '".$_POST['priority']."','$user','$now','$user','$now')";
     $query = mysqli_query($conn,$sql);
     $_SESSION['flash']['class']='alert alert-success';
     $_SESSION['flash']['label']='Penambahan '.$_GET['module'].' Berhasil';
     $_SESSION['flash']['icon']='fa fa-check';
+    $id=mysqli_insert_id($conn);
+    $signature = sha1(md5($id.$_POST['nama_project'].$now));
+    mysqli_query($conn,"UPDATE project set signature = '".$signature."' where id = '".$id."'");
     header('Location: ../../media.php?module='.$module);
 }else if($act == 'edit'){
     foreach($_POST as $key => $value) {
@@ -26,6 +29,7 @@ if($act == 'create'){
         if ($value!= $before[$key]) {
             switch ($key) {
                 case 'deskripsi':
+                $text = "<strong>".ucwords($assignee['nama_pegawai'])."</strong> mengubah ".ucwords($key);
                 break;
                 case 'assignee':
                 $assigneea = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$before[$key]."'"));
@@ -56,6 +60,7 @@ if($act == 'create'){
     }
     $sql="UPDATE ".$table." SET 
     nama_project    = '".$_POST['nama_project']."', 
+    url             = '".$_POST['url']."', 
     deskripsi       = '".$_POST['deskripsi']."',
     kategori        = '".$_POST['kategori']."', 
     project_case    = '".$_POST['project_case']."', 
@@ -114,5 +119,16 @@ if($act == 'create'){
 //         }
 //     }
 //     echo "succeed";
+}elseif ($act=='apilog') {
+    $json = file_get_contents('php://input');
+    $data = json_decode($json);
+    $set = array();
+    foreach ($data as $key => $value) {
+        $set[] = " ".$key." = '".$value."' ";
+    }
+    $set = implode(' , ',$set);
+    $sql="INSERT INTO log_external set ".$set;
+    $query = mysqli_query($conn, $sql);
+
 }
 ?>
