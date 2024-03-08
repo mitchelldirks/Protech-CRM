@@ -44,6 +44,17 @@ $users = mysqli_query($conn, 'SELECT * FROM user ORDER BY id_user')
 						<option value="1">Finished</option>
 					</select>
 				</div>
+				<div class="col-md-12 col-xs-12">
+					
+					<div class="form-group">
+						<label>Todo List</label>
+						<input type="text" name="list_title[]" class="form-control" placeholder="Todo Title">
+						<textarea name="list_description[]" class="form-control" placeholder="Todo Description"></textarea>
+					</div>
+					<div id="addmore"></div>
+					<span class="pull-right text-primary"><a id="addmore-btn"><i class="fa fa-plus"></i> Add More List</a></span>
+
+				</div>
 				<div class="col-md-12 col-xs-12 form-group">
 					<button type="submit" class="btn btn-lg btn-primary">Simpan</button>	
 				</div>
@@ -51,3 +62,13 @@ $users = mysqli_query($conn, 'SELECT * FROM user ORDER BY id_user')
 		</form>
 	</div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript">
+	$( "#addmore-btn" ).click(function() {
+		var append = 	'<div class="form-group">'
+		+'<input type="text" name="list_title[]" class="form-control" placeholder="Todo Title">'
+		+'<textarea name="list_description[]" class="form-control" placeholder="Todo Description"></textarea>'
+		+'</div>'
+		$( "#addmore" ).append(append);
+	});
+</script>

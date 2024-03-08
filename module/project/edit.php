@@ -7,9 +7,13 @@ $edit 	= mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM project where id =
 		<form method="POST" action="<?php echo $aksi ?>?module=<?php echo $_GET['module'] ?>&act=<?php echo $_GET['act'] ?>" enctype="multipart/form-data">
 			<div class="row">
 				<input type="hidden" name="id" value="<?php echo $edit['id'] ?>">
-				<div class="col-md-12 col-xs-12 form-group">
+				<div class="col-md-6 col-xs-12 form-group">
 					<label class="text-dark">Project</label>
 					<input type="text" class="form-control" name="nama_project" value="<?php echo $edit['nama_project'] ?>">
+				</div>
+				<div class="col-md-6 col-xs-12 form-group">
+					<label class="text-dark">URL Demo/Live (optional)</label>
+					<input type="text" class="form-control" name="url" value="<?php echo $edit['url'] ?>">
 				</div>
 				<div class="col-md-6 col-xs-12 form-group">
 					<?php $data = mysqli_query($conn,"SELECT * FROM kategori order by nama_kategori") ?>

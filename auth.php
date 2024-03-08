@@ -5,14 +5,14 @@ $pass = sha1(md5($_POST['password']));
 $sql = "SELECT * from user where password='$pass' and username='$user'";
 $query = mysqli_query($conn, $sql);
 $data = mysqli_fetch_assoc($query);
-$row = mysqli_num_rows($query);
-if ($data['is_active']=="0" && $row > 0) {
+if (isset($data['is_active']) && $data['is_active']==0) {
 	$_SESSION['flash']['class']='alert alert-danger';
 	$_SESSION['flash']['label']='Akun anda tidak aktif';
 	$_SESSION['flash']['iconn']='fa fa-ban';
 	$_SESSION['flash']['username']=$_POST['username'];
 	header('location: index.php');
 }else{
+	$row = mysqli_num_rows($query);
 	if ($row > 0) {
 		$_SESSION['id_user'] = $data['id_pegawai'];
 		if (strtolower($data['level'])=='admin') {

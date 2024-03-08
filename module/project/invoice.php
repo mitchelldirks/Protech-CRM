@@ -44,7 +44,7 @@ $initial      = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai whe
                 </div>
                 <div class="media-body m-l-20">
                   <h4 class="media-heading"><?php echo $detail['nama_project'] ?></h4>
-                  <?php //echo $detail['deskripsi'] ?>
+                  <?php echo $detail['deskripsi'] ?>
                 </div>
               </div>
             </div>
@@ -54,12 +54,14 @@ $initial      = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai whe
               <table class="table table-bordered table-striped">
                 <tbody>
                   <tr>
+                    <?php if ($_SESSION['level']=='administrator'): ?>
                     <td class="item">
                       <h6 class="p-2 mb-0">Tanggal</h6>
                     </td>
                     <td class="Hours">
                       <h6 class="p-2 mb-0">Method</h6>
                     </td>
+                    <?php endif ?>
                     <td class="Hours">
                       <h6 class="p-2 mb-0">Keterangan</h6>
                     </td>
@@ -74,15 +76,19 @@ $initial      = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai whe
                   ?>
                   <?php foreach ($query as $payment): $total+=$payment['amount']; ?>
                     <tr>
+                    <?php if ($_SESSION['level']=='administrator'): ?>
+
                       <td>
                         <p class="itemtext"><?php echo dateIndonesian($payment['payment_date']) ?></p>
                       </td>
                       <td>
                         <p class="itemtext"><?php echo ($payment['payment_type']) ?></p>
                       </td>
+                    <?php endif ?>
+
                       <td>
-                        <p><?php echo $payment['subject'] ?></p>
-                        <p class="itemtext"><?php echo $payment['deskripsi'] ?></p>
+                        <p><b><?php echo ($payment['subject']) ?></b>
+                          <br><?php echo $payment['description'] ?></p>
                       </td>
                       <td>
                         <span class="float-left">Rp. &nbsp;</span>
@@ -91,13 +97,25 @@ $initial      = mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai whe
                     </tr>
                   <?php endforeach ?>
                   <tr>
-                    <td colspan="2"></td>
+                    <?php if ($_SESSION['level']=='administrator'): ?>
+                      <td colspan="2"></td>
+                    <?php endif ?>
                     <td class="Rate">
                       <h6 class="mb-0 p-2">Total</h6>
                     </td>
                     <td class="payment">
                       <span class="float-left mb-0 pt-2">Rp. &nbsp;</span>
                       <h6 class="mb-0 p-2"><?php echo number_format($total) ?></h6>
+                    </td>
+                  </tr>
+                  <tr>
+                    <?php if ($_SESSION['level']=='administrator'): ?>
+                      <td colspan="2"></td>
+                    <?php endif ?>
+                    <td class="Rate">
+                    </td>
+                    <td class="Rate">
+                      <h6 class="mb-0 p-2"><i><?php echo ucwords(nominal_indo($total))." rupiah" ?></i></h6>
                     </td>
                   </tr>
                 </tbody>

@@ -26,13 +26,14 @@
             </div>
           </div>
         </div>
+        <?php if ($_SESSION['level']=='admin'): ?>
+          
         <div class="col-xl-3 col-md-6 col-sm-6 p-0 box-col-6">
           <div class="media align-items-center">
             <div class="media-body">
               <div class="right-chart-content">
                 <h4>
                   <?php echo "Rp. ".number_format(mysqli_fetch_array(mysqli_query($conn, "SELECT sum(amount) as nominal FROM pettycash WHERE flow='income' and is_delete = '0' and payment_date between '".date('Y-m-01')."' and '".date('Y-m-d')."' ORDER BY payment_date desc"))['nominal']); ?>
-                    
                   </h4><span>Revenue this month </span>
               </div>
             </div>
@@ -49,6 +50,28 @@
             </div>
           </div>
         </div>
+        <?php else: ?>
+           <div class="col-xl-3 col-md-6 col-sm-6 p-0 box-col-6">
+          <div class="media align-items-center">
+            <div class="media-body">
+              <div class="right-chart-content">
+                  <h4><?php echo mysqli_num_rows(mysqli_query($conn,"SELECT * from project where assignee='".$_SESSION['id_user']."' and tracking < ".count($tracking))); ?></h4>
+                  <span>Your ACTIVE Project </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6 col-sm-6 p-0 box-col-6">
+          <div class="media align-items-center">
+            <div class="media-body">
+              <div class="right-chart-content">
+                  <h4><?php echo mysqli_num_rows(mysqli_query($conn,"SELECT * from project where assignee='".$_SESSION['id_user']."'")); ?></h4>
+                  <span>ALL Project </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <?php endif ?>
       </div>
     </div>
   </div>

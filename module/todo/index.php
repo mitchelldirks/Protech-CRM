@@ -27,7 +27,13 @@
 				<tbody>
 					<?php
 					$no = 0;
+					if ($_SESSION['level']=='admin') {
+						
 					$res = mysqli_query($conn, "SELECT * FROM todo ORDER BY id");
+					}else{
+					$res = mysqli_query($conn, "SELECT * FROM todo where assignee='".$_SESSION['id_user']."' ORDER BY id");
+
+					}
 					foreach($res as $row){
 						$assignee 		= mysqli_fetch_array(mysqli_query($conn,"SELECT * FROM pegawai where id = '".$row['assignee']."'"));
 
