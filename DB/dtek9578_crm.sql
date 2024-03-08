@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 24, 2021 at 02:15 AM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.3
+-- Generation Time: Nov 30, 2021 at 01:03 PM
+-- Server version: 10.4.16-MariaDB
+-- PHP Version: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -34,8 +33,8 @@ CREATE TABLE `jabatan` (
   `job_desc` text NOT NULL,
   `created_by` int(1) NOT NULL,
   `updated_by` int(1) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -59,8 +58,8 @@ CREATE TABLE `kategori` (
   `deskripsi` text NOT NULL,
   `created_by` int(1) NOT NULL,
   `updated_by` int(1) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -75,6 +74,45 @@ INSERT INTO `kategori` (`id`, `nama_kategori`, `deskripsi`, `created_by`, `updat
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `legal`
+--
+
+CREATE TABLE `legal` (
+  `id` int(15) NOT NULL,
+  `id_project` int(15) DEFAULT NULL,
+  `flow` varchar(250) DEFAULT NULL,
+  `filename` text DEFAULT NULL,
+  `slug` text DEFAULT NULL,
+  `extension` varchar(150) DEFAULT NULL,
+  `link_doc` text DEFAULT NULL,
+  `doc_number` varchar(150) DEFAULT NULL,
+  `doc_date` date DEFAULT NULL,
+  `doc_title` text DEFAULT NULL,
+  `doc_author` text DEFAULT NULL,
+  `doc_recepient` text DEFAULT NULL,
+  `doc_body` text DEFAULT NULL,
+  `is_public` int(11) DEFAULT NULL,
+  `is_sent` int(11) DEFAULT NULL,
+  `is_delete` int(11) DEFAULT NULL,
+  `us_approve` int(11) DEFAULT NULL,
+  `approve_date` datetime DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `legal`
+--
+
+INSERT INTO `legal` (`id`, `id_project`, `flow`, `filename`, `slug`, `extension`, `link_doc`, `doc_number`, `doc_date`, `doc_title`, `doc_author`, `doc_recepient`, `doc_body`, `is_public`, `is_sent`, `is_delete`, `us_approve`, `approve_date`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
+(32, NULL, 'Incoming Letter', 'ABSTRAK.docx', 'abstrak-docx', 'docx', '', '2', '2021-11-26', 'Abstrak', 'Administrator', 'joe@gmail.com', '', 1, 0, 0, 0, '0000-00-00 00:00:00', 0, '2021-11-26 18:49:38', 0, '2021-11-26 18:49:38'),
+(33, NULL, 'Outcoming Letter', 'Cover_KP.docx', 'cover-kp-docx', 'docx', '', '3', '2021-11-26', 'Cover KP', 'Administrator', 'joe@gmail.com', '', 1, 0, 0, 0, '0000-00-00 00:00:00', 0, '2021-11-26 18:52:23', 0, '2021-11-26 19:06:09');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `log`
 --
 
@@ -85,7 +123,7 @@ CREATE TABLE `log` (
   `data` int(1) NOT NULL,
   `info` text NOT NULL,
   `created_by` int(1) NOT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `created_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -109,13 +147,13 @@ CREATE TABLE `pegawai` (
   `tel` varchar(15) NOT NULL,
   `email` varchar(50) NOT NULL,
   `alamat` text NOT NULL,
-  `img` text,
+  `img` text DEFAULT NULL,
   `jabatan` int(1) NOT NULL,
-  `is_active` int(1) NOT NULL DEFAULT '1',
+  `is_active` int(1) NOT NULL DEFAULT 1,
   `created_by` int(1) NOT NULL,
   `updated_by` int(1) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -149,9 +187,9 @@ CREATE TABLE `pettycash` (
   `amount` varchar(50) NOT NULL,
   `status` varchar(100) NOT NULL,
   `create_by` int(1) NOT NULL,
-  `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `create_at` datetime NOT NULL DEFAULT current_timestamp(),
   `update_by` int(1) NOT NULL,
-  `update_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `update_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -172,27 +210,12 @@ CREATE TABLE `project` (
   `start_date` date NOT NULL,
   `due_date` date NOT NULL,
   `priority` varchar(20) NOT NULL,
-  `is_delete` int(1) NOT NULL DEFAULT '0',
+  `is_delete` int(1) NOT NULL DEFAULT 0,
   `created_by` int(1) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_by` int(1) NOT NULL,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `project`
---
-
-INSERT INTO `project` (`id`, `nama_project`, `deskripsi`, `kategori`, `project_case`, `tracking`, `assignee`, `nominal`, `start_date`, `due_date`, `priority`, `is_delete`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
-(1, 'Coolant Redeem Voucher', '<p>Bikin voucher apa tau tuh</p>\r\n', 1, '1', 3, 9, '5000000', '2021-04-19', '2021-05-07', '2', 0, 1, '2021-04-19 15:16:34', 0, '2021-04-21 15:01:25'),
-(15, 'Skripsi Elin Teknik Informatika', '<p>Sistem prediksi persediaan barang percetakan CV BISMA OPTIMA MENGGUNAKAN METODE SES DAN REGRESI LINEAR</p>\r\n', 2, '1', 6, 21, '', '2021-05-01', '2021-05-31', '2', 0, 21, '2021-04-22 09:41:30', 21, '2021-06-25 21:07:56'),
-(16, 'KP Siti Maspupah Teknologi Informasi', '<p>CRM Project</p>\r\n', 3, '1', 6, 22, '0', '2021-04-19', '2021-04-30', '2', 0, 21, '2021-04-22 09:51:09', 22, '2021-06-25 21:01:41'),
-(17, 'Ecommerce', '', 3, '1', 3, 20, '5000000', '2021-01-09', '2021-06-01', '1', 0, 21, '2021-04-22 14:54:12', 21, '2021-04-22 15:18:49'),
-(19, 'KP Viki STIE Musi', '<p>Kopibenk</p>\r\n', 2, '1', 5, 23, '2500000', '2021-04-26', '2021-06-30', '2', 0, 21, '2021-04-27 10:12:09', 21, '2021-05-31 19:26:25'),
-(21, 'kp', '', 1, '1', 1, 22, '', '2021-05-04', '2021-06-04', '2', 0, 22, '2021-05-17 14:40:33', 21, '2021-05-31 19:31:37'),
-(29, 'Sistem Borang Prodi', 'Metode RSA untuk enkripsi keamanan dokumen\r\n', 3, '1', 1, 21, '', '2021-07-28', '2021-08-11', '3', 0, 21, '2021-07-28 20:47:23', 21, '2021-07-28 20:47:23'),
-(30, 'CRM ToDo', '<p>&nbsp;</p>\r\n\r\n<h2>Unique Case</h2>\r\n\r\n<table cellspacing=\"0\" style=\"border-collapse:collapse\">\r\n <tbody>\r\n   <tr>\r\n      <td style=\"background-color:black; border-bottom:1px solid black; border-left:1px solid black; border-right:none; border-top:1px solid black; vertical-align:top; width:56px\">\r\n      <p><strong>No</strong></p>\r\n      </td>\r\n     <td style=\"background-color:black; border-bottom:1px solid black; border-left:none; border-right:none; border-top:1px solid black; vertical-align:top; width:132px\">\r\n      <p><strong>Title</strong></p>\r\n     </td>\r\n     <td style=\"background-color:black; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:1px solid black; vertical-align:top; width:412px\">\r\n     <p><strong>Description</strong></p>\r\n     </td>\r\n   </tr>\r\n   <tr>\r\n      <td style=\"border-bottom:1px solid #666666; border-left:1px solid #666666; border-right:1px solid #666666; border-top:none; vertical-align:top; width:56px\">\r\n      <p><strong>1</strong></p>\r\n     </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:132px\">\r\n      <p>Child Todo</p>\r\n     </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:412px\">\r\n      <p>Dapat check masing-masing apa bila child todo telah selesai</p>\r\n\r\n      <p>&nbsp;</p>\r\n     </td>\r\n   </tr>\r\n   <tr>\r\n      <td style=\"border-bottom:1px solid #666666; border-left:1px solid #666666; border-right:1px solid #666666; border-top:none; vertical-align:top; width:56px\">\r\n      <p><strong>2</strong></p>\r\n     </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:132px\">\r\n      <p>Todo status</p>\r\n      </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:412px\">\r\n      <p>Status Condition</p>\r\n\r\n     <ol>\r\n        <li>Hold (apabila belum ada assignee)</li>\r\n        <li>Ongoing (assignee dan due date aktif)</li>\r\n        <li>Done (Todo Child telah selesai semua)</li>\r\n        <li>Expired (Due date terlewat namun masih ada child yang belum selesai)</li>\r\n     </ol>\r\n\r\n     <p>&nbsp;</p>\r\n     </td>\r\n   </tr>\r\n </tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>Note: jika ada case tambahan, dapat dibicarakan selanjutnya.</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<h2>Potential Upcoming Case:</h2>\r\n\r\n<table cellspacing=\"0\" style=\"border-collapse:collapse\">\r\n <tbody>\r\n   <tr>\r\n      <td style=\"background-color:black; border-bottom:1px solid black; border-left:1px solid black; border-right:none; border-top:1px solid black; vertical-align:top; width:56px\">\r\n      <p><strong>No</strong></p>\r\n      </td>\r\n     <td style=\"background-color:black; border-bottom:1px solid black; border-left:none; border-right:none; border-top:1px solid black; vertical-align:top; width:132px\">\r\n      <p><strong>Title</strong></p>\r\n     </td>\r\n     <td style=\"background-color:black; border-bottom:1px solid black; border-left:none; border-right:1px solid black; border-top:1px solid black; vertical-align:top; width:412px\">\r\n     <p><strong>Description</strong></p>\r\n     </td>\r\n   </tr>\r\n   <tr>\r\n      <td style=\"border-bottom:1px solid #666666; border-left:1px solid #666666; border-right:1px solid #666666; border-top:none; vertical-align:top; width:56px\">\r\n      <p><strong>1</strong></p>\r\n     </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:132px\">\r\n      <p>Automated Todo</p>\r\n     </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:412px\">\r\n      <p>Automasi todo dengan project, misal ada penambahan project baru, maka langsung tertambah pada todo</p>\r\n\r\n     <p>&nbsp;</p>\r\n     </td>\r\n   </tr>\r\n   <tr>\r\n      <td style=\"border-bottom:1px solid #666666; border-left:1px solid #666666; border-right:1px solid #666666; border-top:none; vertical-align:top; width:56px\">\r\n      <p><strong>2</strong></p>\r\n     </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:132px\">\r\n      <p>Privilege Access</p>\r\n     </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:412px\">\r\n      <p>Tiap assignee hanya dapat mengakses miliknya sendiri</p>\r\n     </td>\r\n   </tr>\r\n   <tr>\r\n      <td style=\"border-bottom:1px solid #666666; border-left:1px solid #666666; border-right:1px solid #666666; border-top:none; vertical-align:top; width:56px\">\r\n      <p><strong>3</strong></p>\r\n     </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:132px\">\r\n      <p>Client Access</p>\r\n      </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:412px\">\r\n      <p>Client dapat request, misal ada penambahan, revisi, dll</p>\r\n      </td>\r\n   </tr>\r\n   <tr>\r\n      <td style=\"border-bottom:1px solid #666666; border-left:1px solid #666666; border-right:1px solid #666666; border-top:none; vertical-align:top; width:56px\">\r\n      <p><strong>&hellip;</strong></p>\r\n      </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:132px\">\r\n      <p>&hellip;</p>\r\n     </td>\r\n     <td style=\"border-bottom:1px solid #666666; border-left:none; border-right:1px solid #666666; border-top:none; vertical-align:top; width:412px\">\r\n      <p>&hellip;.</p>\r\n      </td>\r\n   </tr>\r\n </tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n', 3, '1', 1, 25, '', '2021-08-09', '2021-08-23', '3', 0, 21, '2021-08-03 12:23:29', 21, '2021-08-04 18:42:57'),
-;
 
 -- --------------------------------------------------------
 
@@ -208,7 +231,7 @@ CREATE TABLE `project_log` (
   `data_after` text NOT NULL,
   `text` text NOT NULL,
   `created_by` int(1) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -345,7 +368,6 @@ INSERT INTO `project_log` (`id`, `project_id`, `field`, `data_before`, `data_aft
 (136, 30, 'start_date', '2021-08-03', '2021-08-09', '<strong>Mitchell Marcel</strong> mengubah Start_date dari <i>2021-08-03</i> menjadi <i>2021-08-09</i>', 21, '2021-08-04 18:42:57'),
 (137, 30, 'due_date', '2021-08-16', '2021-08-23', '<strong>Mitchell Marcel</strong> mengubah Due_date dari <i>2021-08-16</i> menjadi <i>2021-08-23</i>', 21, '2021-08-04 18:42:57');
 
-
 -- --------------------------------------------------------
 
 --
@@ -357,10 +379,10 @@ CREATE TABLE `project_payment` (
   `project_id` int(1) DEFAULT NULL,
   `nominal` varchar(100) NOT NULL,
   `subject` text NOT NULL,
-  `description` text,
+  `description` text DEFAULT NULL,
   `payment_date` date DEFAULT NULL,
   `created_by` int(1) NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `created_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -413,11 +435,11 @@ INSERT INTO `project_payment` (`id`, `project_id`, `nominal`, `subject`, `descri
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Table structure for table `todo`
 --
 
 CREATE TABLE `todo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `title` varchar(255) DEFAULT NULL,
   `description` text DEFAULT NULL,
   `start_date` date DEFAULT NULL,
@@ -427,22 +449,30 @@ CREATE TABLE `todo` (
   `create_by` int(11) DEFAULT NULL,
   `create_at` datetime DEFAULT current_timestamp(),
   `updated_by` int(11) DEFAULT NULL,
-  `updated_at` datetime DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+  `updated_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-/*Table structure for table `todo_detail` */
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `todo_detail`
+--
 
 CREATE TABLE `todo_detail` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `todo_id` int(11) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `description` text DEFAULT NULL,
   `is_checked` enum('0','1') DEFAULT NULL,
   `create_by` int(11) DEFAULT NULL,
-  `create_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+  `create_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
 
 CREATE TABLE `user` (
   `id_user` int(1) NOT NULL,
@@ -451,8 +481,8 @@ CREATE TABLE `user` (
   `username` varchar(125) NOT NULL,
   `password` varchar(125) NOT NULL,
   `level` varchar(15) NOT NULL,
-  `last_activity` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `is_active` int(1) NOT NULL DEFAULT '1'
+  `last_activity` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `is_active` int(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -484,6 +514,12 @@ ALTER TABLE `jabatan`
 -- Indexes for table `kategori`
 --
 ALTER TABLE `kategori`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `legal`
+--
+ALTER TABLE `legal`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -523,6 +559,18 @@ ALTER TABLE `project_payment`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `todo`
+--
+ALTER TABLE `todo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `todo_detail`
+--
+ALTER TABLE `todo_detail`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -543,6 +591,12 @@ ALTER TABLE `jabatan`
 --
 ALTER TABLE `kategori`
   MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `legal`
+--
+ALTER TABLE `legal`
+  MODIFY `id` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `log`
@@ -579,6 +633,18 @@ ALTER TABLE `project_log`
 --
 ALTER TABLE `project_payment`
   MODIFY `id` int(1) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+
+--
+-- AUTO_INCREMENT for table `todo`
+--
+ALTER TABLE `todo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `todo_detail`
+--
+ALTER TABLE `todo_detail`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user`
