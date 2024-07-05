@@ -57,6 +57,13 @@
                 <li><a class="lan" href="?module=pettycash&act=balance">Balance</a></li>
               </ul>
             </li>
+            <li class="sidebar-list">
+              <a class="sidebar-link sidebar-title" href="#"><i data-feather="clipboard"></i><span>Legal</span></a>
+              <ul class="sidebar-submenu">
+                <li><a class="lan" href="?module=legal&act=index">Incoming Letters</a></li>
+                <li><a class="lan" href="?module=legal&act=outcoming">Outcoming Letters</a></li>
+                </ul>
+            </li>
             <li class="sidebar-main-title">
               <div>
                 <h6>Master</h6>
